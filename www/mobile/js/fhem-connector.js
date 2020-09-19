@@ -123,7 +123,7 @@ var fhem = {
 	     	var $el = page.$el.find('[data-type]');
 	     	fhem.getDevicesOnPage($el);
 
-	     	if(f7.ftui.online && !params.sockets[page.name]) {
+	     	if(app.online && !params.sockets[page.name]) {
 	     		fhem.xhr.dataRequest();
 
 		        setTimeout(function () {
@@ -132,7 +132,7 @@ var fhem = {
 		        }, 2000);
 	     	}
 
-	     	f7.ftui.on('fhemupdate', function(device, element) {
+	     	app.on('fhemupdate', function(device, element) {
 	     		fhem.data.handleDataUpdate(device, element);
     		});
 	    },
@@ -153,7 +153,7 @@ var fhem = {
 
 	    	params.currentPage = undefined;
 
-	    	f7.ftui.off('fhemupdate');
+	    	app.off('fhemupdate');
 
 	    	console.log(fhem.name + ': pageBeforeOut', page);
 	    },
@@ -173,7 +173,7 @@ var fhem = {
 	},
 	showToast: function(text) {
 		if(fhem.params.toast) {
-			f7.ftui.toast.show({text: text});
+			app.toast.show({text: text});
 		}
 	},
     getDevicesOnPage: function(elements) {
@@ -207,7 +207,7 @@ var fhem = {
 				var url = Framework7.getFhemUrl();
 				var csrf = Framework7.getFhemCsrf();
 
-			    f7.ftui.request.get(url,
+			    app.request.get(url,
 			        {
 			        	cmd: cmd,
 			            fwcsrf: Framework7.getFhemCsrf(),
@@ -250,7 +250,7 @@ var fhem = {
 
             if(typeof values !== "undefined") {
                 var confJson = '{"inputEl": "#' + element[0].id + '", "cols": [{"textAlign": "center","values": [' + values.split(",") + ']' + (typeof displayValues !== 'undefined' ? ',"displayValues": [' + displayValues.split(',') + ']' : '') + '}]}';
-                var f7obj = f7.ftui.picker.create(JSON.parse(confJson));
+                var f7obj = app.picker.create(JSON.parse(confJson));
                 element[0].f7Picker = f7obj;
 
                 element.on('change', function() {
@@ -270,7 +270,7 @@ var fhem = {
                 confJson = '{"inputEl": "#' + element[0].id + '", "dateFormat":"' + dateformat + '", "footer":"true"}';
             }
                         
-            var f7obj = f7.ftui.calendar.create(JSON.parse(confJson));
+            var f7obj = app.calendar.create(JSON.parse(confJson));
             element[0].f7Calendar = f7obj;
 
             element.on('change', function() {
@@ -663,7 +663,7 @@ var fhem = {
 		    					var blocked = $$(e).data('blocked');
 
 		    					if(!blocked && element.valid) {
-		    						f7.ftui.emit('fhemupdate', element, e);
+		    						app.emit('fhemupdate', element, e);
 		    					}
 		    				}
 		    			}
@@ -697,7 +697,7 @@ var fhem = {
 			var csrf = Framework7.getFhemCsrf();
 
 			if(csrf && csrf !== undefined) {
-			    f7.ftui.request.json(url,
+			    app.request.json(url,
 			        {
 			        	cmd: cmdLine,
 			            fwcsrf: Framework7.getFhemCsrf(),
@@ -763,7 +763,7 @@ var fhem = {
 		    						var blocked = $$(e).data('blocked');
 
 			    					if(!blocked && element.valid) {
-			    						f7.ftui.emit('fhemupdate', element, e);
+			    						app.emit('fhemupdate', element, e);
 			    					}
 		    					}
 		    				}
@@ -786,7 +786,7 @@ var fhem = {
 		    						var blocked = $$(e).data('blocked');
 
 			    					if(!blocked && element.valid) {
-			    						f7.ftui.emit('fhemupdate', element, e);
+			    						app.emit('fhemupdate', element, e);
 			    					}
 
 		    					}

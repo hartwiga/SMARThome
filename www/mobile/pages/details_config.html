@@ -115,7 +115,7 @@ return {
             var route = this.$route;
 
             $$('.toggle-darkmode').on('change', function() {
-                var t = f7.ftui.toggle.get('.toggle-darkmode');
+                var t = app.toggle.get('.toggle-darkmode');
 
                 if($$('html').hasClass('theme-dark') != true && t.checked) {
                   $$('html').addClass('theme-dark');
@@ -124,19 +124,19 @@ return {
                   $$('html').removeClass('theme-dark');
                 }
                 
-                var c = f7.ftui.form.getFormData("config");
+                var c = app.form.getFormData("config");
                 console.log(t);
                 c.darkmode = t.checked ? ["yes"] : [];
-                f7.ftui.form.storeFormData("config", c);
+                app.form.storeFormData("config", c);
             });
 
             $$('.toggle-autologgin').on('change', function() {
 
-                var t = f7.ftui.toggle.get('.toggle-autologgin');
-                var c = f7.ftui.form.getFormData("config");
+                var t = app.toggle.get('.toggle-autologgin');
+                var c = app.form.getFormData("config");
                 console.log(t);
                 c.autologgin = t.checked ? ["yes"] : [];
-                f7.ftui.form.storeFormData("config", c);
+                app.form.storeFormData("config", c);
             });
 
             var c = app.form.getFormData("config");

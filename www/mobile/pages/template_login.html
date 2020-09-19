@@ -84,15 +84,15 @@ return {
 
             console.log('Autologgin: ' + autologgin);
 
-            var user = f7.ftui.data.userlist[username]
+            var user = app.data.userlist[username]
             
             if( user !== null && user != undefined) {
                 if(user.pw === password) {
                     
-                    f7.ftui.data.token.loggedin = true;
-                    f7.ftui.data.token.user = username;
-                    f7.ftui.data.token.role = user.role;
-                    f7.ftui.data.token.name = user.name;
+                    app.data.token.loggedin = true;
+                    app.data.token.user = username;
+                    app.data.token.role = user.role;
+                    app.data.token.name = user.name;
 
                     var c = app.form.getFormData("config");
                     if(c !== undefined) {
