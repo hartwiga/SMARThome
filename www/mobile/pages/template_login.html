@@ -1,0 +1,141 @@
+<template>
+    <div class="page" data-name="login">
+        <div class="page">
+            <div class="page-content login-screen-content" styles="margin-top: auto; margin-bottom: auto; height: auto;max-height: 100%; width: 100%">
+                <div class="login-screen-title" style="padding-top:20px; ">
+                    SMARThome
+                    <p><img src="./icons/apple-touch-icon-60x60.png"></p>
+                </div>
+                <form>
+                    <div class="list">
+                        <ul>
+                            <li class="item-content item-input">
+                                <div class="item-inner">
+                                    <div class="item-title item-label">Username</div>
+                                    <div class="item-input-wrap">
+                                        <input id="username" type="text" name="username" placeholder="Your username">
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="item-content item-input">
+                                <div class="item-inner">
+                                    <div class="item-title item-label">Password</div>
+                                    <div class="item-input-wrap">
+                                        <input id="password" type="password" name="password" placeholder="Your password">
+                                    </div>
+                                </div>
+                            </li>
+                            <li  class="item-content item-input"> 
+                                <div class="item-inner">
+                                    <div class="item-title item-label">Angemeldet bleiben</div>
+                                    <div class="item-input-wrap" style="padding-top: 10px">
+                                        <label id="autologgin" class="toggle toggle-init">
+                                            <input type="checkbox">
+                                            <span class="toggle-icon"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="list">
+                        <ul>
+                            <li>
+                                <a id="signin" class="list-button" href="#" @click="signin">Anmelden</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="list">
+                        <div class="block-footer">
+                            <p>SMARThome von Andreas Hartwig</p>   
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    </div>
+</template>
+<script>
+// script must return component object
+return {
+    data: function() {
+        return {
+            name: 'Login',
+            toggle: undefined,
+        }
+    },
+    methods: {
+        openAlert: function() {
+            
+        },
+        signin: function() {
+            var $ = this.$;
+            var app = this.$app;
+            var self = this;
+            var router = this.$router;
+
+            var username = $$('input#username').val();
+            var password = $$('input#password').val();
+
+            var toggle = app.toggle.get('#autologgin');
+            var autologgin = toggle.checked ? ['yes'] : [];
+
+            console.log('Autologgin: ' + autologgin);
+
+            var user = f7.ftui.data.userlist[username]
+            
+            if( user !== null && user != undefined) {
+                if(user.pw === password) {
+                    
+                    f7.ftui.data.token.loggedin = true;
+                    f7.ftui.data.token.user = username;
+                    f7.ftui.data.token.role = user.role;
+                    f7.ftui.data.token.name = user.name;
+
+                    var c = app.form.getFormData("config");
+                    if(c !== undefined) {
+                        c.username = username;
+                        c.password = user.pw;
+                        c.autologgin = autologgin;
+                        c.name = user.name;
+                        app.form.storeFormData("config", c);
+                        console.log('User data: ' + JSON.stringify(c));
+                    }
+
+                    router.navigate('/');
+                }
+                else {
+                    app.dialog.alert('Kennwort ' + password + ' ist ungültig');
+                }
+            }
+            else {
+                app.dialog.alert('Benutzername ' + username + ' ist ungültig');
+            }
+            /*
+            this.$app.dialog.alert('Username: ' + username + '<br>Password: ' + password, function () {
+                
+            });
+            */
+            
+        },
+    },
+    on: {
+        pageAfterIn: function() {
+            $$(document).keypress(function(e) {
+                if ((e.keyCode || e.which) == 13) {
+                    $$('#signin').trigger('click');
+                }
+            });
+
+                        
+            var app = this.$app;
+            
+            setTimeout(function () {
+                app.dialog.close();
+            }, 1000);
+        },
+    }
+}
+</script>

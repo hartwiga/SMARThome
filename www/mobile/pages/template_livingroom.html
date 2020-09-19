@@ -1,0 +1,381 @@
+<template>
+    <div class="page" data-name="livingroom">
+        <div class="navbar">
+            <div class="navbar-bg"></div>
+            <div class="navbar-inner sliding">
+                <div class="left">
+                    <a href="#" class="link back">
+                        <i class="icon icon-back"></i>
+                        <span>Zurück</span>
+                    </a>
+                </div>
+                <div class="title">Wohnzimmer</div>
+                <div class="title-large">
+                    <div class="title-large-text">Wohnzimmer</div>
+                </div>
+            </div>
+        </div>
+        <div class="page-content hide-navbar-on-scroll">
+            <!-- Beleuchtung -->
+            <div class="block-title">Beleuchtung</div>
+            <div class="list media-list">
+                <ul>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media">
+                                <i class="icon oa-icons oa-light_pendant_light color-blue"></i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item">Deckenlampe</div>
+                                    <div class="item-after">
+                                        <div class="range-slider range-slider-init" style="width: 180px" data-type="f7" data-object="f7Range" data-device="EG_Wohnzimmer_Dimmer_Deckenlampe1_Dim" data-get="pct" >
+                                            <input type="range" min="0" max="100" step="10" value="0">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item-title-row">
+                                    <div class="item-footer" data-type="html" data-content="EG_Wohnzimmer_Dimmer_Deckenlampe1_Dim:level" data-unit="%"></div>
+                                    <div class="item-after">
+                                        <div class="segmented segmented-round" style="padding-top: 12px">
+                                            <button class="button button-outline" style="width: 55px" data-type="f7" data-object="f7Button" data-fhem-cmd="set EG_Wohnzimmer_Dimmer_Deckenlampe1_Dim off" data-class="EG_Wohnzimmer_Dimmer_Deckenlampe1_Dim:pct" data-map-class='{"0":"disabled", "100":""}'>AUS</button>
+                                            <button class="button button-outline" style="width: 55px" data-type="f7" data-object="f7Button" data-fhem-cmd="set EG_Wohnzimmer_Dimmer_Deckenlampe1_Dim on" data-class="EG_Wohnzimmer_Dimmer_Deckenlampe1_Dim:pct" data-map-class='{"0":"", "100":"disabled"}'>AN</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media">
+                                <i class="icon oa-icons oa-light_pendant_light color-blue"></i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item">Esstischlampe</div>
+                                    <div class="item-after">
+                                        <label class="toggle  toggle-init" data-type="f7" data-object="f7Toggle" data-device="EG_Wohnzimmer_Schalter_Deckenlampe2"  data-map-checked='{"on":true,"set_on":true, "off":false, "set_off":false}' data-map-changed='{"true":"on", "false":"off"}'>
+                                            <input type="checkbox">
+                                            <span class="toggle-icon"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media">
+                                <i class="icon oa-icons oa-light_cabinet color-blue"></i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item">Regallampe</div>
+                                    <div class="item-after">
+                                        <label class="toggle  toggle-init" data-type="f7" data-object="f7Toggle" data-device="ESPEasy_SONOFF02" data-get="output" data-map-checked='{"on":true,"off":false}' data-map-changed='{"true":"on", "false":"off"}'>
+                                            <input type="checkbox">
+                                            <span class="toggle-icon"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media">
+                                <i class="icon oa-icons oa-light_cabinet color-blue"></i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item">Vitrinenlampe</div>
+                                    <div class="item-after">
+                                        <label class="toggle  toggle-init" data-type="f7" data-object="f7Toggle" data-device="ESPEasy_SONOFF03" data-get="output" data-map-checked='{"on":true, "off":false}' data-map-changed='{"true":"on", "false":"off"}'>
+                                            <input type="checkbox">
+                                            <span class="toggle-icon"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media">
+                                <i class="icon oa-icons oa-light_floor_lamp color-blue"></i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item">Sofalampe</div>
+                                    <div class="item-after">
+                                        <label class="toggle  toggle-init" data-type="f7" data-object="f7Toggle" data-device="ESPEasy_SONOFF01" data-get="output" data-map-checked='{"on":true, "off":false}' data-map-changed='{"true":"on", "false":"off"}'>
+                                            <input type="checkbox">
+                                            <span class="toggle-icon"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                     <li>
+                        <div class="item-content">
+                            <div class="item-media">
+                                <i class="icon oa-icons oa-light_floor_lamp color-blue"></i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item">Stehlampe</div>
+                                    <div class="item-after">
+                                        <label class="toggle  toggle-init" data-type="f7" data-object="f7Toggle" data-device="ESPEasy_SONOFF06" data-get="output" data-map-checked='{"on":true, "off":false}' data-map-changed='{"true":"on", "false":"off"}'>
+                                            <input type="checkbox">
+                                            <span class="toggle-icon"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!-- Heizung -->
+            <div class="block-title">Heizung</div>
+            <div class="list">
+                <ul>
+                    <li class="item-content">
+                        <div class="item-media">
+                            <i class="icon oa-icons color-blue oa-temp_temperature">
+                                <span class="badge color-red tooltip-init hide" data-tooltip="Batterie muss gewechselt werden" data-type="html" data-class="EG_Wohnzimmer_Temperaturregler:battery" data-map-class='{"low":"", "ok":"hide"}'>
+                                        <i class="icon oa-icons oa-measure_battery_0 color-white"></i>
+                                </span>
+                            </i>
+                        </div>
+                        <div class="item-inner">
+                            <div class="item-title">
+                                <span>Raumregler</span>
+                                <div class="item-header" data-type="html" data-content="EG_Wohnzimmer_Temperaturregler_Weather:STATE"></div>
+                            </div>
+                            <div class="item-after">
+                                <div class="stepper stepper-init stepper-fill stepper-small stepper-raised" data-type="f7" data-object="f7Stepper" data-device="EG_Wohnzimmer_Temperaturregler_Climate" data-get="desired-temp">
+                                    <div class="stepper-button-minus"></div>
+                                    <div class="stepper-input-wrap">
+                                        <input type="text" min="15.0" max="24.5" step="0.5" value="15.0" readonly>
+                                    </div>
+                                    <div class="stepper-button-plus"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!-- Rolladen -->
+            <div class="block-title">Rollladen</div>
+            <div class="list media-list">
+                <ul>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon oa-icons oa-fts_shutter color-blue smaller"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item">Terrassentür</div>
+                                    <div class="item-after">
+                                        <div class="range-slider range-slider-init" style="width: 180px" data-label="true" data-type="f7" data-object="f7Range" data-device="EG_Wohnenzimmer_Tuer_Rolladen" data-get="pct">
+                                            <input type="range" min="0" max="100" step="20" value="0">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item-title-row">
+                                    <div class="item-footer" data-type="html" data-content="EG_Wohnenzimmer_Tuer_Rolladen:pct" data-unit="%"></div>
+                                    <div class="item-after">
+                                        <div class="segmented segmented-round" style="padding-top: 12px">
+                                            <span class="button button-outline" style="width: 55px" data-type="f7" data-object="f7Button" data-fhem-cmd="set EG_Wohnenzimmer_Tuer_Rolladen off" data-class="EG_Wohnenzimmer_Tuer_Rolladen:pct" data-map-class='{"0":"disabled", "100":""}'>ZU</span>
+                                            <span class="button button-outline" style="width: 55px" data-type="f7" data-object="f7Button" data-fhem-cmd="set d_TvModeRollladen toggle"  data-class="d_TvModeRollladen:STATE" data-map-class='{"off":"", "on":"disabled"}'>TV</span>
+                                            <span class="button button-outline" style="width: 55px" data-type="f7" data-object="f7Button" data-fhem-cmd="set EG_Wohnenzimmer_Tuer_Rolladen on" data-class="EG_Wohnenzimmer_Tuer_Rolladen:pct" data-map-class='{"0":"", "100":"disabled"}'>AUF</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon oa-icons oa-fts_shutter color-blue smaller"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item">Wohnzimmer</div>
+                                    <div class="item-after">
+                                        <div class="range-slider range-slider-init" style="width: 180px" data-label="true" data-type="f7" data-object="f7Range" data-device="EG_Wohnenzimmer_Rolladen" data-get="pct">
+                                            <input type="range" min="0" max="100" step="20" value="100">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item-title-row">
+                                    <div class="item-footer" data-type="html" data-content="EG_Wohnenzimmer_Rolladen:pct" data-unit="%"></div>
+                                    <div class="item-after">
+                                        <div class="segmented segmented-round" style="padding-top: 12px">
+                                            <span class="button button-outline" style="width: 55px" data-type="f7" data-object="f7Button" data-fhem-cmd="set EG_Wohnenzimmer_Rolladen off" data-class="EG_Wohnenzimmer_Rolladen:pct" data-map-class='{"0":"disabled", "100":""}'>ZU</span>
+                                            <span class="button button-outline" style="width: 55px" data-type="f7" data-object="f7Button" data-fhem-cmd="set EG_Wohnenzimmer_Rolladen on" data-class="EG_Wohnenzimmer_Rolladen:pct" data-map-class='{"0":"", "100":"disabled"}'>AUF</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon oa-icons oa-fts_shutter color-blue smaller" ></i></div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item">Esszimmer</div>
+                                    <div class="item-after">
+                                        <div class="range-slider range-slider-init" style="width: 180px" data-label="true" data-type="f7" data-object="f7Range" data-device="EG_Esszimmer_Rolladen" data-get="pct">
+                                            <input type="range" min="0" max="100" step="20" value="100">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item-title-row">
+                                    <div class="item-footer" data-type="html" data-content="EG_Esszimmer_Rolladen:pct" data-unit="%"></div>
+                                    <div class="item-after">
+                                        <div class="segmented segmented-round" style="padding-top: 12px">
+                                            <span class="button button-outline" style="width: 55px" data-type="f7" data-object="f7Button" data-fhem-cmd="set EG_Esszimmer_Rolladen off" data-class="EG_Esszimmer_Rolladen:pct" data-map-class='{"0":"disabled", "100":""}'>ZU</span>
+                                            <span class="button button-outline" style="width: 55px" data-type="f7" data-object="f7Button" data-fhem-cmd="set EG_Esszimmer_Rolladen on" data-class="EG_Esszimmer_Rolladen:pct" data-map-class='{"0":"", "100":"disabled"}'>AUF</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!-- Media -->    
+            <div class="block-title">Media</div>
+            <div class="list">
+                <ul>
+                    <li class="item-content">       
+                        <div class="item-media">
+                            <i class="icon oa-icons oa-it_television color-blue smaller"></i>
+                        </div>
+                        <div class="item-inner">
+                            <div class="item-title">
+                                <span>Fernseher</span>
+                                <div class="item-header" >
+                                    USB: 
+                                    <a data-type="html" data-fhem-cmd="set MQTT2_Steckdose_GOSUND9CA951 usb" data-content="MQTT2_Steckdose_GOSUND9CA951:POWER2" data-map-content='{"ON":"eingeschaltet","OFF":"ausgeschaltet"}'>
+                                </a>
+                                </div>
+                            </div>
+                            <div class="item-after">
+                                    <label class="toggle  toggle-init" data-type="f7" data-object="f7Toggle" data-device="MQTT2_Steckdose_GOSUND9CA951" data-get="POWER1" data-map-checked='{"ON":true,"OFF":false}' data-map-changed='{"true":"on", "false":"off"}'>
+                                        <input type="checkbox">
+                                        <span class="toggle-icon"></span>
+                                    </label>                                   
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!-- Fenster -->
+            <div class="block-title">Fenster und Türen</div>
+            <div class="list">
+                <ul>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media">
+                                <i class="icon oa-icons oa-fts_door color-blue">
+                                    <span class="badge color-red tooltip-init hide" data-tooltip="Batterie muss gewechselt werden" data-type="html" data-class="EG_Wohnzimmer_Tuer:battery" data-map-class='{"low":"", "ok":"hide"}'>
+                                        <i class="icon oa-icons oa-measure_battery_0 color-white"></i>
+                                    </span>
+                                </i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item-title">Terrassentür</div>
+                                </div>
+                                <div class="item-subtitle" data-type="html" data-content="EG_Wohnzimmer_Tuer:STATE" data-map-checked='{"open":"offen", "closed":"geschlossen"}'></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media">
+                                <i class="icon oa-icons oa-fts_window_1w color-blue smaller">
+                                    <span class="badge color-red tooltip-init hide" data-tooltip="Batterie muss gewechselt werden" data-type="html" data-class="EG_Wohnzimmer_Fenster:battery" data-map-class='{"low":"", "ok":"hide"}'>
+                                        <i class="icon oa-icons oa-measure_battery_0 color-white"></i>
+                                    </span>
+                                </i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item-title">Wohnzimmer</div>
+                                </div>
+                                <div class="item-subtitle" data-type="html" data-content="EG_Wohnzimmer_Fenster:STATE" data-map-checked='{"open":"offen", "closed":"geschlossen"}'></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media">
+                                <i class="icon oa-icons oa-fts_window_2w color-blue smaller">
+                                    <span class="badge color-red tooltip-init hide" data-tooltip="Batterie muss gewechselt werden" data-type="html" data-class="EG_Esszimmer_Fenster1:battery" data-map-class='{"low":"", "ok":"hide"}'>
+                                        <i class="icon oa-icons oa-measure_battery_0 color-white"></i>
+                                    </span>
+                                </i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item-title">Esszimmer links</div>
+                                </div>
+                                <div class="item-subtitle" data-type="html" data-content="EG_Esszimmer_Fenster1:STATE" data-map-checked='{"open":"offen", "closed":"geschlossen"}'></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media">
+                                <i class="icon oa-icons oa-fts_window_2w color-blue smaller">
+                                     <span class="badge color-red tooltip-init hide" data-tooltip="Batterie muss gewechselt werden" data-type="html" data-class="EG_Esszimmer_Fenster2:battery" data-map-class='{"low":"", "ok":"hide"}'>
+                                        <i class="icon oa-icons oa-measure_battery_0 color-white"></i>
+                                    </span>
+                                </i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item-title">Esszimmer rechts</div>
+                                </div>
+                                <div class="item-subtitle" data-type="html" data-content="EG_Esszimmer_Fenster2:STATE" data-map-checked='{"open":"offen", "closed":"geschlossen"}'></div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+  return {
+    data: function () {
+      return {
+        token: this.$app.data.token,
+      }
+    },
+    methods: {
+    },
+    on: {
+        pageInit: function () {
+            var $ = this.$;
+            var app = this.$app;
+            var self = this;
+            var router = this.$router;
+
+            app.dialog.preloader('Daten werden geladen...');
+        },
+        pageAfterIn: function (event, page) {
+            var app = this.$app;
+            
+            setTimeout(function () {
+                app.dialog.close();
+            }, 1000);
+        }
+    },
+  }
+</script>

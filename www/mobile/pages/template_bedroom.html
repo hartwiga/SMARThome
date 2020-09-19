@@ -1,0 +1,203 @@
+<template>
+    <div class="page" data-name="bedroom">
+        <div class="navbar">
+            <div class="navbar-bg"></div>
+            <div class="navbar-inner sliding">
+                <div class="left">
+                    <a href="#" class="link back">
+                        <i class="icon icon-back"></i>
+                        <span>Zurück</span>
+                    </a>
+                </div>
+                <div class="title">Schlafzimmer</div>
+                <div class="title-large">
+                    <div class="title-large-text">Schlafzimmer</div>
+                </div>
+            </div>
+        </div>
+        <div class="page-content hide-navbar-on-scroll">
+            <!-- Beleuchtung -->
+            <div class="block-title">Beleuchtung</div>
+            <div class="list">
+                <ul>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media">
+                                <i class="icon oa-icons oa-light_light color-blue"></i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title">
+                                    <div class="item">Deckenlampe</div>
+                                </div>
+                                <div class="item-after">
+                                    <label class="toggle  toggle-init" data-type="f7" data-object="f7Toggle" data-device="OG_Eltern_Lampe_Decke" data-map-checked='{"on":true,"set_on":true, "off":false, "set_off":false}' data-map-changed='{"true":"on", "false":"off"}'>
+                                        <input type="checkbox">
+                                        <span class="toggle-icon"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media">
+                                <i class="icon oa-icons oa-light_light color-blue"></i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title">
+                                    <div class="item">Schranklampe</div>
+                                </div>
+                                <div class="item-after">
+                                    <label class="toggle  toggle-init" data-type="f7" data-object="f7Toggle" data-device="OG_Eltern_Lampe_Schrank" data-map-checked='{"on":true,"set_on":true, "off":false, "set_off":false}' data-map-changed='{"true":"on", "false":"off"}'>
+                                        <input type="checkbox">
+                                        <span class="toggle-icon"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                     <li class="item-content">       
+                        <div class="item-media">
+                            <i class="icon oa-icons oa-light_light color-blue"></i>
+                        </div>
+                        <div class="item-inner">
+                            <div class="item-title">
+                                <span>Nachttischlampe Andreas</span>
+                                <div class="item-header" >
+                                    USB: 
+                                    <a data-type="html" data-fhem-cmd="set MQTT2_Steckdose_GOSUND9D0CFF usb" data-content="MQTT2_Steckdose_GOSUND9D0CFF:POWER2" data-map-content='{"ON":"eingeschaltet","OFF":"ausgeschaltet"}'>
+                                </a>
+                                </div>
+                            </div>
+                            <div class="item-after">
+                                    <label class="toggle  toggle-init" data-type="f7" data-object="f7Toggle" data-device="MQTT2_Steckdose_GOSUND9D0CFF" data-get="POWER1" data-map-checked='{"ON":true,"OFF":false}' data-map-changed='{"true":"on", "false":"off"}'>
+                                        <input type="checkbox">
+                                        <span class="toggle-icon"></span>
+                                    </label>                                   
+                            </div>
+                        </div>
+                    </li>
+                    <li class="item-content">       
+                        <div class="item-media">
+                            <i class="icon oa-icons oa-light_light color-blue"></i>
+                        </div>
+                        <div class="item-inner">
+                            <div class="item-title">
+                                <span>Nachttischlampe Angela</span>
+                                <div class="item-header" >
+                                    USB: 
+                                    <a data-type="html" data-fhem-cmd="set MQTT2_Steckdose_GOSUND9C5C0A usb" data-content="MQTT2_Steckdose_GOSUND9C5C0A:POWER2" data-map-content='{"ON":"eingeschaltet","OFF":"ausgeschaltet"}'>
+                                </a>
+                                </div>
+                            </div>
+                            <div class="item-after">
+                                    <label class="toggle  toggle-init" data-type="f7" data-object="f7Toggle" data-device="MQTT2_Steckdose_GOSUND9C5C0A" data-get="POWER1" data-map-checked='{"ON":true,"OFF":false}' data-map-changed='{"true":"on", "false":"off"}'>
+                                        <input type="checkbox">
+                                        <span class="toggle-icon"></span>
+                                    </label>                                   
+                            </div>
+                        </div>
+                    </li>                  
+                </ul>
+            </div>
+            <!-- Heizung -->
+            <div class="block-title">Heizung</div>
+            <div class="list">
+                <ul>
+                    <li class="item-content">
+                        <div class="item-media">
+                            <i class="icon oa-icons color-blue oa-temp_temperature">
+                                <span class="badge color-red tooltip-init hide" data-tooltip="Batterie muss gewechselt werden" data-type="html" data-class="OG_Eltern_Temperaturregler:battery" data-map-class='{"low":"", "ok":"hide"}'>
+                                        <i class="icon oa-icons oa-measure_battery_0 color-white"></i>
+                                </span>
+                            </i>
+                        </div>
+                        <div class="item-inner">
+                            <div class="item-title">
+                                <span>Raumregler</span>
+                                <div class="item-header" data-type="html" data-content="OG_Eltern_Temperaturregler_Weather:STATE"></div>
+                            </div>
+                            <div class="item-after">
+                                <div class="stepper stepper-init stepper-fill stepper-small stepper-raised" data-type="f7" data-object="f7Stepper" data-device="OG_Eltern_Temperaturregler_Climate" data-get="desired-temp" data-set="desired-temp">
+                                    <div class="stepper-button-minus"></div>
+                                    <div class="stepper-input-wrap">
+                                        <input type="text" min="15.0" max="24.5" step="0.5" value="15.0" readonly>
+                                    </div>
+                                    <div class="stepper-button-plus"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!-- Fenster -->
+            <div class="block-title">Fenster</div>
+            <div class="list">
+                <ul>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media">
+                                <i class="icon oa-icons oa-fts_window_2w color-blue smaller">
+                                    <span class="badge color-red tooltip-init hide" data-tooltip="Batterie muss gewechselt werden" data-type="html" data-class="OG_Eltern_Fenster2:battery" data-map-class='{"low":"", "ok":"hide"}'>
+                                        <i class="icon oa-icons oa-measure_battery_0 color-white"></i>
+                                    </span>
+                                </i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item-title">Fenster rechts</div>
+                                </div>
+                                <div class="item-subtitle" data-type="html" data-content="OG_Eltern_Fenster2:STATE" data-map-checked='{"open":"offen", "closed":"geschlossen"}'></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media">
+                                <i class="icon oa-icons oa-fts_window_2w color-blue smaller">
+                                    <span class="badge color-red tooltip-init hide" data-tooltip="Batterie muss gewechselt werden" data-type="html" data-class="OG_Eltern_Fenster1:battery" data-map-class='{"low":"", "ok":"hide"}'>
+                                        <i class="icon oa-icons oa-measure_battery_0 color-white"></i>
+                                    </span>
+                                </i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item-title">Fenster links</div>
+                                </div>
+                                <div class="item-subtitle" data-type="html" data-content="OG_Eltern_Fenster1:STATE" data-map-checked='{"open":"offen", "closed":"geschlossen"}'></div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+  return {
+    data: function () {
+      return {
+        token: this.$app.data.token,
+      }
+    },
+    methods: {
+    },
+    on: {
+        pageInit: function () {
+            var $ = this.$;
+            var app = this.$app;
+            var self = this;
+            var router = this.$router;
+
+            app.dialog.preloader('Daten werden geladen...');
+        },
+        pageAfterIn: function (event, page) {
+            var app = this.$app;
+            
+            setTimeout(function () {
+                app.dialog.close();
+            }, 1000);
+        }
+    },
+  }
+</script>

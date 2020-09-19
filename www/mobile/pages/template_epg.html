@@ -1,0 +1,247 @@
+<template>
+    <div class="page" data-name="epg">
+        <div class="navbar">
+            <div class="navbar-bg"></div>
+            <div class="navbar-inner sliding">
+                <div class="left">
+                    <a href="#" class="link back">
+                        <i class="icon icon-back"></i>
+                        <span>Zurück</span>
+                    </a>
+                </div>
+                <div class="title">Fehrsehprogramm</div>
+                <div class="title-large">
+                    <div class="title-large-text">Aktuell</div>
+                </div>
+                <div class="subnavbar">
+                    <form class="searchbar">
+                        <div class="searchbar-inner">
+                            <div class="searchbar-input-wrap">
+                                <input type="search" placeholder="Search">
+                                <i class="searchbar-icon"></i>
+                                <span class="input-clear-button"></span>
+                            </div>
+                            <span class="searchbar-disable-button if-not-aurora">Cancel</span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="page-content hide-navbar-on-scroll">
+            <!-- Searchbar backdrop-->
+            <div class="searchbar-backdrop"></div>
+            <div class="list media-list">
+                <ul>
+                    {{#each this.epglistDE}}
+                    <li>
+                        <a href="#" class="item-content item-link popup-open" data-popup=".popup-handler-{{Ch_handler}}">
+                            <div class="item-media">
+                                <img src='./lib/epg/logos/{{Ch_id}}.png' ></img>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item-title">{{Ch_sort}} - {{Ch_name}}</div>
+                                    <div class="item-after" style="font-size: 12px;">{{EPG[0].start}} - {{EPG[0].end}}</div>
+                                </div>
+                                <div class="item-text">{{EPG[0].title}}</div>
+                            </div>
+                        </a>
+                    </li>
+                    {{/each}}
+                    {{#each this.epglistIT}}
+                    <li>
+                        <a href="#" class="item-content item-link popup-open" data-popup=".popup-handler-{{Ch_handler}}">
+                            <div class="item-media">
+                                <img src='./lib/epg/logos/{{Ch_id}}.png' ></img>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item-title">{{Ch_sort}} - {{Ch_name}}</div>
+                                    <div class="item-after" style="font-size: 12px;">{{EPG[0].start}} - {{EPG[0].end}}</div>
+                                </div>
+                                <div class="item-text">{{EPG[0].title}}</div>
+                            </div>
+                        </a>
+                    </li>
+                    {{/each}}
+                </ul>
+            </div>
+            <!-- Nothing found message -->
+            <div class="block searchbar-not-found">
+                 <div class="block-inner">Nothing found</div>
+            </div>
+        </div>
+        {{#each this.epglistDE}}
+        <div class="popup popup-handler-{{Ch_handler}}">
+            <div class="page">
+                <div class="swipe-handler"></div>
+                <div class="page-content">
+                    <div class="block-title block-title-large">{{EPG[0].title}}</div>
+                    <div class="block block-strong">
+                        <img src='./lib/epg/logos/{{Ch_id}}.png' style="width: 60px"></img>
+                        <p><h3>{{Ch_sort}} - {{Ch_name}}</h3></p>
+                        <p>{{EPG[0].start}} - {{EPG[0].end}}</p>
+                        <P><h3>{{EPG[0].title}}</h3></P>
+                        <p>{{EPG[0].desc}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+        {{#each this.epglistIT}}
+        <div class="popup popup-handler-{{Ch_handler}}">
+            <div class="page">
+                <div class="swipe-handler"></div>
+                <div class="page-content">
+                    <div class="block-title block-title-large">{{EPG[0].title}}</div>
+                    <div class="block block-strong">
+                        <img src='./lib/epg/logos/{{Ch_id}}.png' style="width: 60px"></img>
+                        <p><h3>{{Ch_sort}} - {{Ch_name}}</h3></p>
+                        <p>{{EPG[0].start}} - {{EPG[0].end}}</p>
+                        <P><h3>{{EPG[0].title}}</h3></P>
+                        <p>{{EPG[0].desc}}</p>‚
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</template>
+<style>
+    .media-list .item-media img {
+        width: 40px;
+    }
+   .media-list li.priority_high {
+        background-color: #ff000040;
+    }
+    .media-list li.priority_medium {
+        background-color: #ffff0040;
+    }
+</style>
+<script>
+return {
+    data: function() {
+        return {
+            token: this.$app.data.token,
+            epglistDE: [],
+            epglistIT: []       
+        }
+    },
+    methods: {
+        getTimeString: function(str) {
+            var regex = /\d{4}-\d{2}-\d{2}.(\d{2}:\d{2}):\d{2}/;
+            return str.replace(regex, "$1");;
+        },
+        getEPG: function() {
+            var app = this.$app;
+            var self = this;
+
+            //app.request.json(app.data.message.getall_url + '&fwcsrf=' + app.data.fhem.csrf + '&XHR=1', function (data, status, xhr) { 
+            var urlEpgDe = Framework7.getFhemUrl() + '?cmd=get tvDE jsonEPG';  
+            var urlEpgIt = Framework7.getFhemUrl() + '?cmd=get tvIT jsonEPG';
+
+            app.request.json(urlEpgDe,
+                {
+                    fwcsrf: Framework7.getFhemCsrf(),
+                    XHR: 1,
+                } ,
+                function (listDE, status, xhr) {  
+                    for (var i in listDE) {
+                        listDE[i].Ch_id = listDE[i].Ch_id.toLowerCase();
+                        listDE[i].Ch_handler = listDE[i].Ch_id.toLowerCase().replace(/\./g, "-");
+                        listDE[i].EPG[0].start = self.getTimeString(listDE[i].EPG[0].start);
+                        listDE[i].EPG[0].end = self.getTimeString(listDE[i].EPG[0].end);
+                    }
+
+                    listDE.sort(function(a, b) {
+                        var i = parseInt(a.Ch_sort);
+                        var j = parseInt(b.Ch_sort);
+                        
+                        if (i < j) {
+                            return -1;
+                        }
+                        if (i > j) {
+                            return 1;
+                        }
+                        return 0;
+                    });
+
+                    self.epglistDE =  listDE;
+
+                    app.request.json(urlEpgIt,
+                        {
+                            fwcsrf: Framework7.getFhemCsrf(),
+                            XHR: 1,
+                        } ,
+                        function (listIT, status, xhr) {  
+      
+                            for (var i in listIT) {
+                                listIT[i].Ch_id = listIT[i].Ch_id.toLowerCase();
+                                listIT[i].Ch_handler = listIT[i].Ch_id.toLowerCase().replace(/\./g, "-");
+                                listIT[i].EPG[0].start = self.getTimeString(listIT[i].EPG[0].start);
+                                listIT[i].EPG[0].end = self.getTimeString(listIT[i].EPG[0].end);
+                            }
+
+                            listIT.sort(function(a, b) {
+                                var i = parseInt(a.Ch_sort);
+                                var j = parseInt(b.Ch_sort);
+                                
+                                if (i < j) {
+                                    return -1;
+                                }
+                                if (i > j) {
+                                    return 1;
+                                }
+                                return 0;
+                            });
+
+                            self.epglistIT =  listIT;
+                            console.log(self.epglist);
+
+                            self.$update();
+                        },
+                        function(xhr, status) {
+                            console.log(status);
+                        }
+                    );
+                },
+                function(xhr, status) {
+                    console.log(status);
+                }
+            );
+        }
+    },
+    on: {
+        pageInit: function() {
+            var app = this.$app;
+            var self = this;
+
+            self.getEPG();
+
+            var searchbar = app.searchbar.create({
+                el: '.searchbar',
+                searchContainer: '.list',
+                searchIn: '.item-title',
+                on: {
+                    search(sb, query, previousQuery) {
+                    //console.log(query, previousQuery);
+                }
+                }
+            });
+
+            app.dialog.preloader('Daten werden geladen...');
+        },
+        pageAfterIn: function(event, page) {
+            var app = this.$app;
+            var self = this;
+
+            setTimeout(function () { app.dialog.close()}, 500);
+        },
+        pageAfterOut: function(event, page) {
+            var app = this.$app;
+            var self = this;
+
+        }
+    },
+}
+</script>

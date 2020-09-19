@@ -1,0 +1,566 @@
+<template>
+    <div class="page" data-name="home">
+        <div class="navbar">
+            <div class="navbar-bg"></div>
+            <div class="navbar-inner sliding">
+                <div class="left">
+                    <a href="/panel-left/" class="link icon-only">
+                        <i class="icon f7-icons">menu</i>
+                    </a>
+                </div>
+                <div class="title">Home</div>
+                <div class="right">
+                    <a href="/messages/" class="link icon-only">
+                        <i id="messages" class="icon f7-icons">envelope</i>
+                    </a>
+                    <a href="/config/" class="link icon-only">
+                        <i class="icon f7-icons">ellipsis</i>
+                    </a>
+                </div>
+                <!-- large title element -->
+                <div class="title-large">
+                    <div class="title-large-text">Haus</div>
+                </div>
+            </div>
+        </div>
+        <div class="page-content hide-navbar-on-scroll ptr-content" data-ptr-distance="55" data-ptr-mousewheel="true">
+            <!--<div class="page-content hide-navbar-on-scroll" data-ptr-mousewheel="true">-->
+            <div class="ptr-preloader">
+                <div class="preloader"></div>
+                <div class="ptr-arrow"></div>
+            </div>
+            <!--
+            <div class="sheet-modal my-sheet-swipe-to-close" style="height:auto; --f7-sheet-bg-color: #fff;">
+                <div class="sheet-modal-inner">
+                    <div class="swipe-handler"></div>
+                    <div class="page-content">
+                        <div class="block-title block-title-large">Hello!</div>
+                        <div class="block">
+                          <p><b>Swipe me down to close</b></p>
+                          <p>Eaque maiores ducimus, impedit unde culpa qui...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            -->
+            <div class="block-title">Wetter</div>
+            <div class="list">
+                <ul>
+                    <li>
+                        <a href="/weather/" class="item-link item-content sheet-open" data-sheet=".my-sheet-swipe-to-close">
+                            <div class="item-inner item-cell">
+                                <div class="row">
+                                    <div class="col-35">
+                                        <div class="row">
+                                            <div class="col" style="text-align: left;">
+                                                <div data-type="weather" data-device="AgroWeather" data-get="weatherIcon"></div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col" style="font-size: 34px;">
+                                                <span data-type="html" data-content="GA_Carport_Temperatursensor:temperature"></span>
+                                                °
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-65">
+                                        <div class="row">
+                                            <div class="col-50" style="text-align: left;">Wind</div>
+                                            <div class="col-50" style="text-align: right;">
+                                                <span data-type="html" data-content="AgroWeather:wind"></span>
+                                                <span>km/h</span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-50" style="text-align: left;">Luftfeuchtigkeit</div>
+                                            <div class="col-50" style="text-align: right;">
+                                                <span data-type="html" data-content="GA_Carport_Temperatursensor:humidity"></span>
+                                                <span>%</span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-50" style="text-align: left;">Luftdruck</div>
+                                            <div class="col-50" style="text-align: right;">
+                                                <span data-type="html" data-content="AgroWeather:pressure"></span>
+                                                <span>hPa</span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-50" style="text-align: left;">Sichtweite</div>
+                                            <div class="col-50" style="text-align: right;">
+                                                <span data-type="html" data-content="AgroWeather:visibility"></span>
+                                                <span>km</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col" style="color: var(--f7-list-item-footer-text-color);font-size: 14px;text-align: left;">
+                                        Heute
+                                        <span data-type="html" data-content="AgroWeather:weather"></span> zwischen
+                                        <span data-type="html" data-content="AgroWeather:fc0_tempMin"></span>° und
+                                        <span data-type="html" data-content="AgroWeather:fc0_tempMax"></span>°
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="block-title">Sicherheit</div>
+            <div class="list">
+                <ul>
+                    <li>
+                        <a href="/alarmsystem/" class="item-content item-link">
+                            <div class="item-media">
+                                <i class="icon oa-icons oa-status_locked color-blue"></i>
+                            </div>
+                            <div class="item-inner item-cell">
+                                <div class="item-row">
+                                    <div class="item-title">
+                                        Alarmanlage
+                                        <div class="item-footer" data-type="html" data-content="AAA:STATE"></div>
+                                    </div>
+                                    <div class="item-after">
+                                        <span data-type="html" data-content="d_AlarmInfo:state" data-map-content='{"signals_off":"deaktiviert","armed_error":"Fehler Aktivieren","alarm_fire":"Feueralarm","alarm_full":"Einbruchsalarm","alarm_intrusion":"Einbruchsalarm","alarm_panik":"Panikalarm","alarm_still":"Einbruchsalarm","alarm_sabotage":"Sabotagealarm","armed_pre":"wird Aktiviert","armed_partial":"teilweise Aktiviert", "":"vollständig aktiviert","disarmed":"deaktiviert"}'></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    {{#js_if "this.token.role === 'admin'"}}
+                    <li>
+                        <a href="/cams/" class="item-content item-link">
+                            <div class="item-media">
+                                <i class="icon f7-icons color-blue">videocam</i>
+                            </div>
+                            <div class="item-inner item-cell">
+                                <div class="item-row">
+                                    <div class="item-title">
+                                        Außenkameras
+                                        <div class="item-footer"></div>
+                                    </div>
+                                    <div class="item-after">
+                                      
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    {{/js_if}}
+                </ul>
+            </div>
+            <div class="block-title">Unterhaltung</div>
+            <div class="list">
+                <ul>
+                    <li>
+                        <a href="/epg/" class="item-content item-link">
+                            <div class="item-media">
+                                <i class="icon f7-icons color-blue">tv</i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title">
+                                    <div class="item">Fernsehprogramm</div>
+                                </div>
+                                <div class="item-after">
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="block-title">Modus</div>
+            <div class="list media-list">
+                <ul>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media">
+                                <i class="icon oa-icons oa-scene_party color-blue"></i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item">Partymodus</div>
+                                    <div class="item-after">
+                                        <label class="toggle  toggle-init" data-type="f7" data-object="f7Toggle" data-device="d_PartyMode" data-get="state" data-map-checked='{"on":true, "off":false}' data-map-changed='{"true":"on", "false":"off"}'>
+                                            <input type="checkbox">
+                                            <span class="toggle-icon"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="item-title-row">
+                                    <div class="item-footer">
+                                        <div class="item-input-wrap">
+                                            <input type="text" readonly="readonly" id="time-picker-partymode" data-type="f7" data-object="f7Picker" data-device="d_PartyMode" data-get="time" data-set="time" data-cmd="setreading" data-values='"1:00","2:00","3:00","4:00","5:00","6:00","7:00","8:00","9:00","10:00","11:00","12:00"' data-displayvalues='"1 Stunde","2 Stunden","3 Stunden","4 Stunden","5 Stunden","6 Stunden","7 Stunden","8 Stunden","9 Stunden","10 Stunde","11 Stunden","12 Stunden"'></input>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media">
+                                <i class="icon oa-icons mi-flight_takeoff color-blue"></i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item">Urlaubsmodus</div>
+                                    <div class="item-after">
+                                        <label class="toggle  toggle-init {{#js_if "this.token.role !== 'admin'"}}disabled{{/js_if}}" data-type="f7" data-object="f7Toggle" data-device="d_UrlaubMode" data-get="state" data-map-checked='{"on":true, "off":false}' data-map-changed='{"true":"on", "false":"off"}'>
+                                            <input type="checkbox">
+                                            <span class="toggle-icon"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="item-title-row">
+                                    <div class="item-footer">
+                                        <div class="item-input-wrap">
+                                            <input class="{{#js_if "this.token.role !== 'admin'"}}disabled{{/js_if}}" type="text" readonly="readonly" id="date-picker-holidaymode" data-type="f7" data-object="f7Calendar" data-device="d_UrlaubMode" data-get="end" data-set="end" data-cmd="setreading" data-dateformat="yyyy-mm-dd"></input>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="block-title">Hausstatus</div>
+            <div class="list">
+                <ul>
+                    {{#js_if "this.token.role === 'admin'"}}
+                    <li>
+                        <a href="/residents/" class="item-content item-link">
+                            <div class="item-media">
+                                <i class="icon oa-icons  oa-user_available color-blue"></i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title">
+                                    <div class="item">Bewohner</div>
+                                    <div class="item-footer" data-type="html" data-content="rgr_Home:residentsTotalPresent" data-post-text=" Person(en)"></div>
+                                </div>
+                                <div class="item-after">
+                                    <div class="item-media img-resident absent" data-type="html" data-class="rr_Angela:STATE" data-map-class='{"home":"present", "absent":"absent", "gone":"gegangen", "none":"absent"}'><img src="./images/angela.png"></div>
+                                    <div class="item-media img-resident absent" data-type="html" data-class="rr_Andreas:STATE" data-map-class='{"home":"present", "absent":"absent", "gone":"gegangen", "none":"absent"}'><img src="./images/andreas.png"></div>
+                                    <div class="item-media img-resident absent" data-type="html" data-class="rr_Luca:STATE" data-map-class='{"home":"present", "absent":"absent", "gone":"gegangen", "none":"absent"}'><img src="./images/luca.png"></div>
+                                    <div class="item-media img-resident absent" data-type="html" data-class="rg_Sara:STATE" data-map-class='{"home":"present", "absent":"absent", "gone":"gegangen", "none":"absent"}'><img src="./images/sara.png"></div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    {{js_else}}
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media">
+                                <i class="icon oa-icons  oa-user_available color-blue"></i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title">
+                                    <span data-type="html" data-content="rr_{{token.name}}:STATE" data-map-content='{"home":"anwesend", "absent":"abwesend", "gone":"gegangen", "none":"abwesend"}'></span>
+                                </div>
+                                <div class="item-after">
+                                    <label class="toggle  toggle-init" data-type="f7" data-object="f7Toggle" data-device="rr_{{token.name}}" data-get="state" data-set="state" data-map-checked='{"home":true, "absent":false, "gone":false}' data-map-changed='{"true":"home", "false":"absent"}'>
+                                        <input type="checkbox">
+                                        <span class="toggle-icon"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    {{/js_if}}
+                    <li>
+                        <a href="/waste/" class="item-content item-link">
+                            <div class="item-media">
+                                <i class="icon oa-icons oa-message_garbage color-blue">
+                                    <span class="badge color-red tooltip-init hide" data-tooltip="Heute Abholung" data-type="html" data-class="Muellabfuhr:NextEvent_state" data-map-class='{"0":"", "1":"hide", "-1":"hide"}'>
+                                        !
+                                    </span>
+                                    <span class="badge color-yellow tooltip-init hide" data-tooltip="Morgen Abholung" data-type="html" data-class="Muellabfuhr:NextEvent_state" data-map-class='{"0":"hide","1":"", "-1":"hide"}'>
+                                        !
+                                    </span>
+                                </i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title">
+                                    <div class="item">Müllabführ</div>
+                                    <div class="item-footer">
+                                        <span data-type="html" data-content="Muellabfuhr:NextEvent_type"></span>
+                                        &nbsp;<br>
+                                        <span data-type="html" data-content="Muellabfuhr:NextEvent_wday"></span>
+                                        <span data-type="html" data-content="Muellabfuhr:NextEvent_date"></span>
+                                    </div>
+                                </div>
+                                <div class="item-after">
+                                    <span class="badge color-gray" data-type="html" data-content="Muellabfuhr:Restmuelltonne_days" style="width: 30px; margin-left: 5px;"></span>
+                                    <span class="badge color-green" data-type="html" data-content="Muellabfuhr:Biotonne_days" style="width: 30px; margin-left: 5px;"></span>
+                                    <span class="badge color-yellow" data-type="html" data-content="Muellabfuhr:Wertstoffsack_days" style="width: 30px; margin-left: 5px;"></span>
+                                    <span class="badge color-blue" data-type="html" data-content="Muellabfuhr:Papiertonne_days" style="width: 30px; margin-left: 5px;"></span>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    {{#js_if "this.token.role === 'admin'"}}
+                    <li>
+                        <a href="/heating/" class="item-content item-link">
+                            <div class="item-media">
+                                <i class="icon oa-icons oa-sani_boiler_temp color-blue"></i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title">
+                                    <div class="item">Heizungsanlage</div>
+                                    <div class="item-footer">Vorlauf: <span data-type="html" data-content="d_Heizung_Status:vorlauf_temperatur" data-unit="°C"></span> Wasser: <span data-type="html" data-content="d_Heizung_Status:water_temperatur" data-unit="°C"></span></div>
+                                </div>
+                                <div class="item-after" data-type="html" data-content="d_Heizung_Status:heating_mode" data-map-content='{"day":"Tag", "night":"Nacht"}'></div>
+                            </div>
+                        </a>
+                    </li>
+                    {{/js_if}}
+                    <li>
+                        <a href="/lights/" class="item-content item-link">
+                            <div class="item-media">
+                                <i class="icon oa-icons oa-light_light color-blue"></i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item">Beleuchtung</div>
+                                </div>
+                                <div class="item-after">
+                                    <div data-type="html" data-content="s_Haus_Beleuchtung:STATE" data-map-checked='{"on":"eingeschaltet", "off":"ausgeschaltet"}'></div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/window/" class="item-content item-link">
+                            <div class="item-media">
+                                <i class="icon oa-icons oa-fts_window_1w color-blue smaller"></i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title">
+                                    <div class="item">Fenster und Türen</div>
+                                </div>
+                                <div class="item-after">
+                                    <div data-type="html" data-content="s_Haus_Fenster:STATE" data-map-checked='{"open":"offen", "closed":"geschlossen"}'></div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            {{#js_if "this.token.role === 'admin'"}}
+            <div class="block-title">SYSTEM</div>
+            <div class="list">
+                <ul>
+                    <li>
+                        <a href="/mower/" class="item-content item-link">
+                            <div class="item-media">
+                                <i class="icon oa-icons oa-scene_robo_lawnmower color-blue smaller">
+                                    <span class="badge color-red tooltip-init hide" data-tooltip="Achtung" data-type="html" data-class="SILENO_city:mower-error" data-map-class='{"error":"", "no_message":"hide"}'>
+                                        !
+                                    </span>
+                                </i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title">
+                                    Mähroboter
+                                    <div class="item-footer">
+                                        Batterie:
+                                        <span data-type="html" data-content="SILENO_city:battery-level"></span>
+                                        %
+                                    </div>
+                                </div>
+                                <div class="item-after">
+                                    <span data-type="html" data-content="SILENO_city:state" data-map-content='{"error":"Problem","parked_timer":"Geparkt","parked_park_selected":"Geparkt","ok_cutting":"Mähen","ok_searching":"Ladestation suchen", "ok_charging":"Laden","off_hatch_open":"Abdeckung wurde geöffnet"}'></span>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/shutters/" class="item-content item-link">
+                            <div class="item-media">
+                                <i class="icon oa-icons oa-fts_shutter color-blue smaller"></i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title">
+                                    Rollläden
+                                </div>
+                                <div class="item-after">
+                                    <span data-type="html" data-content="s_EG_Shutters:state" ></span>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/network/" class="item-content item-link">
+                            <div class="item-media">
+                                <i class="icon oa-icons oa-it_network color-blue"></i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title">
+                                    Netzwerk
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            {{/js_if}}
+            <!--
+            <div class="block-title">Columns with gap</div>
+            <div class="block">
+                <div class="row">
+                    <div class="col">
+                        <a class="card-prevent-open" data-type="html" data-fhem-cmd="set OG_Arbeit_Schalter_Decke_Lampe toggle">
+                            <div class="card card-fixed card-expandable card-prevent-open">
+                                <div class="card-content">
+                                    <div class="bg-color-blue" style="height: 100%;padding: 10px;">
+                                        <div class="text-color-white display-block">
+                                            <i class="icon oa-icons oa-light_light color-yellow" data-type="html" data-class="OG_Arbeit_Schalter_Decke_Lampe:STATE" data-map-class='{"on":"color-yellow", "off":"color-white", "set_toggle":""}'></i>
+                                        </div>
+                                        <div class="text-color-white" style="padding-left: 5px;padding-top: 10px">
+                                            <div>Rollladen</div>
+                                            <div style="font-size: x-small; opacity: 0.7">Arbeitszimmer</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        -->
+            <!--
+                    <div class="col">
+                        <a href="/office/" class="card-prevent-open">
+                            <div class="card card-fixed card-expandable card-prevent-open">
+                                <div class="card-content">
+                                    <div class="bg-color-blue" style="height: 100%;padding: 10px;">
+                                        <div class="text-color-white display-block">
+                                            <i class="icon f7-icons color-white">lightbulb</i>
+                                        </div>
+                                        <div class="text-color-white" style="padding-left: 5px;padding-top: 10px">
+                                            <div>Rollladen</div>
+                                            <div style="font-size: x-small; opacity: 0.7">Arbeitszimmer</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a href="/office/" class="card-prevent-open">
+                            <div class="card card-fixed card-expandable card-prevent-open">
+                                <div class="card-content">
+                                    <div class="bg-color-blue" style="height: 100%;padding: 10px;">
+                                        <div class="text-color-white display-block">
+                                            <i class="icon f7-icons color-white">lightbulb</i>
+                                        </div>
+                                        <div class="text-color-white" style="padding-left: 5px;padding-top: 10px">
+                                            <div>Rollladen</div>
+                                            <div style="font-size: x-small; opacity: 0.7">Arbeitszimmer</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="block-title">Expandable</div>
+            <div class="block">
+                <div class="range-slider-expandable-cards">
+                    <div class="card card-expandable expandable-card-range-slider" data-animate="false">
+                        <div class="card-content">
+                            <div class="bg-color-blue" style="height: 300px">
+                                <div class="card-header text-color-white display-block">
+                                    <i class="icon oa-icons text-color-white oa-fts_shutter_70" data-type="html" data-class="EG_Wohnenzimmer_Tuer_Rolladen:STATE" data-map-class='{"on":"color-yellow", "off":"color-white", "set_toggle":""}'></i>
+                                    <span style="margin-left: 20px;">Rollladen</span>
+                                    <br>
+                                    <small style="opacity: 0.7">Arbeitszimmer</small>
+                                </div>
+                                <a href="#" class="link card-close color-white card-opened-fade-in" style="position: absolute; right: 15px; top: 15px">
+                                    <i class="icon f7-icons">multiply_circle_fill</i>
+                                </a>
+                            </div>
+                            <div class="card-content-padding">
+                                <div class="range-slider range-slider-init card-opened-fade-in" data-vertical="true">
+                                    <input type="range" min="0" max="100" step="1" value="10">
+                                </div>
+                                <p class="text-align-center card-opened-fade-in">
+                                    <i class="icon color-blue fs-fts_shutter_1w"></i>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        -->
+        </div>
+    </div>
+</template>
+<!-- rest of component data and methods -->
+<script>
+// script must return component object
+return {
+    data: function() {
+        return {
+            token: this.$app.data.token,
+        }
+    },
+    methods: {
+        isLoggedIn: function() {
+            var self = this;
+            return self.token.loggedin;
+        },
+        openAlert: function() {
+            //var self = this.$app.dialog.alert('Hello world!');
+        },
+        toggleDarkmode: function() {
+            var $ = this.$;
+            var app = this.$app;
+            var self = this;
+            var router = this.$router;
+
+            var c = app.form.getFormData("config");
+            if (((c !== undefined) && c.darkmode[0]) == 'yes') {
+                c.darkmode = ['no'];
+                app.form.storeFormData("config", c);
+                self.$$('html').removeClass('theme-dark');
+            } else {
+                c.darkmode = ['yes'];
+                app.form.storeFormData("config", c);
+                self.$$('html').addClass('theme-dark');
+            }
+        },
+    },
+    on: {
+        pageInit: function() {
+            console.log('--> PAGE home init');
+            var app = this.$app;
+            var self = this;
+
+            app.dialog.preloader('Daten werden geladen...');
+
+            console.log('mainView pageInit');
+            //console.log('FTUI version: ' + ftui.version);
+
+            // Reload page on pulldown the screen
+            $$('.ptr-content').on('ptr:refresh', function(e) {
+                console.log('reload');
+                setTimeout("location.reload(true);", 1000);
+                e.detail();
+                app.dialog.preloader('Daten werden geladen...');
+            });
+        },
+        pageAfterIn: function() {
+            console.log('--> PAGE home pageAfterIn');
+            
+            var app = this.$app;
+            
+            setTimeout(function () {
+                app.dialog.close();
+            }, 1000);
+        }
+    },
+}
+</script>

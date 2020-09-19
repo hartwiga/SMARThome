@@ -1,0 +1,110 @@
+<template>
+    <div class="page" data-name="msg">
+        <div class="navbar">
+            <div class="navbar-bg"></div>
+            <div class="navbar-inner sliding">
+                <div class="left">
+                    <a href="#" class="link back">
+                        <i class="icon icon-back"></i>
+                        <span>Zurück</span>
+                    </a>
+                </div>
+                <div class="title">Nachricht</div>
+                <div class="right">
+                    {{#js_if "this.token.role === 'admin'"}}
+                    <a href="#" class="link icon-only">
+                        <i class="icon f7-icons">trash_circle</i>
+                    </a>
+                    {{/js_if}}
+                </div>
+                <div class="title-large">
+                    <div class="title-large-text">Nachricht</div>
+                </div>
+            </div>
+        </div>
+        <div class="page-content hide-navbar-on-scroll">
+            <div class="block-title block-title-medium">{{message.title}}</div>
+            <div class="block block-strong">
+                <div class="block-header">
+                    <div>{{message.datetime}}</div>
+                    <div>{{message.priotext}}</div>
+                </div>
+                <p>{{message.text}}</p>
+                {{#js_if "this.message.parameter != null"}}
+                    <p><a href="{{message.parameter.url}}" class="link external">{{message.parameter.url_title}}</a>
+                {{/js_if}}
+            </div>
+        </div>
+    </div>
+</template>
+<style>
+</style>
+<script>
+return {
+    data: function() {
+        return {
+            token: this.$app.data.token,   
+            message: {}
+        }
+    },
+    methods: {
+        getMessage() {
+            var app = this.$app;
+            var self = this;
+            var route = this.$route;
+
+            var msguuid = route.params.msguuid;
+
+            //app.request.json(app.data.message.getall_url + '&fwcsrf=' + app.data.fhem.csrf + '&XHR=1', function (data, status, xhr) {   
+            var url = app.data.message.getmsg_url  + ' ' + self.token.user + ' uuid ' + msguuid;             
+            app.request.json(url,
+                {
+                    fwcsrf: Framework7.getFhemCsrf(),
+                    XHR: 1,
+                } ,
+                function (data, status, xhr) {  
+    
+                    console.log(data); 
+
+                    self.message = data.messages[0];
+
+                    self.message.datetime = new Date(self.message.timestamp * 1000).toLocaleString('de-DE',{dateStyle: "full", timeStyle: "medium"});
+                    if(self.message.priority == 0){
+                        self.message.priotext = '';
+                    }
+                    else if(self.message.priority == 1){
+                        self.message.priotext = 'Normale Priorität';
+                    }
+                    else if(self.message.priority == 2) {
+                        self.message.priotext = 'Hohe Priorität';
+                    }
+                    
+
+                    self.message = data.messages[0];
+                    self.$update();
+
+                    console.log(self.message);
+                },
+                function(xhr, status) {
+                    console.log(status);
+                }
+            );
+        }
+    },
+    on: {
+        pageInit: function() {
+            var app = this.$app;
+            var self = this;
+            var route = this.$route;
+
+            console.log(route.params);
+
+            self.getMessage();
+        },
+        pageAfterIn: function(event, page) {
+            var app = this.$app;
+            var self = this;
+        }
+    },
+}
+</script>

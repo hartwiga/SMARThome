@@ -1,0 +1,128 @@
+<template>
+    <div class="page" data-name="alarmsystem">
+        <div class="navbar">
+            <div class="navbar-bg"></div>
+            <div class="navbar-inner sliding">
+                <div class="left">
+                    <a href="#" class="link back">
+                        <i class="icon icon-back"></i>
+                        <span>Zurück</span>
+                    </a>
+                </div>
+                <div class="title">Alarmanlage</div>
+                <div class="title-large">
+                    <div class="title-large-text">Alarmanlage</div>
+                </div>
+            </div>
+        </div>
+        <div class="page-content hide-navbar-on-scroll">
+            <div class="block" style="margin-bottom: 10px;">
+                    <button class="button button-large button-fill col" data-type="f7" data-object="f7Button" data-fhem-cmd="set d_AlarmStatus on" data-class="d_AlarmInfo:state" data-map-class='{"signals_off":"","disarmed":"","armed_error":"disabled","alarm_fire":"disabled","alarm_full":"disabled","alarm_intrusion":"disabled","alarm_panik":"disabled","alarm_still":"disabled","alarm_sabotage":"","armed_pre":"disabled","armed_partial":"disabled", "armed_full":"disabled"}'>Aktivieren</button>
+            </div>
+            <div class="block" style="margin-bottom: 20px; margin-top: 10px">
+                    <button class="button button-large button-fill col" data-type="f7" data-object="f7Button" data-fhem-cmd="set d_AlarmStatus off" data-class="d_AlarmInfo:state" data-map-class='{"signals_off":"disabled","disarmed":"disabled","armed_error":"disabled","alarm_fire":"disabled","alarm_full":"","alarm_intrusion":"","alarm_panik":"","alarm_still":"","alarm_sabotage":"disabled","armed_pre":"disabled","armed_partial":"", "armed_full":""}'>Deaktivieren</button>
+            </div>
+             <div class="block" style="margin-top: 10px;">
+                    <button class="button button-large button-fill col" data-type="f7" data-object="f7Button" data-fhem-cmd="set d_AlarmCancel on" data-class="d_AlarmInfo:state" data-map-class='{"signals_off":"disabled","disarmed":"disabled","armed_error":"","alarm_fire":"","alarm_full":"","alarm_intrusion":"","alarm_panik":"","alarm_still":"","alarm_sabotage":"","armed_pre":"disabled","armed_partial":"", "armed_full":""}'>Alarm abbrechen</button>
+            </div>
+            <div class="block-title">Status</div>
+            <div class="list simple-list inset">
+                <ul>
+                    <li>
+                        <div>Einbruchsalarm</div>
+                        <div data-type="html" data-content="d_AlarmInfo:state" data-map-content='{"signals_off":"deaktiviert","armed_error":"Fehler Aktivieren","alarm_fire":"Feueralarm","alarm_full":"Einbruchsalarm","alarm_intrusion":"Einbruchsalarm","alarm_panik":"Panikalarm","alarm_still":"Einbruchsalarm","alarm_sabotage":"Sabotagealarm","armed_pre":"wird Aktiviert","armed_partial":"teilweise aktiviert", "armed_full":"vollständig aktiviert", "disarmed":"deaktiviert"}'></div>
+                    </li>
+                    <li>
+                        <span>Übersicht Alarme</span>
+                        <span class="item-footer" data-type="html" data-content="AAA:STATE"></span>
+                    </li>
+                </ul>
+            </div>
+            <div class="block-title">Alarme</div>
+            <div class="list simple-list inset">
+                <ul>                    
+                    <li>
+                        <span>0 - Gehtest</span>
+                        <label class="toggle toggle-init {{#js_if "this.token.role !== 'admin'"}}disabled{{/js_if}}" data-type="f7" data-object="f7Toggle" data-device="AAA" data-get="level0" data-fhem-cmd-on="set AAA armed 0" data-fhem-cmd-off="set AAA disarmed 0" data-map-checked='{"armed":true, "disarmed":false}' >
+                            <input type="checkbox">
+                            <span class="toggle-icon"></span>
+                        </label>
+                    </li>
+                    <li>
+                        <span>1 - nicht benutzt</span>
+                    </li>
+                    <li>
+                        <span>2 - Sabotage</span>
+                        <label class="toggle toggle-init {{#js_if "this.token.role !== 'admin'"}}disabled{{/js_if}}" data-type="f7" data-object="f7Toggle" data-device="AAA" data-get="level2" data-fhem-cmd-on="set AAA armed 2" data-fhem-cmd-off="set AAA disarmed 2" data-map-checked='{"armed":true, "disarmed":false}' >
+                            <input type="checkbox">
+                            <span class="toggle-icon"></span>
+                        </label>
+                    </li>
+                    <li>
+                        <span>3 - Panik</span>
+                        <label class="toggle toggle-init {{#js_if "this.token.role !== 'admin'"}}disabled{{/js_if}}" data-type="f7" data-object="f7Toggle" data-device="AAA" data-get="level3" data-fhem-cmd-on="set AAA armed 3" data-fhem-cmd-off="set AAA disarmed 3" data-map-checked='{"armed":true, "disarmed":false}' >
+                            <input type="checkbox">
+                            <span class="toggle-icon"></span>
+                        </label>
+                    </li>
+                    <li>
+                        <span>4 - Still</span>
+                        <label class="toggle toggle-init disabled" data-type="f7" data-object="f7Toggle" data-device="AAA" data-get="level4" data-fhem-cmd-on="set AAA armed 4" data-fhem-cmd-off="set AAA disarmed 4" data-map-checked='{"armed":true, "disarmed":false}' >
+                            <input type="checkbox">
+                            <span class="toggle-icon"></span>
+                        </label>
+                    </li>
+                    <li>
+                        <span>5 - Zutritt</span>
+                        <label class="toggle toggle-init {{#js_if "this.token.role !== 'admin'"}}disabled{{/js_if}}" data-type="f7" data-object="f7Toggle" data-device="AAA" data-get="level5" data-fhem-cmd-on="set AAA armed 5" data-fhem-cmd-off="set AAA disarmed 5" data-map-checked='{"armed":true, "disarmed":false}' >
+                            <input type="checkbox">
+                            <span class="toggle-icon"></span>
+                        </label>
+                    </li>
+                    <li>
+                        <span>6 - Einbruch</span>
+                        <label class="toggle toggle-init disabled" data-type="f7" data-object="f7Toggle" data-device="AAA" data-get="level6" data-fhem-cmd-on="set AAA armed 6" data-fhem-cmd-off="set AAA disarmed 6" data-map-checked='{"armed":true, "disarmed":false}' >
+                            <input type="checkbox">
+                            <span class="toggle-icon"></span>
+                        </label>
+                    </li>
+                    <li>
+                        <span>7 - Feuer</span>
+                        <label class="toggle toggle-init {{#js_if "this.token.role !== 'admin'"}}disabled{{/js_if}}" data-type="f7" data-object="f7Toggle" data-device="AAA" data-get="level7" data-fhem-cmd-on="set AAA armed 7" data-fhem-cmd-off="set AAA disarmed 7" data-map-checked='{"armed":true, "disarmed":false}' >
+                            <input type="checkbox">
+                            <span class="toggle-icon"></span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+  return {
+    data: function () {
+      return {
+        token: this.$app.data.token,
+      }
+    },
+    methods: {
+    },
+    on: {
+        pageInit: function () {
+            var $ = this.$;
+            var app = this.$app;
+            var self = this;
+            var router = this.$router;
+
+            app.dialog.preloader('Daten werden geladen...');
+        },
+        pageAfterIn: function (event, page) {         
+            var app = this.$app;
+            
+            setTimeout(function () {
+                app.dialog.close();
+            }, 1000);
+        }
+    },
+  }
+</script>

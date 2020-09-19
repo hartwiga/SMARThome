@@ -1,0 +1,170 @@
+<template>
+	<div class="page" data-name="waste">
+		<div class="navbar">
+			<div class="navbar-bg"></div>
+			<div class="navbar-inner sliding">
+				<div class="left">
+					<a href="#" class="link back">
+						<i class="icon icon-back"></i>
+						<span>Zurück</span>
+					</a>
+				</div>
+				<div class="title">Müllabfuhr</div>
+				<div class="title-large">
+					<div class="title-large-text">Müllabfuhr</div>
+				</div>
+			</div>
+		</div>
+		<div class="page-content hide-navbar-on-scroll">
+			<div class="block-title">Abholtage</div>
+			<div class="list inset">
+				<ul>
+					<li>
+						<div class="item-content">
+							<div class="item-media">
+								<i class="icon oa-icons oa-message_garbage color-green">
+									<span class="badge color-red tooltip-init hide" data-tooltip="Heute wird die Biotonne abgeholt" data-type="html" data-class="Muellabfuhr:Biotonne_state" data-map-class='{"0":"", "1":"hide", "-1":"hide"}'>
+										!
+									</span>
+									<span class="badge color-yellow tooltip-init hide" data-tooltip="Morgen wird die Biotonne abgeholt" data-type="html" data-class="Muellabfuhr:Biotonne_state" data-map-class='{"0":"hide","1":"", "-1":"hide"}'>
+										!
+									</span>
+								</i>
+							</div>
+							<div class="item-inner">
+								<div class="item-title">
+									Biotonne
+									<div class="item-footer">
+										<span>noch </span>
+										<span data-type="html" data-content="Muellabfuhr:Biotonne_days"></span>
+										<span> Tag(e)</span>
+									</div>
+								</div>
+								<div class="item-after">
+									<span data-type="html" data-type="html" data-content="Muellabfuhr:Biotonne_wday"></span>
+									&nbsp;
+									<span data-type="html" data-type="html" data-content="Muellabfuhr:Biotonne_date"></span>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="item-content">
+							<div class="item-media">
+								<i class="icon oa-icons oa-message_garbage color-blue">
+									<span class="badge color-red tooltip-init hide" data-tooltip="Heute wird die Papiertonne abgeholt" data-type="html" data-class="Muellabfuhr:Papiertonne_state" data-map-class='{"0":"", "1":"hide", "-1":"hide"}'>
+										!
+									</span>
+									<span class="badge color-yellow tooltip-init hide" data-tooltip="Morgen wird die Papiertonne abgeholt" data-type="html" data-class="Muellabfuhr:Papiertonne_state" data-map-class='{"0":"hide","1":"", "-1":"hide"}'>
+										!
+									</span>
+								</i>
+							</div>
+							<div class="item-inner">
+								<div class="item-title">
+									Papiertonne
+									<div class="item-footer">
+										<span>noch </span>
+										<span data-type="html" data-content="Muellabfuhr:Papiertonne_days"></span>
+										<span> Tag(e)</span>
+									</div>
+								</div>
+								<div class="item-after">
+									<span data-type="html" data-type="html" data-content="Muellabfuhr:Papiertonne_wday"></span>
+									&nbsp;
+									<span data-type="html" data-type="html" data-content="Muellabfuhr:Papiertonne_date"></span>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="item-content">
+							<div class="item-media">
+								<i class="icon oa-icons oa-message_garbage color-gray">
+									<span class="badge color-red tooltip-init hide" data-tooltip="Heute wird die Restmülltonne abgeholt" data-type="html" data-class="Muellabfuhr:Restmuelltonne_state" data-map-class='{"0":"", "1":"hide", "-1":"hide"}'>
+										!
+									</span>
+									<span class="badge color-yellow tooltip-init hide" data-tooltip="Morgen wird die Restmülltonne abgeholt" data-type="html" data-class="Muellabfuhr:Restmuelltonne_state" data-map-class='{"0":"hide","1":"", "-1":"hide"}'>
+										!
+									</span>
+								</i>
+							</div>
+							<div class="item-inner">
+								<div class="item-title">
+									Restmülltonne
+									<div class="item-footer">
+										<span>noch </span>
+										<span data-type="html" data-content="Muellabfuhr:Restmuelltonne_days"></span>
+										<span> Tag(e)</span>
+									</div>
+								</div>
+								<div class="item-after">
+									<span data-type="html" data-type="html" data-content="Muellabfuhr:Restmuelltonne_wday"></span>
+									&nbsp;
+									<span data-type="html" data-type="html" data-content="Muellabfuhr:Restmuelltonne_date"></span>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="item-content">
+							<div class="item-media">
+								<i class="icon oa-icons oa-message_garbage color-yellow">
+									<span class="badge color-red tooltip-init hide" data-tooltip="Heute wird die Wertstoffsack abgeholt" data-type="html" data-class="Muellabfuhr:Wertstoffsack_state" data-map-class='{"0":"", "1":"hide", "-1":"hide"}'>
+										!
+									</span>
+									<span class="badge color-yellow tooltip-init hide" data-tooltip="Morgen wird die Wertstoffsack abgeholt" data-type="html" data-class="Muellabfuhr:Wertstoffsack_state" data-map-class='{"0":"hide","1":"", "-1":"hide"}'>
+										!
+									</span>
+								</i>
+							</div>
+							<div class="item-inner">
+								<div class="item-title">
+									Wertstoffsack
+									<div class="item-footer">
+										<span>noch </span>
+										<span data-type="html" data-content="Muellabfuhr:Wertstoffsack_days"></span>
+										<span> Tag(e)</span>
+									</div>
+								</div>
+								<div class="item-after">
+									<span data-type="html" data-type="html" data-content="Muellabfuhr:Wertstoffsack_wday"></span>
+									&nbsp;
+									<span data-type="html" data-type="html" data-content="Muellabfuhr:Wertstoffsack_date"></span>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</template>
+<script>
+  return {
+    data: function () {
+      return {
+        token: this.$app.data.token,
+      }
+    },
+    methods: {
+    },
+    on: {
+        pageInit: function () {
+            var $ = this.$;
+            var app = this.$app;
+            var self = this;
+            var router = this.$router;
+
+            app.dialog.preloader('Daten werden geladen...');
+        },
+        pageAfterIn: function (event, page) {
+            var app = this.$app;
+            
+            setTimeout(function () {
+                app.dialog.close();
+            }, 1000);
+        }
+    },
+  }
+</script>

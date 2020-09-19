@@ -1,0 +1,171 @@
+<template>
+    <div class="page" data-name="config">
+        <div class="navbar">
+            <div class="navbar-bg"></div>
+            <div class="navbar-inner sliding">
+                <div class="left">
+                    <a href="#" class="link back">
+                        <i class="icon icon-back"></i>
+                        <span>Zurück</span>
+                    </a>
+                </div>
+                <div class="title">Einstellungen</div>
+                <div class="right">
+                    <a href="/about/" class="link icon-only">
+                        <i class="icon f7-icons">exclamationmark_circle</i>
+                    </a>
+                </div>
+                <div class="title-large">
+                    <div class="title-large-text">Einstellungen</div>
+                </div>
+            </div>
+        </div>
+        <div class="page-content hide-navbar-on-scroll">
+            <form class="" id="config">
+                <!-- Benutzer -->
+                <div class="block-title">Benutzer</div>
+                <div class="list">
+                    <ul>
+                        <li>
+                            <div class="item-content item-input">
+                                <div class="item-inner">
+                                    <div class="item-title item-label">Benutzername</div>
+                                    <div class="item-input-wrap">
+                                        <input class="" type="text" name="username" placeholder="Dein Benutzername" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content item-input">
+                                <div class="item-inner">
+                                    <div class="item-title item-label">Kennwort</div>
+                                    <div class="item-input-wrap">
+                                        <input class="" type="password" name="password" placeholder="Dein Kennwort" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Darstellung -->
+                <div class="block-title">Optionen</div>
+                <div class="list">
+                    <ul>
+                         <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title">Automatisches Anmelden</div>
+                                    <div class="item-after">
+                                        <label class="toggle toggle-autologgin toggle-init">
+                                            <input class="" type="checkbox" name="autologgin" value="yes"><i class="toggle-icon"></i>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title">Darkmode</div>
+                                    <div class="item-after">
+                                        <label class="toggle toggle-darkmode toggle-init">
+                                            <input class="" id="darkmode" type="checkbox" name="darkmode" ><i class="toggle-icon"></i>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="list">
+                    <ul>
+                        <li>
+                            <a id="signin" class="list-button" href="/logout/">Abmelden</a>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+</template>
+<script>
+// script must return component object
+return {
+    data: function() {
+        return {
+        }
+    },
+    methods: {
+    },
+    on: {
+        pageInit: function() {
+            var app = this.$app;
+            var self = this;
+            var route = this.$route;
+
+            var c = app.form.getFormData("config");
+            console.log(c);
+
+        },
+        pageAfterIn: function() {
+            var app = this.$app;
+            var self = this;
+            var route = this.$route;
+
+            $$('.toggle-darkmode').on('change', function() {
+                var t = f7.ftui.toggle.get('.toggle-darkmode');
+
+                if($$('html').hasClass('theme-dark') != true && t.checked) {
+                  $$('html').addClass('theme-dark');
+                }
+                else if($$('html').hasClass('theme-dark') == true && !t.checked){
+                  $$('html').removeClass('theme-dark');
+                }
+                
+                var c = f7.ftui.form.getFormData("config");
+                console.log(t);
+                c.darkmode = t.checked ? ["yes"] : [];
+                f7.ftui.form.storeFormData("config", c);
+            });
+
+            $$('.toggle-autologgin').on('change', function() {
+
+                var t = f7.ftui.toggle.get('.toggle-autologgin');
+                var c = f7.ftui.form.getFormData("config");
+                console.log(t);
+                c.autologgin = t.checked ? ["yes"] : [];
+                f7.ftui.form.storeFormData("config", c);
+            });
+
+            var c = app.form.getFormData("config");
+
+            $$('[name="username"]').val(c.username)
+            $$('[name="username"]').on('change', function(e) {
+                console.log(e);
+            });
+
+            $$('[name="password"]').val(c.password);
+            $$('[name="password"]').on('change', function(e) {
+               console.log(e); 
+            });
+
+            var a = app.toggle.get('.toggle-autologgin');
+            if(c.autologgin[0] == "yes" && !a.checked) {
+                a.toggle();
+            }
+
+            var d = app.toggle.get('.toggle-darkmode');
+            if(c.darkmode[0] == "yes" && !d.checked) {
+                d.toggle();
+            }
+        },
+        pageAfterOut: function() {
+            var app = this.$app;
+            var self = this;
+            var route = this.$route;
+        }
+    }
+}
+</script>

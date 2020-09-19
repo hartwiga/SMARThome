@@ -1,0 +1,154 @@
+<template>
+    <div class="page" data-name="mower">
+        <div class="navbar">
+            <div class="navbar-bg"></div>
+            <div class="navbar-inner sliding">
+                <div class="left">
+                    <a href="#" class="link back">
+                        <i class="icon icon-back"></i>
+                        <span>Zurück</span>
+                    </a>
+                </div>
+                <div class="title">Mähroboter</div>
+                <div class="title-large">
+                    <div class="title-large-text">Mähroboter</div>
+                </div>
+            </div>
+        </div>
+        <div class="page-content hide-navbar-on-scroll">
+            <div class="block" style="margin-bottom: 20px;">
+                    <button class="button button-large button-fill col" data-type="f7" data-object="f7Button" data-fhem-cmd="set SILENO_city parkUntilFurtherNotice" data-class="SILENO_city:state" data-map-class='{"error":"disabled","parked_timer":"","parked_park_selected":"disabled","parked_timer":"disabled", "ok_cutting":"disabled", "ok_searching":"", "ok_charging":"","ok_leaving":"","off_hatch_open":"disabled"}'>Parken</button>
+            </div>
+            <div class="block" style="margin-bottom: 10px; margin-top: 10px">
+                    <button class="button button-large button-fill col" data-type="f7" data-object="f7Button" data-fhem-cmd="set SILENO_city startOverrideTimer 240" data-class="SILENO_city:state" data-map-class='{"error":"disabled","parked_timer":"","parked_park_selected":"","parked_timer":"", "ok_cutting":"", "ok_searching":"", "ok_charging":"button-active","ok_leaving":"","off_hatch_open":"disabled"}'>Starten</button>
+            </div>
+             <div class="block" style="margin-top: 10px;">
+                    <button class="button button-large button-fill col" data-type="f7" data-object="f7Button" data-fhem-cmd="set SILENO_city startResumeSchedule" data-class="SILENO_city:state" data-map-class='{"error":"disabled","parked_timer":"","parked_park_selected":"","parked_timer":"","ok_searching":"","ok_leaving":"", "ok_charging":"disabled","ok_leaving":"","off_hatch_open":"disabled"}'>Fortfahren</button>
+            </div>
+            <div class="list simple-list inset">
+                <ul>
+                    <li>
+                        <span data-type="html" data-content="SILENO_city:state" data-map-content='{"off_hatch_open":"Abdeckung geöffnet","error":"Problem","parked_timer":"Geparkt","parked_park_selected":"Geparkt","ok_cutting":"Mähen", "ok_searching":"Ladestation suchen", "ok_charging":"Laden","ok_leaving":"Mähen"}'></span>
+                        <span>-</span>
+                        <span data-type="html" data-content="if_SILENO_city_Control:cmd_nr" data-map-content='{"1":"nach Zeitplan","2":"nach Zeitplan","3":"nach Zeitplan","4":"wegen Regen","5":"weil Wochenende","6":"wegen Regen","7":"weil Temperatur < 3,5°C","8":"bis zum nächsten Befehl","9":"nächstes Mähen vorbereiten","10":"bis zum nächsten Befehl","11":"vorbereiten","12":"","13":"","14":"","15":"nach Zeitplan","16":"nach Zeitplan","17":"nächstes Mähen vorbereiten","18":"nächstes Mähen vorbereiten","19":"deaktiviert"}' data-class="SILENO_city:state" data-map-class='{"error":"hide"}'></span>
+                        <span class="text-color-red" data-type="html" data-content="SILENO_city:mower-error" data-map-content='{ "charging_station_blocked":"Ladestation blockiert","trapped":"gefangen","outside_working_area":"Außerhalb des Bereichs"}' data-class="SILENO_city:mower-error" data-map-class='{"no_message":"hide"}'></span>
+                    </li>
+                </ul>
+            </div>
+            <div class="list inset">
+                <ul>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title">
+                                    Automatische Steuerung
+                                </div>
+                                <div class="item-after">
+                                    <label class="toggle toggle-init" data-type="f7" data-object="f7Toggle" data-device="d_SILENO_city_Control" data-get="state" data-map-checked='{"on":true, "off":false}' data-map-changed='{"true":"on", "false":"off"}'>
+                                        <input type="checkbox">
+                                        <span class="toggle-icon"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title">
+                                    Rollladen
+                                    <div class="item-footer" data-type="html" data-content="GA_Carport_Rolladen:pct" data-unit="%"></div>
+                                </div>
+                                <div class="item-after">
+                                    <div class="segmented segmented-round" style="padding-top: 12px">
+                                        <span class="button button-outline" style="width: 55px" data-type="f7" data-object="f7Button" data-fhem-cmd="set GA_Carport_Rolladen off" data-class="GA_Carport_Rolladen:pct" data-map-class='{"0":"disabled", "100":""}'>ZU</span>
+                                        <span class="button button-outline" style="width: 55px" data-type="f7" data-object="f7Button" data-fhem-cmd="set GA_Carport_Rolladen on" data-class="GA_Carport_Rolladen:pct" data-map-class='{"0":"", "100":"disabled"}'>AUF</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="list simple-list inset">
+                <ul>
+                    <li class="item-content">
+                        <div class="item-title">Batterieladung</div>
+                        <div class="item-after">
+                            <span data-type="html" data-content="SILENO_city:battery-level"></span>
+                            %
+                        </div>
+                    </li>
+                    <li class="item-content">
+                        <div class="item-title">Laden aktiv</div>
+                        <div class="item-after">
+                            <span data-type="html" data-content="SILENO_city:battery-charging" data-map-content='{"0":"nein","1":"ja"}'></span>
+                        </div>
+                    </li>
+                    <li class="item-content">
+                        <div class="item-title">Wetter</div>
+                        <div class="item-after">
+                            <span data-type="html" data-content="GA_Regensensor_Rain:state" data-map-content='{"dry":"trocken","rain":"Regen"}'></span>
+                        </div>
+                    </li>
+                    <li class="item-content">
+                        <div class="item-title">Außentemperatur</div>
+                        <div class="item-after">
+                            <span data-type="html" data-content="GA_Carport_Temperatursensor:temperature"></span>
+                            <span>°C</span>
+                        </div>
+                    </li>
+                    <li class="item-content">
+                        <div class="item-title">Verbindungsstatus</div>
+                        <div class="item-after">
+                            <span data-type="html" data-content="SILENO_city:device_info-connection_status"></span>
+                        </div>
+                    </li>
+                    <li class="item-content">
+                        <div class="item-title">WLAN Empfang</div>
+                        <div class="item-after">
+                            <span data-type="html" data-content="SILENO_city:radio-quality"></span>
+                            %
+                        </div>
+                    </li>
+                    <li class="item-content">
+                        <div class="item-title">Nächster Start</div>
+                        <div class="item-after">
+                            <span data-type="html" data-content="SILENO_city:mower-timestamp_next_start" >
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+  return {
+    data: function () {
+      return {
+        token: this.$app.data.token,
+      }
+    },
+    methods: {
+    },
+    on: {
+        pageInit: function () {
+            var $ = this.$;
+            var app = this.$app;
+            var self = this;
+            var router = this.$router;
+
+            app.dialog.preloader('Daten werden geladen...');
+        },
+        pageAfterIn: function (event, page) {
+            var app = this.$app;
+            
+            setTimeout(function () {
+                app.dialog.close();
+            }, 1000);
+        }
+    },
+  }
+</script>

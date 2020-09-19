@@ -1,0 +1,224 @@
+<template>
+    <div class="page" data-name="shutters">
+        <div class="navbar">
+            <div class="navbar-bg"></div>
+            <div class="navbar-inner sliding">
+                <div class="left">
+                    <a href="#" class="link back">
+                        <i class="icon icon-back"></i>
+                        <span>Zurück</span>
+                    </a>
+                </div>
+                <div class="title">Rollläden</div>
+                <div class="title-large">
+                    <div class="title-large-text">Rollläden</div>
+                </div>
+            </div>
+        </div>
+        <div class="page-content hide-navbar-on-scroll">
+            <!-- Rolladen -->
+            <div class="block-title">Fenster und Türen</div>
+            <div class="list media-list">
+                <ul>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon oa-icons oa-fts_shutter color-blue smaller"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item">Terrassentür</div>
+                                    <div class="item-after">
+                                        <div class="range-slider range-slider-init" style="width: 180px" data-label="true" data-type="f7" data-object="f7Range" data-device="EG_Wohnenzimmer_Tuer_Rolladen" data-get="pct">
+                                            <input type="range" min="0" max="100" step="20" value="0">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item-title-row">
+                                    <div class="item-footer" data-type="html" data-content="EG_Wohnenzimmer_Tuer_Rolladen:pct" data-unit="%"></div>
+                                    <div class="item-after">
+                                        <div class="segmented segmented-round" style="padding-top: 12px">
+                                            <span class="button button-outline" style="width: 55px" data-type="f7" data-object="f7Button" data-fhem-cmd="set EG_Wohnenzimmer_Tuer_Rolladen off" data-class="EG_Wohnenzimmer_Tuer_Rolladen:pct" data-map-class='{"0":"disabled", "100":""}'>ZU</span>
+                                            <span class="button button-outline" style="width: 55px" data-type="f7" data-object="f7Button" data-fhem-cmd="set d_TvModeRollladen toggle"  data-class="d_TvModeRollladen:STATE" data-map-class='{"off":"", "on":"disabled"}'>TV</span>
+                                            <span class="button button-outline" style="width: 55px" data-type="f7" data-object="f7Button" data-fhem-cmd="set EG_Wohnenzimmer_Tuer_Rolladen on" data-class="EG_Wohnenzimmer_Tuer_Rolladen:pct" data-map-class='{"0":"", "100":"disabled"}'>AUF</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon oa-icons oa-fts_shutter color-blue smaller"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item">Wohnzimmer</div>
+                                    <div class="item-after">
+                                        <div class="range-slider range-slider-init" style="width: 180px" data-label="true" data-type="f7" data-object="f7Range" data-device="EG_Wohnenzimmer_Rolladen" data-get="pct">
+                                            <input type="range" min="0" max="100" step="20" value="0">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item-title-row">
+                                    <div class="item-footer" data-type="html" data-content="EG_Wohnenzimmer_Rolladen:pct" data-unit="%"></div>
+                                    <div class="item-after">
+                                        <div class="segmented segmented-round" style="padding-top: 12px">
+                                            <span class="button button-outline" style="width: 55px" data-type="f7" data-object="f7Button" data-fhem-cmd="set EG_Wohnenzimmer_Rolladen off" data-class="EG_Wohnenzimmer_Rolladen:pct" data-map-class='{"0":"disabled", "100":""}'>ZU</span>
+                                            <span class="button button-outline" style="width: 55px" data-type="f7" data-object="f7Button" data-fhem-cmd="set EG_Wohnenzimmer_Rolladen on" data-class="EG_Wohnenzimmer_Rolladen:pct" data-map-class='{"0":"", "100":"disabled"}'>AUF</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon oa-icons oa-fts_shutter color-blue smaller" ></i></div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item">Esszimmer</div>
+                                    <div class="item-after">
+                                        <div class="range-slider range-slider-init" style="width: 180px" data-label="true" data-type="f7" data-object="f7Range" data-device="EG_Esszimmer_Rolladen" data-get="pct">
+                                            <input type="range" min="0" max="100" step="20" value="0">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item-title-row">
+                                    <div class="item-footer" data-type="html" data-content="EG_Esszimmer_Rolladen:pct" data-unit="%"></div>
+                                    <div class="item-after">
+                                        <div class="segmented segmented-round" style="padding-top: 12px">
+                                            <span class="button button-outline" style="width: 55px" data-type="f7" data-object="f7Button" data-fhem-cmd="set EG_Esszimmer_Rolladen off" data-class="EG_Esszimmer_Rolladen:pct" data-map-class='{"0":"disabled", "100":""}'>ZU</span>
+                                            <span class="button button-outline" style="width: 55px" data-type="f7" data-object="f7Button" data-fhem-cmd="set EG_Esszimmer_Rolladen on" data-class="EG_Esszimmer_Rolladen:pct" data-map-class='{"0":"", "100":"disabled"}'>AUF</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon oa-icons oa-fts_shutter color-blue smaller"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item">Gäste WC</div>
+                                    <div class="item-after">
+                                        <div class="range-slider range-slider-init" style="width: 180px" data-type="f7" data-object="f7Range" data-device="EG_WC_Rolladen" data-get="pct">
+                                            <input type="range" min="0" max="100" step="20" value="0">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item-title-row">
+                                    <div class="item-footer" data-type="html" data-content="EG_WC_Rolladen:pct" data-unit="%"></div>
+                                    <div class="item-after">
+                                        <div class="segmented segmented-round" style="padding-top: 12px">
+                                            <span class="button button-outline" style="width: 55px" data-type="f7" data-object="f7Button" data-fhem-cmd="set EG_WC_Rolladen off" data-class="EG_WC_Rolladen:pct" data-map-class='{"0":"disabled", "100":""}'>ZU</span>
+                                            <span class="button button-outline" style="width: 55px" data-type="f7" data-object="f7Button" data-fhem-cmd="set EG_WC_Rolladen on" data-class="EG_WC_Rolladen:pct" data-map-class='{"0":"", "100":"disabled"}'>AUF</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon oa-icons oa-fts_shutter color-blue smaller"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item">Küche</div>
+                                    <div class="item-after">
+                                        <div class="range-slider range-slider-init" style="width: 180px" data-type="f7" data-object="f7Range" data-device="EG_Kueche_Rolladen" data-get="pct">
+                                            <input type="range" min="0" max="100" step="20" value="0">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item-title-row">
+                                    <div class="item-footer" data-type="html" data-content="EG_Kueche_Rolladen:pct" data-unit="%"></div>
+                                    <div class="item-after">
+                                        <div class="segmented segmented-round" style="padding-top: 12px">
+                                            <span class="button button-outline" style="width: 55px" data-type="f7" data-object="f7Button" data-fhem-cmd="set EG_Kueche_Rolladen off" data-class="EG_Kueche_Rolladen:pct" data-map-class='{"0":"disabled", "100":""}'>ZU</span>
+                                            <span class="button button-outline" style="width: 55px" data-type="f7" data-object="f7Button" data-fhem-cmd="set EG_Kueche_Rolladen on" data-class="EG_Kueche_Rolladen:pct" data-map-class='{"0":"", "100":"disabled"}'>AUF</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon oa-icons oa-fts_shutter color-blue smaller"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item">Spielzimmer</div>
+                                    <div class="item-after">
+                                        <div class="range-slider range-slider-init" style="width: 180px" data-type="f7" data-object="f7Range" data-device="EG_Spielzimmer_Rolladen" data-get="pct">
+                                            <input type="range" min="0" max="100" step="20" value="0">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item-title-row">
+                                    <div class="item-footer" data-type="html" data-content="EG_Spielzimmer_Rolladen:pct" data-unit="%"></div>
+                                    <div class="item-after">
+                                        <div class="segmented segmented-round" style="padding-top: 12px">
+                                            <span class="button button-outline" style="width: 55px" data-type="f7" data-object="f7Button" data-fhem-cmd="set EG_Spielzimmer_Rolladen off" data-class="EG_Spielzimmer_Rolladen:pct" data-map-class='{"0":"disabled", "100":""}'>ZU</span>
+                                            <span class="button button-outline" style="width: 55px" data-type="f7" data-object="f7Button" data-fhem-cmd="set EG_Spielzimmer_Rolladen on" data-class="EG_Spielzimmer_Rolladen:pct" data-map-class='{"0":"", "100":"disabled"}'>AUF</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                     <li>
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon oa-icons oa-fts_shutter color-blue smaller"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item">Windfang</div>
+                                    <div class="item-after">
+                                        <div class="range-slider range-slider-init" style="width: 180px" data-type="f7" data-object="f7Range" data-device="EG_Treppenhaus_Rolladen" data-get="pct">
+                                            <input type="range" min="0" max="100" step="20" value="0">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item-title-row">
+                                    <div class="item-footer" data-type="html" data-content="EG_Treppenhaus_Rolladen:pct" data-unit="%"></div>
+                                    <div class="item-after">
+                                        <div class="segmented segmented-round" style="padding-top: 12px">
+                                            <span class="button button-outline" style="width: 55px" data-type="f7" data-object="f7Button" data-fhem-cmd="set EG_Treppenhaus_Rolladen off" data-class="EG_Treppenhaus_Rolladen:pct" data-map-class='{"0":"disabled", "100":""}'>ZU</span>
+                                            <span class="button button-outline" style="width: 55px" data-type="f7" data-object="f7Button" data-fhem-cmd="set EG_Treppenhaus_Rolladen on" data-class="EG_Treppenhaus_Rolladen:pct" data-map-class='{"0":"", "100":"disabled"}'>AUF</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+  return {
+    data: function () {
+      return {
+        token: this.$app.data.token,
+      }
+    },
+    methods: {
+    },
+    on: {
+        pageInit: function () {
+            var $ = this.$;
+            var app = this.$app;
+            var self = this;
+            var router = this.$router;
+
+            app.dialog.preloader('Daten werden geladen...');
+        },
+        pageAfterIn: function (event, page) {
+            var app = this.$app;
+            
+            setTimeout(function () {
+                app.dialog.close();
+            }, 1000);
+        }
+    },
+  }
+</script>

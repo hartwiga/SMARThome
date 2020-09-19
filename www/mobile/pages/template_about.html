@@ -1,0 +1,54 @@
+<template>
+    <div class="page page-white" data-name="about">
+        <div class="navbar">
+            <div class="navbar-bg"></div>
+            <div class="navbar-inner sliding">
+                <div class="left">
+                    <a href="#" class="link back">
+                        <i class="icon icon-back"></i>
+                        <span>Zurück</span>
+                    </a>
+                </div>
+                <div class="title">About</div>
+                <div class="title-large">
+                    <div class="title-large-text">About</div>
+                </div>
+            </div>
+        </div>
+        <div class="page-content hide-navbar-on-scroll">
+            <div class="block-title block-title-medium">SMARThome</div>     
+            <div class="block block-strong">
+                <p>SMARThome ist eine auf dem Komponenten UI Framwork7 basierende WEB Applikation zur komfortablen Bedienung von FHEM die freuntliche Hausautomatisierung. Die Anbindung an FEHM erfolgt mit Hilfe des Frameworks FHEM Tablet UI (FTUI) zum Steuern und Überwachen von in FHEM integrierten Geräten<br></p>
+                <p>Entwickler: Andreas Hartwig 2020</p>
+                <p>Version {{this.version}} <br><br></p>
+                <p>Framework7 von Vladimir Kharlampidi https://framework7.io/</p>
+                <p>FHEM Tablet UI (FTUI) von setstate https://github.com/knowthelist/fhem-tablet-ui</p>
+            </div>      
+        </div>
+    </div>
+</template>
+<script>
+  return {
+    data: function () {
+      return {
+        token: this.$app.data.token,
+        version: this.$app.version,
+      }
+    },
+    methods: {
+    },
+    on: {
+        pageInit: function () {
+            var $ = this.$;
+            var app = this.$app;
+            var self = this;
+            var router = this.$router;
+
+           
+        },
+        pageAfterIn: function (event, page) {
+           
+        }
+    },
+  }
+</script>

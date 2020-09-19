@@ -1,0 +1,109 @@
+<template>
+    <div class="page" data-name="corridor">
+        <div class="navbar">
+            <div class="navbar-bg"></div>
+            <div class="navbar-inner sliding">
+                <div class="left">
+                    <a href="#" class="link back">
+                        <i class="icon icon-back"></i>
+                        <span>Zurück</span>
+                    </a>
+                </div>
+                <div class="title">Flur</div>
+                <div class="title-large">
+                    <div class="title-large-text">Flur</div>
+                </div>
+            </div>
+        </div>
+        <div class="page-content hide-navbar-on-scroll">
+            <!-- Beleuchtung -->
+            <div class="block-title">Beleuchtung</div>
+            <div class="list media-list">
+                <ul>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media">
+                                <i class="icon oa-icons oa-light_wall_1 color-blue"></i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item">Wandlampe</div>
+                                    <div class="item-after">
+                                        <label class="toggle  toggle-init" data-type="f7" data-object="f7Toggle" data-device="EG_Flur_Schalter_Wandlampen" data-map-checked='{"on":true,"set_on":true, "off":false, "set_off":false}' data-map-changed='{"true":"on", "false":"off"}'>
+                                            <input type="checkbox">
+                                            <span class="toggle-icon"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media">
+                                <i class="icon oa-icons oa-light_cabinet color-blue"></i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item">Schuhschranklampe 1</div>
+                                    <div class="item-after">
+                                        <label class="toggle  toggle-init" data-type="f7" data-object="f7Toggle" data-device="ESPEasy_SONOFF04" data-get="output" data-map-checked='{"on":true, "off":false}' data-map-changed='{"true":"on", "false":"off"}'>
+                                            <input type="checkbox">
+                                            <span class="toggle-icon"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                     <li>
+                        <div class="item-content">
+                            <div class="item-media">
+                                <i class="icon oa-icons oa-light_cabinet color-blue"></i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item">Schuhschranklampe 2</div>
+                                    <div class="item-after">
+                                        <label class="toggle  toggle-init" data-type="f7" data-object="f7Toggle" data-device="ESPEasy_SONOFF05" data-get="output" data-map-checked='{"on":true, "off":false}' data-map-changed='{"true":"on", "false":"off"}'>
+                                            <input type="checkbox">
+                                            <span class="toggle-icon"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+  return {
+    data: function () {
+      return {
+        token: this.$app.data.token,
+      }
+    },
+    methods: {
+    },
+    on: {
+        pageInit: function () {
+            var $ = this.$;
+            var app = this.$app;
+            var self = this;
+            var router = this.$router;
+
+            app.dialog.preloader('Daten werden geladen...');
+        },
+        pageAfterIn: function (event, page) {
+            var app = this.$app;
+            
+            setTimeout(function () {
+                app.dialog.close();
+            }, 1000);
+        }
+    },
+  }
+</script>

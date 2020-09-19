@@ -1,0 +1,243 @@
+<template>
+    <div class="page" data-name="messages">
+        <div class="navbar">
+            <div class="navbar-bg"></div>
+            <div class="navbar-inner sliding">
+                <div class="left">
+                    <a href="#" class="link back">
+                        <i class="icon icon-back"></i>
+                        <span>Zurück</span>
+                    </a>
+                </div>
+                <div class="title">Nachrichten</div>
+                <div class="right">
+                    {{#js_if "this.token.role === 'admin'"}}
+                    <a href="#" @click="deleteAllMessages" class="link icon-only">
+                        <i class="icon f7-icons">trash_circle</i>
+                    </a>
+                    {{/js_if}}
+                </div>
+                <div class="title-large">
+                    <div class="title-large-text">Nachrichten</div>
+                </div>
+                <div class="subnavbar">
+                    <!-- Searchbar with auto init -->
+                    <form class="searchbar">
+                        <div class="searchbar-inner">
+                            <div class="searchbar-input-wrap">
+                                <input type="search" placeholder="Search">
+                                <i class="searchbar-icon"></i>
+                                <span class="input-clear-button"></span>
+                            </div>
+                            <span class="searchbar-disable-button if-not-aurora">Cancel</span>
+                        </div>
+                    </form>
+                </div>
+                
+            </div>
+        </div>
+        <div class="page-content hide-navbar-on-scroll">
+            <!-- Searchbar backdrop -->
+            <div class="searchbar-backdrop"></div>
+            <div class="list media-list searchbar-found">
+                <ul>
+                    {{#each this.msglist.messages}}
+                    <li @swipeout:deleted="deleteMessage" id="{{uuid}}" class="swipeout deleted-callback {{#js_if 'this.priority == 1'}}priority_medium{{/js_if}} {{#js_if 'this.priority == 2'}}priority_high{{/js_if}} " data-id="{{uuid}}">
+                            <a href="/msg/{{uuid}}/" class="swipeout-content item-content item-link">
+                                <div class="item-media">
+                                    <i class="icon f7-icons color-blue" style="font-size: 16px;">
+                                        {{#if new}}
+                                        capsule_fill
+                                        {{/if}}
+                                    </i>
+                                    <!-- <img src="./icons/apple-touch-icon-60x60.png" ></img> -->
+                                </div>
+                                <div class="item-inner">
+                                    <div class="item-title-row">
+                                        <div class="item-title">{{title}}</div>
+                                        <div class="item-after" style="font-size: 12px;">{{datetime}}</div>
+                                    </div>
+                                    <div class="item-text">{{text}}</div>
+                                </div>
+                            </a>
+                            <div class="swipeout-actions-right">
+                                <a href="#" class="swipeout-delete">löschen</a>
+                            </div>
+                    </li>
+                    {{/each}}
+                </ul>
+            </div>
+            <!-- Nothing found message -->
+            <div class="block searchbar-not-found">
+                 <div class="block-inner">Nothing found</div>
+            </div>
+        </div>
+    </div>
+</template>
+<style>
+    .media-list .item-media img {
+        width: 40px;
+    }
+   .media-list li.priority_high {
+        background-color: #ff000040;
+    }
+    .media-list li.priority_medium {
+        background-color: #ffff0040;
+    }
+</style>
+<script>
+return {
+    data: function() {
+        return {
+            token: this.$app.data.token,
+            msglist: {messages: []}      
+        }
+    },
+    methods: {
+        deleteMessage: function(e) {
+            var self = this;
+            var app = this.$app;
+
+            /*
+            self.$app.dialog.confirm('Möchten sie die ausgewählte Nachricht löschen?', function () {
+                console.log(e);
+                self.$app.dialog.alert('Nachricht wurde gelöscht');
+            });
+            */
+
+            var url = app.data.message.setmsg_delete  + ' ' + self.token.user + ' uuid ' + e.target.id;            
+            app.request.get(url,
+                {
+                    fwcsrf: Framework7.getFhemCsrf(),
+                    XHR: 1,
+                } ,
+                function (data, status, xhr) {  
+
+                },
+                function(xhr, status) {
+                    console.log(status);
+                    self.$app.dialog.alert("Es ist ein Fehler aufgetreten!");
+                }
+            );
+
+        },
+        deleteAllMessages: function() {
+            var self = this;
+            var app = this.$app;
+            self.$app.dialog.confirm('Möchten sie alle Nachricht löschen?', function () {
+                var url = app.data.message.setmsg_delete  + ' ' + self.token.user + ' all';            
+                app.request.get(url,
+                    {
+                        fwcsrf: Framework7.getFhemCsrf(),
+                        XHR: 1,
+                    } ,
+                    function (data, status, xhr) {  
+                        self.$app.dialog.alert('Nachrichten wurden alle gelöscht');
+                    },
+                    function(xhr, status) {
+                        console.log(status);
+                        self.$app.dialog.alert("Es ist ein Fehler aufgetreten!");
+                    }
+                );
+            });
+        },
+        getAllMessages: function() {
+            var app = this.$app;
+            var self = this;
+
+            //app.request.json(app.data.message.getall_url + '&fwcsrf=' + app.data.fhem.csrf + '&XHR=1', function (data, status, xhr) { 
+            var url = app.data.message.getmsg_url  + ' ' + self.token.user + ' all';            
+            app.request.json(url,
+                {
+                    fwcsrf: Framework7.getFhemCsrf(),
+                    XHR: 1,
+                } ,
+                function (data, status, xhr) {  
+
+                    app.methods.sort(data.messages);
+
+                    var oMsg = data;
+                    for (var i in oMsg.messages) {
+                        // Convert timestamp to human readable string
+                        oMsg.messages[i].datetime = app.methods.formatMessageTimestamp(oMsg.messages[i].timestamp);
+
+                        // Add standard app name as title if not exist 
+                        
+                        if (oMsg.messages[i].title == "") {
+                            oMsg.messages[i].title = f7.ftui.name;
+                        }
+                        
+
+                        if(app.methods.isMessageNew(oMsg.messages[i].uuid)) {
+                            oMsg.messages[i].new = true;
+                        }
+                    }    
+
+                    self.msglist = oMsg;
+                    self.$update();
+
+                    // Remove all new messages from local storrage
+                    //app.methods.deleteNewMessage('all');
+
+                    // Remember last message poll time
+                    //var timestamp = Math.floor(new Date().getTime() / 1000);
+                    //app.methods.saveMessageTimestamp(timestamp);
+
+                },
+                function(xhr, status) {
+                    console.log(status);
+                }
+            );
+        }
+    },
+    on: {
+        pageInit: function() {
+            var app = this.$app;
+            var self = this;
+
+            self.getAllMessages();
+
+            var searchbar = app.searchbar.create({
+                el: '.searchbar',
+                searchContainer: '.list',
+                searchIn: '.item-title',
+                on: {
+                    search(sb, query, previousQuery) {
+                    //console.log(query, previousQuery);
+                }
+                }
+            });
+
+            app.dialog.preloader('Daten werden geladen...');
+        },
+        pageAfterIn: function(event, page) {
+            var app = this.$app;
+            var self = this;
+
+            $$(window).on('newmessage', function(e) {
+               self.getAllMessages();
+            });
+
+            $$('.deleted-callback').on('swipeout:deleted', function (e) {
+                console.log('Message deleted uuid=' + e.target.dataset.uuid);
+            });
+
+            //$$('.list .item-media > i').prepend('<span class="badge color-red">!</span>');
+
+            setTimeout(function () { app.dialog.close()}, 500);
+        },
+        pageAfterOut: function(event, page) {
+            var app = this.$app;
+            var self = this;
+     
+            // Remove all new messages from local storrage
+            app.methods.deleteNewMessage('all');
+
+            // Remember last message poll time
+            var timestamp = Math.floor(new Date().getTime() / 1000);
+            app.methods.saveMessageTimestamp(timestamp);
+
+        }
+    },
+}
+</script>

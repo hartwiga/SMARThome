@@ -1,0 +1,140 @@
+<template>
+    <div class="page" data-name="cams">
+        <div class="navbar">
+            <div class="navbar-bg"></div>
+            <div class="navbar-inner sliding">
+                <div class="left">
+                    <a href="#" class="link back">
+                        <i class="icon icon-back"></i>
+                        <span>Zurück</span>
+                    </a>
+                </div>
+                <div class="title">Außenkameras</div>
+                <div class="title-large">
+                    <div class="title-large-text">Außenkameras</div>
+                </div>
+                <div class="right">
+                    <a href="#" class="link icon-only photobrowser">
+                        <i class="icon f7-icons">camera</i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="page-content hide-navbar-on-scroll">
+            <div class="card demo-card-header-pic">
+                <div style="background-image:url({{url}}/webapi/SurveillanceStation/videoStreaming.cgi?api=SYNO.SurveillanceStation.VideoStream&version=1&method=Stream&cameraId=1&format=mjpeg&_sid={{sid}})" class="card-header align-items-flex-end">Hauseingang [CAM1]</div>
+            </div>
+    
+            <div class="card demo-card-header-pic">
+                <div style="background-image:url({{url}}/webapi/SurveillanceStation/videoStreaming.cgi?api=SYNO.SurveillanceStation.VideoStream&version=1&method=Stream&cameraId=2&format=mjpeg&_sid={{sid}})" class="card-header align-items-flex-end">Carport [CAM2]</div>
+            </div>
+
+            <div class="card demo-card-header-pic">
+                <div style="background-image:url({{url}}/webapi/SurveillanceStation/videoStreaming.cgi?api=SYNO.SurveillanceStation.VideoStream&version=1&method=Stream&cameraId=3&format=mjpeg&_sid={{sid}})" class="card-header align-items-flex-end">Schuppen [CAM4]</div>
+            </div>
+
+            <div class="card demo-card-header-pic">
+                <div style="background-image:url({{url}}/webapi/SurveillanceStation/videoStreaming.cgi?api=SYNO.SurveillanceStation.VideoStream&version=1&method=Stream&cameraId=4&format=mjpeg&_sid={{sid}})" class="card-header align-items-flex-end">Terrasse [CAM5]</div>
+            </div>
+
+            <div class="card demo-card-header-pic">
+                <div style="background-image:url({{url}}/webapi/SurveillanceStation/videoStreaming.cgi?api=SYNO.SurveillanceStation.VideoStream&version=1&method=Stream&cameraId=5&format=mjpeg&_sid={{sid}})" class="card-header align-items-flex-end">Garten [CAM6]</div>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+return {
+    data: function() {
+        var app = this.$app;
+        return {
+            token: this.$app.data.token,
+            sid: app.data.survialanceStation.sid,
+            url: config.surveillancestation.url,
+        }
+    },
+    methods: {},
+    on: {
+        pageInit: function() {
+            var $ = this.$;
+            var app = this.$app;
+            var self = this;
+            var router = this.$router;
+
+            app.preloader.show();
+
+            var darkmode = self.$$('html').hasClass('theme-dark') ? true : false;;
+
+            var url = config.surveillancestation.url + '/webapi/entry.cgi'
+            var data = {
+                api: 'SYNO.SurveillanceStation.SnapShot',
+                method: 'List',
+                version: 1,
+                imgSize: 2,
+                limit: 10,
+                _sid: app.data.survialanceStation.sid,
+            };
+
+            // Get latest snapshots from Synology NAS
+            app.request.json(url, data,
+                function (data, status, xhr) {             
+                    console.log(data);
+
+                    var photos = [];
+                    data.data.data.forEach(
+                        function (key) {
+                            var date = new Date(key.createdTm * 1000);
+                            var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
+                            var photo = {
+                                caption: key.camName + ' - ' + date.toLocaleDateString('de-DE', options),
+                                url: 'data:image/jpg;base64,' + key.imageData,
+                            };
+
+                            photos.push(photo);
+                        }
+                    );
+
+                    var myPhotoBrowser = app.photoBrowser.create({
+                        type: 'page',
+                        theme: darkmode ? 'dark' : 'light',
+                        pageBackLinkText: 'Zurück',
+                        popupCloseLinkText: 'Schließen',
+                        navbarOfText: 'bis',
+                        photos: photos,
+                        on: {
+                            opened: function () {
+                              console.log('photo browser opened');
+                              $$('.navbar-photo-browser a.link.back').removeClass('icon-only');
+                              $$('.navbar-photo-browser i.icon-back').removeClass('color-white');
+                              //$$('<span>Zurück</span>').insertAfter('.navbar-photo-browser i.icon-back');
+                              //$$('.navbar-photo-browser i.icon-back').prepend('<span>Zurück</span>')
+                             // $$('<div class="title-large"><div class="title-large-text">Schnapschüsse</div></div>').insertAfter('.navbar-photo-browser .title');
+
+                              $$('a.photo-browser-next i.icon-forward').removeClass('color-white');
+                              $$('a.photo-browser-prev i.icon-back').removeClass('color-white');
+                            }
+                        }
+                    });
+                    $$('.photobrowser').on('click', function () {
+                        myPhotoBrowser.open();
+                    });
+                    
+                },
+                function (data, status, xhr) {
+                }
+            );
+
+
+            //app.dialog.preloader('Daten werden geladen...');
+        },
+        pageAfterIn: function(event, page) {
+            var $ = this.$;
+            var app = this.$app;
+            var self = this;
+            var router = this.$router;
+
+            setTimeout(function () { app.preloader.hide()}, 4000);
+        }
+    },
+}
+</script>
