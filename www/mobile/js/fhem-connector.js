@@ -214,7 +214,6 @@ var fhem = {
 			            XHR: 1,
 			        } , 
 			        function(data, status, xhr) {
-			        	console.log(data);
 			        	fhem.xhr.receiveData(data)
 			        },
 			        function(xhr, status) {
@@ -229,19 +228,26 @@ var fhem = {
 		f7Button: function(element) {
 			element.on('touchstart mousedown', function(e) {
             	var element = $$(this);
+            	e.preventDefault();
+            	//e.stopImmediatePropagation();
+
             	fhem.data.change(element);
             });
        		element.on('touchend mouseup', function(e) {
             	var element = $$(this);
+            	e.preventDefault();
             });
 		},
 		f7Link: function(element) {
 			element.on('touchstart mousedown', function(e) {
             	var element = $$(this);
+            	e.preventDefault();
+
             	fhem.data.change(element);
             });
       		element.on('touchend mouseup', function(e) {
             	var element = $$(this);
+            	e.preventDefault();
             });
 		},
 		f7Picker: function(element) {
@@ -528,6 +534,7 @@ var fhem = {
                	else if(dataObject === 'f7Link') {
             		if(dataFhemCmd) {
             			cmd = dataFhemCmd;
+            			dataBlockingtime = 0;
             		}
             	}
 			}
@@ -538,7 +545,7 @@ var fhem = {
 					e.removeData('blocked');
 				}, dataBlockingtime, e);
 
-				console.log("FHEM command: " + cmd);
+				fhem.log('data.change -> send command to FHEM: ' + cmd);
 				fhem.cmd.send(cmd);
 			}
 	    }
@@ -664,6 +671,9 @@ var fhem = {
 
 		    					if(!blocked && element.valid) {
 		    						app.emit('fhemupdate', element, e);
+		    					}
+		    					else {
+		    						fhem.log('socket -> ' + id, 'data update blocked');
 		    					}
 		    				}
 		    			}
