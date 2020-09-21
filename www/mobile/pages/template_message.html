@@ -12,7 +12,7 @@
                 <div class="title">Nachricht</div>
                 <div class="right">
                     {{#js_if "this.token.role === 'admin'"}}
-                    <a href="#" class="link icon-only">
+                    <a href="#" @click="deleteMessage" class="link icon-only">
                         <i class="icon f7-icons">trash_circle</i>
                     </a>
                     {{/js_if}}
@@ -89,7 +89,37 @@ return {
                     console.log(status);
                 }
             );
-        }
+        },
+        deleteMessage: function(e) {
+            var self = this;
+            var app = this.$app;
+            var route = this.$route;
+
+            /*
+            self.$app.dialog.confirm('Möchten sie die ausgewählte Nachricht löschen?', function () {
+                console.log(e);
+                self.$app.dialog.alert('Nachricht wurde gelöscht');
+            });
+            */
+
+            var msguuid = route.params.msguuid;
+
+            var url = app.data.message.setmsg_delete  + ' ' + self.token.user + ' uuid ' + msguuid;            
+            app.request.get(url,
+                {
+                    fwcsrf: Framework7.getFhemCsrf(),
+                    XHR: 1,
+                } ,
+                function (data, status, xhr) {  
+                    app.view.main.router.navigate({ name: 'messages' }, { history: false });
+                },
+                function(xhr, status) {
+                    console.log(status);
+                    self.$app.dialog.alert("Es ist ein Fehler aufgetreten!");
+                }
+            );
+
+        },
     },
     on: {
         pageInit: function() {

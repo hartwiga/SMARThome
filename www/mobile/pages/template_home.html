@@ -43,6 +43,16 @@
                 </div>
             </div>
             -->
+
+            <div class="block-title">Lichtscenen</div>
+            <div class="block" style="margin-bottom: 20px;">
+                <div class="segmented segmented-strong">
+                    <button class="button" data-type="f7" data-object="f7Button" data-fhem-cmd="set if_HomeLightScene wakeup" data-class="if_HomeLightScene:STATE" data-map-class='{"wakeup":"button-active","gotosleep":"","tv":"","initialize":"", "tv":"", "dinner":"", "on":"","off":""}'>Aufstehen</button>
+                    <button class="button" data-type="f7" data-object="f7Button" data-fhem-cmd="set if_HomeLightScene gotosleep" data-class="if_HomeLightScene:STATE" data-map-class='{"wakeup":"","gotosleep":"button-active","tv":"","initialize":"", "tv":"", "dinner":"", "on":"","off":""}'>Schlafen</button>
+                    <button class="button" data-type="f7" data-object="f7Button" data-fhem-cmd="set if_HomeLightScene tv" data-class="if_HomeLightScene:STATE" data-map-class='{"wakeup":"","gotosleep":"","tv":"button-active","initialize":"", "dinner":"", "on":"","off":""}'>TV</button>
+                    <span class="segmented-highlight"></span>
+                </div>
+            </div>
             <div class="block-title">Wetter</div>
             <div class="list">
                 <ul>

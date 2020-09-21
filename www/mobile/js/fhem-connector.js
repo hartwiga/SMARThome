@@ -653,10 +653,11 @@ var fhem = {
 			      	if (lastChar === ']') {
 			        	var element = JSON.parse(lines[i]);
 
-			          	var id = element[0];
-			          	var value = element[1];
 			          	var isSTATE = (element[1] !== element[2]);
 			          	var isTrigger = (element[1] === '' && element[2] === '');
+			          	var id = isSTATE ? element[0] + '-STATE' : element[0];
+			          	var value = element[1];
+
 			          	var element = fhem.params.devicesOnPage[id];
 
 			          	if(element && element.value !== value) {
