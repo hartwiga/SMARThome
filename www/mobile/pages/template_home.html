@@ -44,15 +44,8 @@
             </div>
             -->
 
-            <div class="block-title">Lichtscenen</div>
-            <div class="block" style="margin-bottom: 20px;">
-                <div class="segmented segmented-strong">
-                    <button class="button" data-type="f7" data-object="f7Button" data-fhem-cmd="set if_HomeLightScene wakeup" data-class="if_HomeLightScene:STATE" data-map-class='{"wakeup":"button-active","gotosleep":"","tv":"","initialize":"", "tv":"", "dinner":"", "on":"","off":""}'>Aufstehen</button>
-                    <button class="button" data-type="f7" data-object="f7Button" data-fhem-cmd="set if_HomeLightScene gotosleep" data-class="if_HomeLightScene:STATE" data-map-class='{"wakeup":"","gotosleep":"button-active","tv":"","initialize":"", "tv":"", "dinner":"", "on":"","off":""}'>Schlafen</button>
-                    <button class="button" data-type="f7" data-object="f7Button" data-fhem-cmd="set if_HomeLightScene tv" data-class="if_HomeLightScene:STATE" data-map-class='{"wakeup":"","gotosleep":"","tv":"button-active","initialize":"", "dinner":"", "on":"","off":""}'>TV</button>
-                    <span class="segmented-highlight"></span>
-                </div>
-            </div>
+            <!-- <button href="#" class="button button-raised popup-open" data-popup=".popup-handler-home">Scenen</button> -->
+
             <div class="block-title">Wetter</div>
             <div class="list">
                 <ul>
@@ -116,6 +109,19 @@
                         </a>
                     </li>
                 </ul>
+            </div>
+            <div class="block-title">Lichtscene</div>
+            <div class="block block-strong">
+                <div class="segmented segmented-strong">
+                    <button class="button" style="font-size: 11px" data-type="f7" data-object="f7Button" data-fhem-cmd="set rr_Andreas awoken" data-class="rr_Andreas:STATE" data-map-class='{"awoken":"button-active","gotosleep":"","asleep":"","home":"", "absent":"", "gone":""}'>Aufstehen</button>
+                    <button class="button" style="font-size: 11px" data-type="f7" data-object="f7Button" data-fhem-cmd="set rr_Andreas home" data-class="rr_Andreas:STATE" data-map-class='{"awoken":"","gotosleep":"","asleep":"","home":"button-active", "absent":"button-active", "gone":"button-active"}'>Tag</button>
+                    <button class="button" style="font-size: 11px" data-type="f7" data-object="f7Button" data-fhem-cmd="set rr_Andreas gotosleep" data-class="rr_Andreas:STATE" data-map-class='{"awoken":"","gotosleep":"button-active","asleep":"","home":"", "absent":"", "gone":""}'>ins Bett</button>
+                    <button class="button" style="font-size: 11px" data-type="f7" data-object="f7Button" data-fhem-cmd="set rr_Andreas asleep" data-class="rr_Andreas:STATE" data-map-class='{"awoken":"","gotosleep":"","asleep":"button-active","home":"", "absent":"", "gone":""}'>Schlafen</button>
+                    <span class="segmented-highlight"></span>
+                </div>
+                <p>
+                    <a class="link popup-open" data-popup=".popup-handler-home">mehr Scenen</a>
+                </p>
             </div>
             <div class="block-title">Sicherheit</div>
             <div class="list">
@@ -334,7 +340,7 @@
                                     <div class="item">Beleuchtung</div>
                                 </div>
                                 <div class="item-after">
-                                    <div data-type="html" data-content="s_Haus_Beleuchtung:STATE" data-map-checked='{"on":"eingeschaltet", "off":"ausgeschaltet"}'></div>
+                                    <div data-type="html" data-content="s_Haus_Beleuchtung:STATE" data-map-content='{"on":"eingeschaltet", "off":"ausgeschaltet"}'></div>
                                 </div>
                             </div>
                         </a>
@@ -349,7 +355,7 @@
                                     <div class="item">Fenster und Türen</div>
                                 </div>
                                 <div class="item-after">
-                                    <div data-type="html" data-content="s_Haus_Fenster:STATE" data-map-checked='{"open":"offen", "closed":"geschlossen"}'></div>
+                                    <div data-type="html" data-content="s_Haus_Fenster:STATE" data-map-content='{"open":"offen", "closed":"geschlossen"}'></div>
                                 </div>
                             </div>
                         </a>
@@ -379,7 +385,7 @@
                                     </div>
                                 </div>
                                 <div class="item-after">
-                                    <span data-type="html" data-content="SILENO_city:state" data-map-content='{"error":"Problem","parked_timer":"Geparkt","parked_park_selected":"Geparkt","ok_cutting":"Mähen","ok_searching":"Ladestation suchen", "ok_charging":"Laden","off_hatch_open":"Abdeckung wurde geöffnet"}'></span>
+                                    <span data-type="html" data-content="SILENO_city:state" data-map-content='{"error":"Problem","parked_timer":"geparkt","parked_park_selected":"geparkt","ok_cutting":"Mähen","ok_searching":"Ladestation suchen", "ok_charging":"Laden","off_hatch_open":"Abdeckung wurde geöffnet"}'></span>
                                 </div>
                             </div>
                         </a>
@@ -419,17 +425,15 @@
             <div class="block">
                 <div class="row">
                     <div class="col">
-                        <a class="card-prevent-open" data-type="html" data-fhem-cmd="set OG_Arbeit_Schalter_Decke_Lampe toggle">
-                            <div class="card card-fixed card-expandable card-prevent-open">
-                                <div class="card-content">
-                                    <div class="bg-color-blue" style="height: 100%;padding: 10px;">
-                                        <div class="text-color-white display-block">
-                                            <i class="icon oa-icons oa-light_light color-yellow" data-type="html" data-class="OG_Arbeit_Schalter_Decke_Lampe:STATE" data-map-class='{"on":"color-yellow", "off":"color-white", "set_toggle":""}'></i>
-                                        </div>
-                                        <div class="text-color-white" style="padding-left: 5px;padding-top: 10px">
-                                            <div>Rollladen</div>
-                                            <div style="font-size: x-small; opacity: 0.7">Arbeitszimmer</div>
-                                        </div>
+                        <a data-type="html" data-object="f7Link" data-fhem-cmd="set OG_Arbeit_Schalter_Decke_Lampe toggle">
+                            <div class="card card-expandable card-prevent-open">
+                                <div class="card-content bg-color-blue" style="height: 100%;padding: 10px;">
+                                    <div class="text-color-white display-block">
+                                        <i class="icon oa-icons oa-light_light color-yellow" data-type="html" data-class="OG_Arbeit_Schalter_Decke_Lampe:STATE" data-map-class='{"on":"oa-light_light_dim_100 color-yellow", "off":"oa-light_light color-white", "set_toggle":""}'></i>
+                                    </div>
+                                    <div class="text-color-white" style="padding-left: 5px;padding-top: 10px">
+                                        <div>Rollladen</div>
+                                        <div style="font-size: x-small; opacity: 0.7">Arbeitszimmer</div>
                                     </div>
                                 </div>
                             </div>
@@ -437,7 +441,7 @@
                     </div>
                 </div>
             </div>
-        -->
+            -->
             <!--
                     <div class="col">
                         <a href="/office/" class="card-prevent-open">
@@ -505,6 +509,33 @@
                 </div>
             </div>
         -->
+        </div>
+        <div class="popup popup-handler-home">
+            <div class="page">
+                <div class="swipe-handler"></div>
+                <div class="page-content">
+                    <div class="block-title block-title-large">Scenen</div>
+                    <div class="block-title">Haus</div>
+                    <div class="block block-strong">
+                        <div class="segmented segmented-strong">
+                            <button class="button" style="font-size: 11px" data-type="f7" data-object="f7Button" data-fhem-cmd="set rr_Andreas awoken" data-class="rr_Andreas:STATE" data-map-class='{"awoken":"button-active","gotosleep":"","asleep":"","home":"", "absent":"", "gone":""}'>Aufstehen</button>
+                            <button class="button" style="font-size: 11px" data-type="f7" data-object="f7Button" data-fhem-cmd="set rr_Andreas home" data-class="rr_Andreas:STATE" data-map-class='{"awoken":"","gotosleep":"","asleep":"","home":"button-active", "absent":"button-active", "gone":"button-active"}'>Tag</button>
+                            <button class="button" style="font-size: 11px" data-type="f7" data-object="f7Button" data-fhem-cmd="set rr_Andreas gotosleep" data-class="rr_Andreas:STATE" data-map-class='{"awoken":"","gotosleep":"button-active","asleep":"","home":"", "absent":"", "gone":""}'>ins Bett</button>
+                            <button class="button" style="font-size: 11px" data-type="f7" data-object="f7Button" data-fhem-cmd="set rr_Andreas asleep" data-class="rr_Andreas:STATE" data-map-class='{"awoken":"","gotosleep":"","asleep":"button-active","home":"", "absent":"", "gone":""}'>Schlafen</button>
+                            <span class="segmented-highlight"></span>
+                        </div>
+                    </div>
+                    <div class="block-title">Wohnzimmer</div>
+                    <div class="block block-strong">
+                        <div class="segmented segmented-strong">
+                            <button class="button" style="font-size: 11px;" data-type="f7" data-object="f7Button" data-fhem-cmd="set if_WohnzimmerLightScene off" data-class="if_WohnzimmerLightScene:STATE" data-map-class='{"initialize":"button-active","off":"button-active","dinner":"","tv":""}'>Aus</button>
+                            <button class="button" style="font-size: 11px;" data-type="f7" data-object="f7Button" data-fhem-cmd="set if_WohnzimmerLightScene dinner" data-class="if_WohnzimmerLightScene:STATE" data-map-class='{"initialize":"","off":"","dinner":"button-active","tv":""}'>Essen</button>
+                            <button class="button" style="font-size: 11px;" data-type="f7" data-object="f7Button" data-fhem-cmd="set if_WohnzimmerLightScene tv" data-class="if_WohnzimmerLightScene:STATE" data-map-class='{"initialize":"","off":"","dinner":"","tv":"button-active"}'>Fernsehen</button>
+                            <span class="segmented-highlight"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>

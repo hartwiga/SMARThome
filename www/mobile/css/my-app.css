@@ -338,3 +338,46 @@ i.icon {
     height: calc(100% - var(--f7-navbar-height) - var(--f7-safe-area-top));
     top: calc(var(--f7-navbar-height) + var(--f7-safe-area-top));
 }
+
+.camera .camera-preloader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.camera .camera-notavailable {
+    display: none;   position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.camera .camera-stream {
+    display: none; height: 53vw;
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    border-radius: var(--f7-card-border-radius);
+    width: 100%;
+}
+
+.camera .camera-label {
+    position: absolute;
+    bottom: 8px;
+    left: 16px;
+    color: white;
+    font-size: var(--f7-card-header-font-size);
+    font-weight: var(--f7-card-header-font-weight);"
+}
+
+.camera .camera-status {
+    position: absolute;
+    bottom: 10px;
+    right: 16px;
+}
+
+.camera .camera-status > .badge {
+    height: 12px;
+    min-width: 12px;
+}

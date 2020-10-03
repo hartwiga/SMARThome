@@ -20,9 +20,34 @@
                 </div>
             </div>
         </div>
+
         <div class="page-content hide-navbar-on-scroll">
-            <div class="card demo-card-header-pic">
-                <div style="background-image:url({{url}}/webapi/SurveillanceStation/videoStreaming.cgi?api=SYNO.SurveillanceStation.VideoStream&version=1&method=Stream&cameraId=1&format=mjpeg&_sid={{sid}})" class="card-header align-items-flex-end">Hauseingang [CAM1]</div>
+            <div class="card camera">
+                <div class="card-content text-align-center vertical-align-middle" style="height: 54vw">
+                    <div class="camera-preloader">
+                      <div class="preloader" style="width: 44px; height: 44px;"></div>
+                  </div>
+                    <div class="camera-notavailable">
+                        <a>
+                            <i class="f7-icons" style="font-size: 36px;color: grey;">arrow_clockwise</i>
+                        </a>
+                    </div>
+                    <img class="camera-stream" src="">
+                    <div class="camera-label">Carport [CAM2]</div>
+                    <div class="camera-status">
+                        <span class="badge color-red hide" data-type="f7" data-class="SSCAM1:Record" data-map-class='{"Start":"", "Stop":"hide"}'></span>
+                        <span class="badge color-yellow hide" data-type="f7" data-class="d_get_CAM1" data-map-class='{"capture":"", "off":"hide"}'></span>
+                    </div>
+                </div>    
+
+                <!--
+                <div style="background-image:url({{url}}/webapi/SurveillanceStation/videoStreaming.cgi?api=SYNO.SurveillanceStation.VideoStream&version=1&method=Stream&cameraId=1&format=mjpeg&_sid={{sid}}),url(./images/iconiOS-180.png)" class="card-header align-items-flex-end">Hauseingang [CAM1]</div>
+                -->
+                <div class="card-footer">
+                    <a data-type="f7" data-object="f7Link" data-device="SSCAM1" data-fhem-cmd-on="set SSCAM1 enable" data-fhem-cmd-off="set SSCAM1 disable" data-map-changed='{"enabled":"on", "disabled":"off"}' data-content="SSCAM1" data-map-content='{"enabled":"AUS","disabled":"EIN"}'></a>
+                    <a data-type="f7" data-object="f7Link" data-fhem-cmd="set d_get_CAM1 captured" >FOTO</a>
+                    <a data-type="f7" data-object="f7Link" data-device="SSCAM1:Record" data-fhem-cmd-on="set SSCAM1 on" data-fhem-cmd-off="set SSCAM1 off" data-map-changed='{"Start":"on", "Stop":"off"}' data-content="SSCAM1:Record" data-map-content='{"Start":"STOP","Stop":"START"}'></a>
+                </div>
             </div>
     
             <div class="card demo-card-header-pic">
@@ -53,7 +78,9 @@ return {
             url: config.surveillancestation.url,
         }
     },
-    methods: {},
+    methods: {
+
+    },
     on: {
         pageInit: function() {
             var $ = this.$;
@@ -61,7 +88,42 @@ return {
             var self = this;
             var router = this.$router;
 
-            app.preloader.show();
+            //app.preloader.show();
+            var cam1url = config.surveillancestation.url + '/webapi/SurveillanceStation/videoStreaming.cgi?api=SYNO.SurveillanceStation.VideoStream&version=1&method=Stream&cameraId=1&format=mjpeg&_sid=' + app.data.survialanceStation.sid;
+
+            var currentImageElement = $$('.camera .camera-stream');
+            currentImageElement.attr('src', '');
+         
+            var imageParentElement = currentImageElement.parent();
+            currentImageElement.remove();
+            var newImageElement = $$('<img class="camera-stream" src="">')
+            imageParentElement.append(newImageElement);
+            
+            
+            newImageElement.on('load', function(e) {
+                setTimeout(function () { 
+                    $$('.camera .camera-stream').show();
+                    $$('.camera .camera-notavailable').hide();
+                    $$('.camera .camera-preloader').hide();
+                }, 200);
+            });
+            newImageElement.on('error', function(e) {
+                console.log('IMG LOAD ERROR');
+                 var src = $$('.camera .camera-stream').attr('src');
+                 if(src !== 'none') {
+                    $$('.camera .camera-stream').attr('src', 'none');
+                 }
+                 $$('.camera .camera-notavailable').show();
+                 $$('.camera .camera-preloader').hide();
+            });
+            $$('.camera .camera-notavailable a').on('touchstart mousedown', function(e) {
+                console.log('IMG RELOAD');
+                $$('.camera .camera-notavailable').hide();
+                $$('.camera .camera-preloader').show();
+                $$('.camera .camera-stream').attr('src', cam1url);
+                e.preventDefault();
+            });
+            newImageElement.attr('src', cam1url);
 
             var darkmode = self.$$('html').hasClass('theme-dark') ? true : false;;
 
@@ -133,7 +195,10 @@ return {
             var self = this;
             var router = this.$router;
 
-            setTimeout(function () { app.preloader.hide()}, 4000);
+            //setTimeout(function () { app.preloader.hide()}, 4000);
+        },
+        pageBeforeOut: function() {
+            $$('.camera .camera-stream').attr('src', '');
         }
     },
 }

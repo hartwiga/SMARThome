@@ -445,6 +445,7 @@ var fhem = {
 			}
 			else if(dataClass) {
 				if(dataMapClass) {
+					//console.log(dataClass, dataMapClass);
 					var dataMap = JSON.parse(dataMapClass);
 					value = fhem.data.mapping(dataMap, valueRaw, valueRaw);
 
@@ -481,13 +482,14 @@ var fhem = {
 
 			var dataDevice = e.data('device');
 			if(dataDevice && dataDevice.match(/:/)) {
-      			var tmp = device.split(':');
+      			var tmp = dataDevice.split(':');
       			dataDevice = tmp[0];
+      			dataSet = tmp[1];
       		}
 
 			var dataCmd = e.data('cmd') ? e.data('cmd') : "set";
 			var dataGet = e.data('get');
-			var dataSet = e.data('set');
+			var dataSet = (dataSet !== undefined && dataSet) ? dataSet : e.data('set');
 			var dataSet = ((dataSet !== 'STATE' && dataSet !== '') ? dataSet : dataSet !== 'STATE' ? dataSet :'');
 
 			var dataFhemCmd =  e.data('fhem-cmd');
@@ -508,7 +510,7 @@ var fhem = {
 						var dataMap = JSON.parse(dataMapChanged);
 						value = fhem.data.mapping(dataMap, o.checked.toString(), o.checked.toString());
 					}
-					cmd = dataCmd + " " + dataDevice + " " + value;
+					cmd = [dataCmd,dataDevice,dataSet,value].join(' ');
             	}
 				else if(dataObject === 'f7Range') {
             		value = o.getValue();
@@ -529,12 +531,27 @@ var fhem = {
                	else if(dataObject === 'f7Button') {
             		if(dataFhemCmd) {
             			cmd = dataFhemCmd;
+            			dataBlockingtime = 0;
             		}
             	}
                	else if(dataObject === 'f7Link') {
             		if(dataFhemCmd) {
             			cmd = dataFhemCmd;
             			dataBlockingtime = 0;
+            		}
+            		else if(dataFhemCmdOn && dataFhemCmdOff) {
+            			var id = dataDevice + "-" + (dataSet !== undefined ? dataSet : 'STATE');
+            			var tmpValue = fhem.params.devicesOnPage[id].value;
+
+            			var dataMap = JSON.parse(dataMapChanged);
+						value = fhem.data.mapping(dataMap, tmpValue, tmpValue); 
+
+						if(value.toLowerCase() === 'on') {
+							cmd = dataFhemCmdOff;
+						}
+						else if(value.toLowerCase() === 'off') {
+							cmd = dataFhemCmdOn;
+						}
             		}
             	}
 			}
@@ -582,7 +599,7 @@ var fhem = {
 			socket.onclose = function(event) {
 				fhem.socket.remove(page);
 				fhem.log('page -> ' + page.name, " code=" + event.code);
-				fhem.showToast("FHEM websocket closed: " + event.code);
+				//fhem.showToast("FHEM websocket closed: " + event.code);
 			};
 
 			socket.onerror = function(error) {
@@ -689,6 +706,9 @@ var fhem = {
         	var url = Framework7.getFhemUrl() + '?XHR=1&_=1590999690524';
 
             Framework7.request.get(url,
+            	{
+            		cache: false,
+            	},
                 function(data, status, xhr) {
                     var csrf = xhr.getResponseHeader('X-FHEM-csrfToken');
                     Framework7.setFhemCsrf(csrf);
@@ -710,6 +730,7 @@ var fhem = {
 			if(csrf && csrf !== undefined) {
 			    app.request.json(url,
 			        {
+			        	cache: false,
 			        	cmd: cmdLine,
 			            fwcsrf: Framework7.getFhemCsrf(),
 			            XHR: 1,
