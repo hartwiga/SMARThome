@@ -32,6 +32,13 @@
             <div class="searchbar-backdrop"></div>
             <div class="list media-list">
                 <ul>
+                    <li style="padding: 15px">
+                        <div class="segmented segmented-strong">
+                            <button id="now" class="button button-active" @click="setNow" >Aktuell</button>
+                            <button id="prime" class="button" @click="setPrime" >Prime Time</button>
+                            <span class="segmented-highlight"></span>
+                        </div>
+                    </li>
                     {{#each this.epglistDE}}
                     <li>
                         <a href="#" class="item-content item-link popup-open" data-popup=".popup-handler-{{Ch_handler}}">
@@ -123,29 +130,57 @@ return {
     data: function() {
         return {
             token: this.$app.data.token,
+            epgTypeDE: undefined,
+            epgTypeIT: undefined,
+            epgType: undefined,
+            epgTypeStatus: undefined,
             epglistDE: [],
             epglistIT: []       
         }
     },
     methods: {
+        setNow: function() {
+            var self = this;
+
+            if(self.epgType !== 'now') {
+                self.epgType = 'now';
+                $$('#now').addClass('button-active');
+                $$('#prime').removeClass('button-active');
+                app.dialog.preloader('Daten werden geladen...');
+                self.loadEpgType('now');
+            }
+        },
+        setPrime: function() {
+            var self = this;
+
+            if(self.epgType !== 'prime') {
+                self.epgType = 'prime';
+                $$('#now').removeClass('button-active');
+                $$('#prime').addClass('button-active');
+                app.dialog.preloader('Daten werden geladen...');
+                self.loadEpgType('prime');
+            }
+        },
         getTimeString: function(str) {
             var regex = /\d{4}-\d{2}-\d{2}.(\d{2}:\d{2}):\d{2}/;
             return str.replace(regex, "$1");;
         },
-        getEPG: function() {
+        loadEpgDe: function() {
             var app = this.$app;
             var self = this;
 
-            //app.request.json(app.data.message.getall_url + '&fwcsrf=' + app.data.fhem.csrf + '&XHR=1', function (data, status, xhr) { 
-            var urlEpgDe = Framework7.getFhemUrl() + '?cmd=get tvDE jsonEPG';  
-            var urlEpgIt = Framework7.getFhemUrl() + '?cmd=get tvIT jsonEPG';
+            var urlEpgDe = Framework7.getFhemUrl() + '?cmd=get tvDE jsonEPG';
 
+            self.epgTypeStatus = 'listDeStartLoading';
             app.request.json(urlEpgDe,
                 {
                     fwcsrf: Framework7.getFhemCsrf(),
                     XHR: 1,
                 } ,
                 function (listDE, status, xhr) {  
+                    //$$('.popup[class*=" popup-handler"]').remove();
+                    //$$('.list.media-list li').remove();
+
                     for (var i in listDE) {
                         listDE[i].Ch_id = listDE[i].Ch_id.toLowerCase();
                         listDE[i].Ch_handler = listDE[i].Ch_id.toLowerCase().replace(/\./g, "-");
@@ -168,55 +203,107 @@ return {
 
                     self.epglistDE =  listDE;
 
-                    app.request.json(urlEpgIt,
-                        {
-                            fwcsrf: Framework7.getFhemCsrf(),
-                            XHR: 1,
-                        } ,
-                        function (listIT, status, xhr) {  
-      
-                            for (var i in listIT) {
-                                listIT[i].Ch_id = listIT[i].Ch_id.toLowerCase();
-                                listIT[i].Ch_handler = listIT[i].Ch_id.toLowerCase().replace(/\./g, "-");
-                                listIT[i].EPG[0].start = self.getTimeString(listIT[i].EPG[0].start);
-                                listIT[i].EPG[0].end = self.getTimeString(listIT[i].EPG[0].end);
-                            }
-
-                            listIT.sort(function(a, b) {
-                                var i = parseInt(a.Ch_sort);
-                                var j = parseInt(b.Ch_sort);
-                                
-                                if (i < j) {
-                                    return -1;
-                                }
-                                if (i > j) {
-                                    return 1;
-                                }
-                                return 0;
-                            });
-
-                            self.epglistIT =  listIT;
-                            console.log(self.epglist);
-
-                            self.$update();
-                        },
-                        function(xhr, status) {
-                            console.log(status);
-                        }
-                    );
+                    self.epgTypeStatus = 'listItStartLoading';
+                    self.loadEpgIt();
                 },
                 function(xhr, status) {
                     console.log(status);
+                    self.epgTypeStatus = undefined;
                 }
             );
+        },
+        loadEpgIt: function() {
+            var app = this.$app;
+            var self = this;
+            
+            var urlEpgIt = Framework7.getFhemUrl() + '?cmd=get tvIT jsonEPG';
+
+            app.request.json(urlEpgIt,
+                {
+                    fwcsrf: Framework7.getFhemCsrf(),
+                    XHR: 1,
+                } ,
+                function (listIT, status, xhr) {  
+
+                    for (var i in listIT) {
+                        listIT[i].Ch_id = listIT[i].Ch_id.toLowerCase();
+                        listIT[i].Ch_handler = listIT[i].Ch_id.toLowerCase().replace(/\./g, "-");
+                        listIT[i].EPG[0].start = self.getTimeString(listIT[i].EPG[0].start);
+                        listIT[i].EPG[0].end = self.getTimeString(listIT[i].EPG[0].end);
+                    }
+
+                    listIT.sort(function(a, b) {
+                        var i = parseInt(a.Ch_sort);
+                        var j = parseInt(b.Ch_sort);
+                        
+                        if (i < j) {
+                            return -1;
+                        }
+                        if (i > j) {
+                            return 1;
+                        }
+                        return 0;
+                    });
+
+                    self.epglistIT =  listIT;
+                    
+                    self.epgTypeStatus = 'listLoaded';
+                    self.$update();
+
+                    setTimeout(function () { app.dialog.close()}, 1000);
+                },
+                function(xhr, status) {
+                    console.log(status);
+                    self.epgTypeStatus = undefined;
+                }
+            );
+        },
+        loadEpgType: function(epgType) {
+            var app = this.$app;
+            var self = this;
+
+            fhem.log('epg -> ' + self.epgTypeStatus, "start epg type load");
+
+            var urlEpgType = Framework7.getFhemUrl();
+            if(epgType === 'now')
+                urlEpgType += '?cmd=get tvDE loadEPG_now; get tvIT loadEPG_now';
+            if(epgType === 'prime')
+                urlEpgType += '?cmd=get tvDE loadEPG_Prime; get tvIT loadEPG_Prime';
+            if(epgType === 'today')
+                urlEpgType += '?cmd=get tvDE loadEPG_today; get tvIT loadEPG_today';
+
+            self.epgTypeStatus = 'typeStartLoading';
+
+            app.request.get(urlEpgType,
+                {
+                    fwcsrf: Framework7.getFhemCsrf(),
+                    XHR: 1,
+                } ,
+                function (listIT, status, xhr) { 
+                    //setTimeout(function () { self.loadEpgDe()}, 6000); 
+                },
+                function(xhr, status) {
+                    console.log(status);
+                    self.epgTypeStatus = undefined;
+                }
+            );
+        },
+        getEPG: function() {
+            var app = this.$app;
+            var self = this;
+
+            // after DE is loaded successfully , IT will loaded as next
+            self.epglistDE = [];
+            self.epglistIT = [];
+            //$$('.list.media-list li').remove();
+
+            self.loadEpgDe();
         }
     },
     on: {
         pageInit: function() {
             var app = this.$app;
             var self = this;
-
-            self.getEPG();
 
             var searchbar = app.searchbar.create({
                 el: '.searchbar',
@@ -225,17 +312,135 @@ return {
                 on: {
                     search(sb, query, previousQuery) {
                     //console.log(query, previousQuery);
+                    }
                 }
-                }
-            });
-
-            app.dialog.preloader('Daten werden geladen...');
+            });            
         },
         pageAfterIn: function(event, page) {
             var app = this.$app;
             var self = this;
 
-            setTimeout(function () { app.dialog.close()}, 500);
+            console.log('EPG AFTERIN');
+
+            app.dialog.preloader('Daten werden geladen...');
+
+            fhem.data.addToDeviceList('tvDE:state', undefined);
+            fhem.data.addToDeviceList('tvIT:state', undefined);
+            fhem.data.addToDeviceList('tvDE:EPG_last_loaded', undefined);
+            fhem.data.addToDeviceList('tvIT:EPG_last_loaded', undefined);
+
+            self.epgTypeStatus === undefined;
+
+            app.on('fhemupdate', function(device, element) {
+                
+                var id = [device.device, device.reading].join('-');
+
+                //fhem.log('epg -> ' + id, "received change event");
+
+                if(id === 'tvDE-state' || id === 'tvIT-state') {
+                    if(id === 'tvDE-state') {
+                        var state = fhem.params.devicesOnPage['tvDE-state'].value;
+
+                        if(state && state !== undefined && state.match(new RegExp('^loadEPG_.*started$'))) {
+                           if(self.epgTypeStatus == 'typeStartLoading') {
+                                self.epgTypeStatus = 'typeFirstStarted'; 
+                                fhem.log('epg DE -> ' + self.epgTypeStatus, "epg type first started");    
+                           }
+                           else if(self.epgTypeStatus == 'typeFirstStarted') {
+                                self.epgTypeStatus = 'typeSecondStarted'; 
+                                fhem.log('epg DE -> ' + self.epgTypeStatus, "epg type second started");  
+                           }
+                        }
+                        if(state && state !== undefined && state.match(new RegExp('.*information processed$'))) {
+                           if(self.epgTypeStatus == 'typeSecondStarted') {
+                                self.epgTypeStatus = 'typeFirstLoaded'; 
+                                fhem.log('epg DE -> ' + self.epgTypeStatus, "epg type first loaded");
+                           }
+                           else if(self.epgTypeStatus == 'typeFirstLoaded') { 
+                                fhem.log('epg DE -> ' + self.epgTypeStatus, "epg type second loaded");
+                                //self.getEPG();
+                                //app.view.main.router.navigate({ name: 'epg' }, { history: false });
+                                setTimeout(function () { 
+                                    app.dialog.close();
+                                    app.view.main.router.refreshPage();
+                                }, 1000);
+                           }
+                        }
+                    }
+
+                   if(id === 'tvIT-state') {
+                        var state = fhem.params.devicesOnPage['tvIT-state'].value;
+
+                        if(state && state !== undefined && state.match(new RegExp('^loadEPG_.*started$'))) {
+                             if(self.epgTypeStatus == 'typeStartLoading') {
+                                self.epgTypeStatus = 'typeFirstStarted'; 
+                                fhem.log('epg IT -> ' + self.epgTypeStatus, "epg type first started");    
+                           }
+                           else if(self.epgTypeStatus == 'typeFirstStarted') {
+                                self.epgTypeStatus = 'typeSecondStarted'; 
+                                fhem.log('epg IT -> ' + self.epgTypeStatus, "epg type second started");  
+                           }
+                        }
+                        if(state && state !== undefined && state.match(new RegExp('.*information processed$'))) {
+                           if(self.epgTypeStatus == 'typeSecondStarted') {
+                                self.epgTypeStatus = 'typeFirstLoaded'; 
+                                fhem.log('epg IT -> ' + self.epgTypeStatus, "epg type first loaded"); 
+                           }
+                           else if(self.epgTypeStatus == 'typeFirstLoaded') { 
+                                fhem.log('epg IT -> ' + self.epgTypeStatus, "epg type second loaded"); 
+                                //self.getEPG();
+                                //app.view.main.router.navigate({ name: 'epg' }, { history: false });
+                                setTimeout(function () { 
+                                    app.dialog.close();
+                                    app.view.main.router.refreshPage();
+                                }, 1000);
+                           }
+                        }
+                    }
+                }
+                else if(id === 'tvDE-EPG_last_loaded' || id === 'tvIT-EPG_last_loaded') {
+                    if(id === 'tvDE-EPG_last_loaded') {
+                        var readingEPGTypeDE = fhem.params.devicesOnPage['tvDE-EPG_last_loaded'].value;
+                        if(readingEPGTypeDE && readingEPGTypeDE !== undefined) {
+                            self.epgTypeDE = (readingEPGTypeDE.match(new RegExp('^loadEPG_now')) ? 1 : readingEPGTypeDE.match(new RegExp('^loadEPG_Prime')) ? 2 : 0);
+                        }
+                    }
+
+                    if(id === 'tvIT-EPG_last_loaded') {
+                        var readingEPGTypeIT = fhem.params.devicesOnPage['tvIT-EPG_last_loaded'].value;
+                        if(readingEPGTypeIT && readingEPGTypeIT !== undefined) {
+                            self.epgTypeIT = (readingEPGTypeIT.match(new RegExp('^loadEPG_now')) ? 1 : readingEPGTypeIT.match(new RegExp('^loadEPG_Prime')) ? 2 : 0);
+                        }
+                    }
+
+                    if(self.epgTypeStatus === undefined) {
+                        if(self.epgTypeDE === undefined || self.epgTypeIT === undefined) {
+                            $$('#now').removeClass('button-active');
+                            $$('#prime').removeClass('button-active');
+                        }
+                        else if(self.epgTypeDE === 1 && self.epgTypeIT === 1) {
+                            $$('#now').addClass('button-active');
+                            $$('#prime').removeClass('button-active');
+                            self.epgType = 'now';
+                            self.getEPG();
+                        }
+                        else if(self.epgTypeDE === 2 && self.epgTypeIT === 2) {
+                            $$('#now').removeClass('button-active');
+                            $$('#prime').addClass('button-active');
+                            self.epgType = 'prime';
+                            fhem.log('epg -> ', "request epg list load");
+                            self.getEPG();
+                        }
+                        else {
+                            $$('#now').removeClass('button-active');
+                            $$('#prime').removeClass('button-active');
+                            fhem.log('epg -> ', "request epg type load");
+                            setTimeout(function () { self.loadEpgType('now')}, 200);
+                        }
+                    }
+                }
+            });
+  
         },
         pageAfterOut: function(event, page) {
             var app = this.$app;

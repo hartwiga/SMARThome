@@ -3,6 +3,12 @@
   --range-bar-height-vertical: 200px;
   --f7-list-item-footer-font-size: 14px !important;
   --f7-list-item-footer-line-height: 1.4 !important;
+  --f7-swiper-bg-color: #efeff4;
+}
+
+:root .theme-dark,
+:root.theme-dark {
+  --f7-swiper-bg-color: #1c1c1d;
 }
 
 @font-face {
@@ -312,7 +318,7 @@ i.icon {
     width: 100%;
     top: 0;
     cursor: pointer;
-    background: #efeff4;
+    background: var(--f7-swiper-bg-color);
     z-index: 10000;
 }
 
@@ -366,9 +372,8 @@ i.icon {
     position: absolute;
     bottom: 8px;
     left: 16px;
-    color: white;
     font-size: var(--f7-card-header-font-size);
-    font-weight: var(--f7-card-header-font-weight);"
+    font-weight: var(--f7-card-header-font-weight);
 }
 
 .camera .camera-status {

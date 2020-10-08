@@ -90,11 +90,13 @@ var fhem = {
 	on: {
 	    init: function () {
 	      	var self = this;
-	      	console.log('on init',self);
+	      	console.log('on init', self);
 
-	     	$$(window).on('beforeunload', function () {
+	     	$$(window).on('beforeunload', function (e) {
 	     		console.log(1, 'FHEM Plugin --> before cloese browser tab');
 	     		fhem.socket.closeAlL();
+	     		e.preventDefault();
+	     		e.returnValue = '';
 		  	});
 
 		  	$$(window).on('online', function () {
@@ -123,13 +125,11 @@ var fhem = {
 	     	var $el = page.$el.find('[data-type]');
 	     	fhem.getDevicesOnPage($el);
 
-	     	if(app.online && !params.sockets[page.name]) {
+	     	if(app.online) {
+	     		fhem.socket.closeAll();
 	     		fhem.xhr.dataRequest();
 
-		        setTimeout(function () {
-
-		            fhem.socket.create();
-		        }, 2000);
+		        setTimeout(function () {fhem.socket.create()}, 1500);
 	     	}
 
 	     	app.on('fhemupdate', function(device, element) {
@@ -141,7 +141,7 @@ var fhem = {
 	      setTimeout( function() {
 	      		console.log("FHEM command enable");
                 fhem.params.enableDataChange = true; 
-            }, 2000);
+            }, 1000);
 	      //console.log(fhem.params.devicesOnPage);
 	    },
 	    pageBeforeOut: function (page) {
@@ -290,7 +290,14 @@ var fhem = {
 	},
 	data: {
 		addToDeviceList: function(type, element) {
-			var device = $$(element).data(type);
+			var device = undefined;
+
+			if(element && element !== undefined) {
+				device = $$(element).data(type);
+			}
+			else {
+				device = type;
+			}
       		
       		if(device && device !== undefined) {
       			var devicesOnPage = {};
@@ -327,14 +334,17 @@ var fhem = {
     				}
     			}
 
-    			if(fhem.params.devicesOnPage[id] !== undefined) {
-    				devicesOnPage.elements = fhem.params.devicesOnPage[id].elements;
-    				devicesOnPage.elements.push(element);
+    			if(fhem.params.devicesOnPage[id] !== undefined && element && element !== undefined) {
+	    			devicesOnPage.elements = fhem.params.devicesOnPage[id].elements;
+	    			devicesOnPage.elements.push(element);
     				fhem.params.devicesOnPage[id] = devicesOnPage;
     			}
     			else {
     				devicesOnPage.elements = [];
-    				devicesOnPage.elements.push(element);
+
+    				if(element && element !== undefined)
+	    				devicesOnPage.elements.push(element);
+
     				fhem.params.devicesOnPage[id] = devicesOnPage;
     			}
     		}
@@ -548,9 +558,11 @@ var fhem = {
 
 						if(value.toLowerCase() === 'on') {
 							cmd = dataFhemCmdOff;
+							dataBlockingtime = 0;
 						}
 						else if(value.toLowerCase() === 'off') {
 							cmd = dataFhemCmdOn;
+							dataBlockingtime = 0;
 						}
             		}
             	}
@@ -598,7 +610,7 @@ var fhem = {
 
 			socket.onclose = function(event) {
 				fhem.socket.remove(page);
-				fhem.log('page -> ' + page.name, " code=" + event.code);
+				fhem.log('page -> ' + page.name, "socket closed code=" + event.code);
 				//fhem.showToast("FHEM websocket closed: " + event.code);
 			};
 
@@ -677,22 +689,29 @@ var fhem = {
 
 			          	var element = fhem.params.devicesOnPage[id];
 
+			          	//fhem.log('socket -> ' + id, "data received from server : " + value);
 			          	if(element && element.value !== value) {
-			          		fhem.log('socket -> ' + id, "data received from server valueNew=" + value + " valueAlt=" + element.value);
 		    				element.value = value;
 		    				element.valid = true;
 		    				element.timestamp = new Date().getTime();
 
-		    				for(var key in element.elements) {
-		    					var e = element.elements[key];
-		    					var blocked = $$(e).data('blocked');
+		    				if(Array.isArray(element.elements) && element.elements.length > 0) { 
+			    				for(var key in element.elements) {
+			    					var e = element.elements[key];
+			    					var blocked = $$(e).data('blocked');
 
-		    					if(!blocked && element.valid) {
-		    						app.emit('fhemupdate', element, e);
-		    					}
-		    					else {
-		    						fhem.log('socket -> ' + id, 'data update blocked');
-		    					}
+			    					if(!blocked && element.valid) {
+			    						app.emit('fhemupdate', element, e);
+			    					}
+			    					else {
+			    						fhem.log('socket -> ' + id, 'data update blocked');
+			    					}
+			    				}
+			    			}
+			    			else {
+				    			if(element.valid) {
+				    				app.emit('fhemupdate', element, undefined);
+				   				}
 		    				}
 		    			}
 			        }
@@ -727,7 +746,7 @@ var fhem = {
 			var url = Framework7.getFhemUrl();
 			var csrf = Framework7.getFhemCsrf();
 
-			if(csrf && csrf !== undefined) {
+			if(csrf && csrf !== undefined && cmdLine && cmdLine !== undefined) {
 			    app.request.json(url,
 			        {
 			        	cache: false,
@@ -789,15 +808,22 @@ var fhem = {
 		    				element.valid = true;
 		    				element.timestamp = new Date().getTime();
 
-		    				for(var key in element.elements) {
-		    					if(element.valid) {
-		    						var e = element.elements[key];
-		    						var blocked = $$(e).data('blocked');
+		    				if(Array.isArray(element.elements) && element.elements.length > 0) { 
+			    				for(var key in element.elements) {
+			    					if(element.valid) {
+			    						var e = element.elements[key];
+			    						var blocked = $$(e).data('blocked');
 
-			    					if(!blocked && element.valid) {
-			    						app.emit('fhemupdate', element, e);
+				    					if(!blocked && element.valid) {
+				    						app.emit('fhemupdate', element, e);
+				    					}
 			    					}
-		    					}
+			    				}
+		    				}
+		    				else {
+				    			if(element.valid) {
+				    				app.emit('fhemupdate', element, undefined);
+				   				}
 		    				}
 			    		}
 		    		}
@@ -812,16 +838,23 @@ var fhem = {
 		    				element.valid = true;
 		    				element.timestamp = new Date().getTime();
 
-		    				for(var key in element.elements) {
-		    					if(element.valid) {
-		    						var e = element.elements[key];
-		    						var blocked = $$(e).data('blocked');
+		    				if(Array.isArray(element.elements) && element.elements.length > 0) { 
+			    				for(var key in element.elements) {
+			    					if(element.valid) {
+			    						var e = element.elements[key];
+			    						var blocked = $$(e).data('blocked');
 
-			    					if(!blocked && element.valid) {
-			    						app.emit('fhemupdate', element, e);
+				    					if(!blocked && element.valid) {
+				    						app.emit('fhemupdate', element, e);
+				    					}
+
 			    					}
-
-		    					}
+			    				}
+			    			}
+			    			else {
+				    			if(element.valid) {
+				    				app.emit('fhemupdate', element, undefined);
+				   				}
 		    				}
 			    		}
 		    		}

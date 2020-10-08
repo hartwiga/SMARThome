@@ -1,0 +1,43 @@
+ToDo
+
+- PlugIns für einzelne Element erstellen
+- Beim Benutzerwechsel müssen das Local Storage gelöscht werden
+- Kennwörter sind unverschlüssel in der Datei abgelegt
+x About Text anpassen (FTUI)
+- Abmelden als Menüpunkt hinzu
+- Badge für Kommunikationsfehler hinzu
+x TV Plan Prime Time umschaltung hinzu
+- Licht Keller trepp bei Raum Keller hinzu
+- Hausstatus für Rolle "Bewohner" in die zweite Zeile setzen. Erste Zeile "Anwesenheitsstatus"
+- Unterscheiden zwischen Debug und Information Toast
+- Scene Badezimmer hinzu
+- Scene Haus benutzerabhängig 
+- Scene Wohnzimmer automatisch auf Zustand "aus" setzen, wenn alle Lampen ausgeschaltet sind
+- Ausrichten Text bei "Fenster und Türen" korregieren
+- Für Rolle "Bewohner" im Raum "Keller" Heizungsanlegae nicht anzeigen
+- Status Meldungen Waschmaschine, Trockner auf deutsch anzeigen
+- Fensterstatus generell auf deutsch anzeigen
+- Badge bei Fensterstatus anzeigen, wenn ein alarmrelevantest Fenster offen ist, bei Batterie Warning oder Inaktivität
+- Bei allen Geräten mit Batterie Bage bei Fehler "Batterie" und Inaktivität anzeigen
+- Bei Websockert Fehler es nach 10s nocheinmal probieren
+- Raum "Wohnzimmer" Textausrichtung "Terrassentür" korrigieren
+- Bei Thermostaten und Reglern Einheit der Temperatur hinzufügen
+- Icons bei Rolladen, Lamben und Fenstern statusabhängig anzeigen
+- TV Modus Rollladen als Toggle
+- Raum Treppenhaus Haustürklingel hinzu Beleuchtung und Ton an/aus, Lautstärke
+- Raum Badezimmer Scene "Bad hinzu
+- Raum Wohnzimmer Scene "Wohnzimmer" hinzu
+- Kinderzimmer Fenster rechts/links vertauscht
+- Tooltip 3s anzeigen
+- Hauseingang Klingel erweitern Beleuchtung...
+- Hauseingang Toggle für Schalter Kamera hinzu "admin"
+- Garten Lichtautomatik an/aus hinzu "admin"
+- Terrasse Markise Ikon fehlt
+- Terrasse Markise Status "Stop" ist abgekürzt
+- Anmeldedialog Icon Hintergrund nicht transparent
+- Kameras keine Erkennung Verbindugsabbruch... Eventuell onine/offline Status und Kamera Status
+- Zusärtlich Kamera Popup letzte Videoaufnahme hinzu
+- Auf Handy nach Standby werden keine Streams und auch kein Reload angezeigt
+- Snapshot wird nicht in Liste angezeigt
+- Hinweis auf neuen Snapshot durch Badge
+- Snapshot funktioniert nur bei CAM1
