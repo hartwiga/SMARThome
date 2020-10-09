@@ -23,7 +23,7 @@ var app = new Framework7({
     // App id
     id: 'de.hartwiga.smarthome',
     //App version
-    version: '1.0.26',
+    version: '1.0.27',
     // theme
     theme: 'auto',
     // Enable swipe panel
@@ -98,7 +98,7 @@ var app = new Framework7({
                 username: '',
                 password: '',
                 darkmode: [],
-                autologgin: [],
+                autologin: [],
                 message: {
                     timestamp: Math.floor(new Date().getTime()/1000),
                     newMessages: [], 
@@ -160,7 +160,7 @@ var app = new Framework7({
             if(!obj.hasOwnProperty('darkmode'))
                 return false;
             
-            if(!obj.hasOwnProperty('autologgin'))
+            if(!obj.hasOwnProperty('autologin'))
                 return false;
 
             if(!obj.message.hasOwnProperty('timestamp'))
@@ -446,7 +446,6 @@ var mainView = app.views.create('.view-main', {
             path: '/',
             componentUrl: './pages/template_home.html',
             beforeEnter: function(routeTo, routeFrom, resolve, reject) {
-                console.log('--> VIEW beforeEnter');
                 var app = this.app;
                 var self = this;
 
@@ -456,7 +455,6 @@ var mainView = app.views.create('.view-main', {
 
                 var token = app.data.token;
                 if (token.loggedin) {
-                    console.log('beforeEnter page home --> already logged in');
 
                     // Login survialance station
                     app.methods.survialanceStationLogin();
@@ -470,16 +468,14 @@ var mainView = app.views.create('.view-main', {
 
                     resolve();
                 } else {
-                    console.log('beforeEnter page home --> currently not logged in');
 
                     var c = app.form.getFormData("config");
-                    console.log(c);
                     if (c !== undefined && app.methods.checkUserDataStructure(c)) {
                         if ($$('html').hasClass('theme-dark') != true && ((c !== undefined) && c.darkmode[0]) == 'yes') {
                             $$('html').addClass('theme-dark');
                         }
 
-                        if (c.autologgin[0] != undefined && c.autologgin[0] == 'yes') {
+                        if (c.autologin[0] != undefined && c.autologin[0] == 'yes') {
                             var user = app.data.userlist[c.username]
                             if (user !== null && user !== undefined) {
                                 if (user.pw === c.password) {
@@ -493,11 +489,9 @@ var mainView = app.views.create('.view-main', {
 
                                     // Start message polling
                                     if(!app.data.message.status) {
-                                        console.log('beforeEnter page home --> message polling start');
                                         var timestamp = app.methods.getMessageTimestamp();
                                         setTimeout(function() {app.methods.messageLongPoll(timestamp)}, app.data.message.cycletime);
                                     }
-                                    console.log('beforeEnter page home --> user [' + c.username +'] logged in automatically');
                                     resolve();
                                 }
                                 else {
@@ -538,18 +532,20 @@ var mainView = app.views.create('.view-main', {
             name: 'logout',
             path: '/logout/',
             async: function(routeTo, routeFrom, resolve, reject) {
-                var d = app.data.userDataTemplate;
-                var t = { loggedin: false, user: '', role: '', name: '' };
+                //var d = app.data.userDataTemplate;
+                //var t = { loggedin: false, user: '', role: '', name: '' };
 
-                app.data.token = t;
+                //app.data.token = t;
+                app.data.token.loggedin = false;
 
                 var c = app.form.getFormData("config");
                 if (c !== undefined) {
-                    d.darkmode = c.darkmode;
+                    c.autologin = [];
+                    c.password = '';
                 }
 
                 //console.log('User data: ' + JSON.stringify(d));
-                app.form.storeFormData("config", d);
+                app.form.storeFormData("config", c);
 
                 reject();
                 var view = this.view;

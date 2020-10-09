@@ -29,7 +29,7 @@
                                 <div class="item-inner">
                                     <div class="item-title item-label">Angemeldet bleiben</div>
                                     <div class="item-input-wrap" style="padding-top: 10px">
-                                        <label id="autologgin" class="toggle toggle-init">
+                                        <label id="autologin" class="toggle toggle-init">
                                             <input type="checkbox">
                                             <span class="toggle-icon"></span>
                                         </label>
@@ -79,15 +79,14 @@ return {
             var username = $$('input#username').val();
             var password = $$('input#password').val();
 
-            var toggle = app.toggle.get('#autologgin');
-            var autologgin = toggle.checked ? ['yes'] : [];
-
-            console.log('Autologgin: ' + autologgin);
+            var toggle = app.toggle.get('#autologin');
+            var autologin = toggle.checked ? ['yes'] : [];
 
             var user = app.data.userlist[username]
             
             if( user !== null && user != undefined) {
-                if(user.pw === password) {
+
+                if(user.pw === CryptoJS.MD5(password).toString()) {
                     
                     app.data.token.loggedin = true;
                     app.data.token.user = username;
@@ -95,14 +94,16 @@ return {
                     app.data.token.name = user.name;
 
                     var c = app.form.getFormData("config");
-                    if(c !== undefined) {
-                        c.username = username;
-                        c.password = user.pw;
-                        c.autologgin = autologgin;
-                        c.name = user.name;
-                        app.form.storeFormData("config", c);
-                        console.log('User data: ' + JSON.stringify(c));
+                    if(c !== undefined && username !== c.username) {
+                        app.form.removeFormData("config");
+                        c = app.data.userDataTemplate;
                     }
+
+                    c.username = username;
+                    c.password = user.pw;
+                    c.autologin = autologin;
+                    c.name = user.name;
+                    app.form.storeFormData("config", c);
 
                     router.navigate('/');
                 }
@@ -123,15 +124,19 @@ return {
     },
     on: {
         pageAfterIn: function() {
+            var app = this.$app;
+
             $$(document).keypress(function(e) {
                 if ((e.keyCode || e.which) == 13) {
                     $$('#signin').trigger('click');
                 }
             });
 
-                        
-            var app = this.$app;
-            
+            var c = app.form.getFormData("config");
+            if (c !== undefined) {
+                $$('input#username').val(c.username);
+            }
+
             setTimeout(function () {
                 app.dialog.close();
             }, 1000);
