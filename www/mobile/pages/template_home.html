@@ -113,10 +113,10 @@
             <div class="block-title">Lichtscene</div>
             <div class="block block-strong">
                 <div class="segmented segmented-strong">
-                    <button class="button" style="font-size: 11px" data-type="f7" data-object="f7Button" data-fhem-cmd="set rr_Andreas awoken" data-class="rr_Andreas:STATE" data-map-class='{"awoken":"button-active","gotosleep":"","asleep":"","home":"", "absent":"", "gone":""}'>Aufstehen</button>
-                    <button class="button" style="font-size: 11px" data-type="f7" data-object="f7Button" data-fhem-cmd="set rr_Andreas home" data-class="rr_Andreas:STATE" data-map-class='{"awoken":"","gotosleep":"","asleep":"","home":"button-active", "absent":"button-active", "gone":"button-active"}'>Tag</button>
-                    <button class="button" style="font-size: 11px" data-type="f7" data-object="f7Button" data-fhem-cmd="set rr_Andreas gotosleep" data-class="rr_Andreas:STATE" data-map-class='{"awoken":"","gotosleep":"button-active","asleep":"","home":"", "absent":"", "gone":""}'>ins Bett</button>
-                    <button class="button" style="font-size: 11px" data-type="f7" data-object="f7Button" data-fhem-cmd="set rr_Andreas asleep" data-class="rr_Andreas:STATE" data-map-class='{"awoken":"","gotosleep":"","asleep":"button-active","home":"", "absent":"", "gone":""}'>Schlafen</button>
+                    <button class="button" style="font-size: 11px" data-type="f7" data-object="f7Button" data-fhem-cmd="set rr_{{token.name}} awoken" data-class="rr_{{token.name}}:STATE" data-map-class='{"awoken":"button-active","gotosleep":"","asleep":"","home":"", "absent":"", "gone":""}'>Aufstehen</button>
+                    <button class="button" style="font-size: 11px" data-type="f7" data-object="f7Button" data-fhem-cmd="set rr_{{token.name}} home" data-class="rr_{{token.name}}:STATE" data-map-class='{"awoken":"","gotosleep":"","asleep":"","home":"button-active", "absent":"button-active", "gone":"button-active"}'>Tag</button>
+                    <button class="button" style="font-size: 11px" data-type="f7" data-object="f7Button" data-fhem-cmd="set rr_{{token.name}} gotosleep" data-class="rr_{{token.name}}:STATE" data-map-class='{"awoken":"","gotosleep":"button-active","asleep":"","home":"", "absent":"", "gone":""}'>ins Bett</button>
+                    <button class="button" style="font-size: 11px" data-type="f7" data-object="f7Button" data-fhem-cmd="set rr_{{token.name}} asleep" data-class="rr_{{token.name}}:STATE" data-map-class='{"awoken":"","gotosleep":"","asleep":"button-active","home":"", "absent":"", "gone":""}'>Schlafen</button>
                     <span class="segmented-highlight"></span>
                 </div>
                 <p>
@@ -247,7 +247,7 @@
                     <li>
                         <a href="/residents/" class="item-content item-link">
                             <div class="item-media">
-                                <i class="icon oa-icons  oa-user_available color-blue"></i>
+                                <i class="icon oa-icons  oa-user_available color-blue" data-type="f7" data-class="rgr_Home" data-map-class='{"home":"oa-user_available", "gotosleep":"oa-user_available", "awoken":"oa-user_available", "asleep":"oa-user_available","absent":"oa-user_away", "gone":"oa-user_ext_away"}' ></i>
                             </div>
                             <div class="item-inner">
                                 <div class="item-title">
@@ -255,10 +255,10 @@
                                     <div class="item-footer" data-type="html" data-content="rgr_Home:residentsTotalPresent" data-post-text=" Person(en)"></div>
                                 </div>
                                 <div class="item-after">
-                                    <div class="item-media img-resident absent" data-type="html" data-class="rr_Angela:STATE" data-map-class='{"home":"present", "absent":"absent", "gone":"gegangen", "none":"absent"}'><img src="./images/angela.png"></div>
-                                    <div class="item-media img-resident absent" data-type="html" data-class="rr_Andreas:STATE" data-map-class='{"home":"present", "absent":"absent", "gone":"gegangen", "none":"absent"}'><img src="./images/andreas.png"></div>
-                                    <div class="item-media img-resident absent" data-type="html" data-class="rr_Luca:STATE" data-map-class='{"home":"present", "absent":"absent", "gone":"gegangen", "none":"absent"}'><img src="./images/luca.png"></div>
-                                    <div class="item-media img-resident absent" data-type="html" data-class="rg_Sara:STATE" data-map-class='{"home":"present", "absent":"absent", "gone":"gegangen", "none":"absent"}'><img src="./images/sara.png"></div>
+                                    <div class="item-media img-resident absent" data-type="html" data-class="rr_Angela:STATE" data-map-class='{"home":"present", "gotosleep":"present", "awoken":"present", "asleep":"absent", "absent":"absent", "gone":"gegangen", "none":"absent"}'><img src="./images/angela.png"></div>
+                                    <div class="item-media img-resident absent" data-type="html" data-class="rr_Andreas:STATE" data-map-class='{"home":"present", "gotosleep":"present", "awoken":"present", "asleep":"absent", "absent":"absent", "gone":"gegangen", "none":"absent"}'><img src="./images/andreas.png"></div>
+                                    <div class="item-media img-resident absent" data-type="html" data-class="rr_Luca:STATE" data-map-class='{"home":"present", "gotosleep":"present", "awoken":"present", "asleep":"absent", "absent":"absent", "gone":"gegangen", "none":"absent"}'><img src="./images/luca.png"></div>
+                                    <div class="item-media img-resident absent" data-type="html" data-class="rg_Sara:STATE" data-map-class='{"home":"present", "gotosleep":"present", "awoken":"present", "asleep":"absent", "absent":"absent", "gone":"gegangen", "none":"absent"}'><img src="./images/sara.png"></div>
                                 </div>
                             </div>
                         </a>
@@ -267,14 +267,17 @@
                     <li>
                         <div class="item-content">
                             <div class="item-media">
-                                <i class="icon oa-icons  oa-user_available color-blue"></i>
+                                <i class="icon oa-icons oa-user_available color-blue"  data-type="f7" data-class="rr_{{token.name}}" data-map-class='{"home":"oa-user_available", "gotosleep":"oa-user_available", "awoken":"oa-user_available", "asleep":"oa-user_available","absent":"oa-user_away", "gone":"oa-user_ext_away"}' ></i>
                             </div>
                             <div class="item-inner">
                                 <div class="item-title">
-                                    <span data-type="html" data-content="rr_{{token.name}}:STATE" data-map-content='{"home":"anwesend", "absent":"abwesend", "gone":"gegangen", "none":"abwesend"}'></span>
+                                    <div class="item">Anwesenheitsstatus</div>
+                                    <div class="item-footer">
+                                        <span data-type="html" data-content="rr_{{token.name}}:STATE" data-map-content='{"home":"anwesend", "gotosleep":"anwesend", "awoken":"anwesend", "asleep":"anwesend", "absent":"abwesend", "gone":"gegangen", "none":"abwesend"}'></span>
+                                    </div>
                                 </div>
                                 <div class="item-after">
-                                    <label class="toggle  toggle-init" data-type="f7" data-object="f7Toggle" data-device="rr_{{token.name}}" data-get="state" data-set="state" data-map-checked='{"home":true, "absent":false, "gone":false}' data-map-changed='{"true":"home", "false":"absent"}'>
+                                    <label class="toggle toggle-init" data-type="f7" data-object="f7Toggle" data-device="rr_{{token.name}}" data-get="state" data-set="state" data-map-checked='{"home":true, "awoken":true, "gotosleep":true, "asleep":true,"absent":false, "gone":false}' data-map-changed='{"true":"home", "false":"absent"}'>
                                         <input type="checkbox">
                                         <span class="toggle-icon"></span>
                                     </label>
@@ -518,10 +521,10 @@
                     <div class="block-title">Haus</div>
                     <div class="block block-strong">
                         <div class="segmented segmented-strong">
-                            <button class="button" style="font-size: 11px" data-type="f7" data-object="f7Button" data-fhem-cmd="set rr_Andreas awoken" data-class="rr_Andreas:STATE" data-map-class='{"awoken":"button-active","gotosleep":"","asleep":"","home":"", "absent":"", "gone":""}'>Aufstehen</button>
-                            <button class="button" style="font-size: 11px" data-type="f7" data-object="f7Button" data-fhem-cmd="set rr_Andreas home" data-class="rr_Andreas:STATE" data-map-class='{"awoken":"","gotosleep":"","asleep":"","home":"button-active", "absent":"button-active", "gone":"button-active"}'>Tag</button>
-                            <button class="button" style="font-size: 11px" data-type="f7" data-object="f7Button" data-fhem-cmd="set rr_Andreas gotosleep" data-class="rr_Andreas:STATE" data-map-class='{"awoken":"","gotosleep":"button-active","asleep":"","home":"", "absent":"", "gone":""}'>ins Bett</button>
-                            <button class="button" style="font-size: 11px" data-type="f7" data-object="f7Button" data-fhem-cmd="set rr_Andreas asleep" data-class="rr_Andreas:STATE" data-map-class='{"awoken":"","gotosleep":"","asleep":"button-active","home":"", "absent":"", "gone":""}'>Schlafen</button>
+                            <button class="button" style="font-size: 11px" data-type="f7" data-object="f7Button" data-fhem-cmd="set rr_{{token.name}} awoken" data-class="rr_{{token.name}}" data-map-class='{"awoken":"button-active","gotosleep":"","asleep":"","home":"", "absent":"", "gone":""}'>Aufstehen</button>
+                            <button class="button" style="font-size: 11px" data-type="f7" data-object="f7Button" data-fhem-cmd="set rr_{{token.name}} home" data-class="rr_{{token.name}}" data-map-class='{"awoken":"","gotosleep":"","asleep":"","home":"button-active", "absent":"button-active", "gone":"button-active"}'>Tag</button>
+                            <button class="button" style="font-size: 11px" data-type="f7" data-object="f7Button" data-fhem-cmd="set rr_{{token.name}} gotosleep" data-class="rr_{{token.name}}" data-map-class='{"awoken":"","gotosleep":"button-active","asleep":"","home":"", "absent":"", "gone":""}'>ins Bett</button>
+                            <button class="button" style="font-size: 11px" data-type="f7" data-object="f7Button" data-fhem-cmd="set rr_{{token.name}} asleep" data-class="rr_{{token.name}}" data-map-class='{"awoken":"","gotosleep":"","asleep":"button-active","home":"", "absent":"", "gone":""}'>Schlafen</button>
                             <span class="segmented-highlight"></span>
                         </div>
                     </div>
