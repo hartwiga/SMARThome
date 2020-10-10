@@ -2,31 +2,38 @@
 
 var fhem = {
 	// Module Name
-  	name: 'fhem',
+  	name: 'FHEM Connector',
   	version: '0.0.1',
 	
+	// Log level
+	level: {
+		none: undefined,
+		error: 1,
+		warn: 2,
+		info: 4,
+		debug: 8,
+	},
+
 	// Object with default class/plugin parameters
   	params: {
-  		debug: true,
   		sockets: [],
   		devicesOnPage: [],
   		currentPage: undefined,
   		enableDataChange: undefined,
   		disableSend: false,
   		blockingtime: 1000,
-  		toast: true,
+  		toast: undefined,
+  		log: undefined,
   	},
 
   install() {
     const Class = this;
-    console.log('install', Class);
   },
 
 	// Create callback, it will be executed in the very beginning of class initilization
    	create(instance) {
    		var app = this;
    		fhem.xhr.getCsrf();
-    	console.log('create', instance);
   	},
 	
   	static: {
@@ -84,28 +91,31 @@ var fhem = {
 
 	init: function() {
 		var self = this;
-		console.log('init', self);
 	},
 
 	on: {
-	    init: function () {
+	    init: function (page) {
 	      	var self = this;
-	      	console.log('on init', self);
+
+	      	fhem.log.debug('init', 'Page: ', page);
+
+	      	fhem.params.toast = fhem.level.info;
+	      	fhem.params.log = fhem.level.info;
 
 	     	$$(window).on('beforeunload', function (e) {
-	     		console.log(1, 'FHEM Plugin --> before cloese browser tab');
+	     		fhem.log.debug('window', 'before close browser tab', e);
 	     		fhem.socket.closeAlL();
 	     		e.preventDefault();
 	     		e.returnValue = '';
 		  	});
 
 		  	$$(window).on('online', function () {
-	   			console.log(1, 'FHEM Plugin --> online');
+	   			fhem.log.debug('window', 'Application state: ', 'online');
 	   			fhem.socket.create();
 		    });
 
 		  	$$(window).on('offline', function () {
-	   			console.log(1, 'FHEM Plugin --> offline');
+	   			fhem.log.debug('window', 'Application state: ', 'offline');
 	   			fhem.socket.closeAll();
 		    });
 
@@ -114,13 +124,13 @@ var fhem = {
 	    	var self = fhem;
 	    	var params = self.params;
 
+	    	fhem.log.debug('pageBeforeIn', 'Page: ', page);
+
 	    	fhem.params.enableDataChange = false; 
 
 	    	params.currentPage = page;
 
 	    	params.devicesOnPage = {};
-
-	      	console.log(fhem.name + ': pageBeforeIn', page);
 
 	     	var $el = page.$el.find('[data-type]');
 	     	fhem.getDevicesOnPage($el);
@@ -137,16 +147,18 @@ var fhem = {
     		});
 	    },
 	    pageAfterIn: function (page) {
-	      console.log(fhem.name + ': pageAfterIn', page);
+	      fhem.log.debug('pageAfterIn', 'Page: ', page);
+
 	      setTimeout( function() {
-	      		console.log("FHEM command enable");
+	      		fhem.log.info('Interface', 'enabled now');
                 fhem.params.enableDataChange = true; 
             }, 1000);
-	      //console.log(fhem.params.devicesOnPage);
 	    },
 	    pageBeforeOut: function (page) {
 	    	var self = fhem;
 	    	var params = self.params;
+
+	    	fhem.log.debug('pageBeforeOut', 'Page: ', page);
 
 	    	if(params.sockets[page.name])
 	    		params.sockets[page.name].socket.close(1000, "pageChange");
@@ -154,45 +166,79 @@ var fhem = {
 	    	params.currentPage = undefined;
 
 	    	app.off('fhemupdate');
-
-	    	console.log(fhem.name + ': pageBeforeOut', page);
 	    },
 	    pageAfterOut: function (page) {
-	      console.log(fhem.name + ': pageAfterOut', page);
+	      fhem.log.debug('pageBeforeOut', 'Page: ', page);
 	    },
 	    pageInit: function (page) {
-	      console.log(fhem.name + ': pageInit', page);
+	      fhem.log.debug('pageAfterOut', 'Page: ', page);
 	    },
 	    pageBeforeRemove: function (page) {
-	      console.log(fhem.name + ': pageBeforeRemove', page);
+	      fhem.log.debug('pageAfterOut', 'Page: ', page);
 	    },
     },
 
-    log: function(topic, message) {
-		console.log(2, new Date().getTime() +  ' ' + fhem.name + '-[' + topic + ']: ' + message); 
+    log: {
+		debug: function(topic, msg, obj) {
+			if(fhem.params.log === fhem.level.debug) {
+				console.log('%s - [%s]: %s', fhem.name, topic, msg, obj);
+			}	
+		},
+		info: function(topic, msg, obj) {
+			if(fhem.params.log === fhem.level.info ||
+				fhem.params.log === fhem.level.debug) {
+				console.info('%s - [%s]: %s', fhem.name, topic, msg, obj);
+			}	
+		},
+		warn: function(topic, msg, obj) {
+			if(fhem.params.log === fhem.level.warn ||
+				fhem.params.log === fhem.level.info ||
+				fhem.params.log === fhem.level.debug) {
+				console.warn('%s - [%s]: %s', fhem.name, topic, msg, obj);
+			}	
+		},
+		error: function(topic, msg, obj) {
+			console.error('%s - [%s]: %s', fhem.name, topic, msg, obj);	
+		},
 	},
-	showToast: function(text) {
-		if(fhem.params.toast) {
+	showToast: {
+		debug: function(text) {
+			if(fhem.params.toast === fhem.level.debug) {
+				app.toast.show({text: text});
+			}	
+		},
+		info: function(text) {
+			if(fhem.params.toast === fhem.level.warn ||
+				fhem.params.toast === fhem.level.debug) {
+				app.toast.show({text: text});
+			}	
+		},
+		warn: function(text) {
+			if(fhem.params.toast === fhem.level.info ||
+				fhem.params.toast === fhem.level.warn ||
+				fhem.params.toast === fhem.level.debug) {
+				fhem.showToast(text);
+			}	
+		},
+		error: function(text) {
 			app.toast.show({text: text});
-		}
+		},
 	},
     getDevicesOnPage: function(elements) {
-		console.log('getDevicesOnPage', elements);
+    	fhem.log.info('getDevicesOnPage', 'Get all devices from the page', elements);
 	 	elements.each(function(index, element) {
 	      	var dataType = $$(element).data('type');
 	      	var dataObject = $$(element).data('object');
 
 	      	if(dataObject &&  dataObject.match(/f7/)) {
-	      		//console.log("f7obj", $$(element).data('device'));
 	      		fhem.data.handleTypeObject(element);
 		    }
 		    else if(dataType === 'weather') {
 		    	fhem.data.addToDeviceList('device', element);
 		    }
-	      	//else if(dataType === 'html') {
+
 	      	fhem.data.addToDeviceList('content', element);
 	      	fhem.data.addToDeviceList('class', element);
-	  		//}
 	  	});
 	},
 
@@ -202,7 +248,8 @@ var fhem = {
 		},
 		send: function(cmd) {
 			if(fhem.cmd.validate(cmd) && !fhem.params.disableSend) {
-				fhem.showToast("Send command to FHEM: " + cmd);
+				fhem.log.info('cmd.send', 'Send command', cmd);
+				fhem.showToast.info("Send command to FHEM: " + cmd);
 
 				var url = Framework7.getFhemUrl();
 				var csrf = Framework7.getFhemCsrf();
@@ -217,8 +264,8 @@ var fhem = {
 			        	fhem.xhr.receiveData(data)
 			        },
 			        function(xhr, status) {
-			        	fhem.showToast("Error on send command to FHEM: " + status);
-			            console.log(status);
+			        	fhem.log.error('cmd.send', 'Error on send command', status);
+			        	fhem.showToast.error("Error on send command to FHEM: " + status);
 			        }
 		 	   	);
 			}
@@ -455,7 +502,6 @@ var fhem = {
 			}
 			else if(dataClass) {
 				if(dataMapClass) {
-					//console.log(dataClass, dataMapClass);
 					var dataMap = JSON.parse(dataMapClass);
 					value = fhem.data.mapping(dataMap, valueRaw, valueRaw);
 
@@ -574,7 +620,7 @@ var fhem = {
 					e.removeData('blocked');
 				}, dataBlockingtime, e);
 
-				fhem.log('data.change -> send command to FHEM: ' + cmd);
+				fhem.log.info('data.change', 'Send command to FHEM server: ', cmd);
 				fhem.cmd.send(cmd);
 			}
 	    }
@@ -594,29 +640,29 @@ var fhem = {
 		        fhem.socket.requestFilter() + ';since=' + fhem.params.sockets[page.name].timestamp.getTime() + ';fmt=JSON' +
 		        '&timestamp=' + Date.now();
 
-		    fhem.log('socket url: ' + wsUrl);
+		    fhem.log.info('socket.create', 'Websocket url: ', wsUrl);
 
 			var socket = new WebSocket(wsUrl);
 
 			socket.onopen = function(e) {
-			  fhem.log('page -> ' + page.name, "socket established");
+			  	fhem.log.info('socket.create.onopen', 'Websocket established on page: ', page.name);
 			};
 
 			socket.onmessage = function(event) {
-			  fhem.params.sockets[page.name].timestamp = new Date();
-			  // log('page -> ' + page.name, "socket data received from server");
-			  fhem.socket.receiveData(event.data);
+				fhem.log.debug('socket.create.onmessage', 'Data received: ', event.data);	
+			  	fhem.params.sockets[page.name].timestamp = new Date();
+			  	fhem.socket.receiveData(event.data);
 			};
 
 			socket.onclose = function(event) {
 				fhem.socket.remove(page);
-				fhem.log('page -> ' + page.name, "socket closed code=" + event.code);
-				//fhem.showToast("FHEM websocket closed: " + event.code);
+				fhem.log.debug('socket.create.onclose', 'Websocket closed with code: ', event.code);
+				fhem.showToast.debug("FHEM websocket closed: " + event.code);
 			};
 
 			socket.onerror = function(error) {
-				fhem.log('page -> ' + page.name, "socket error ${error.message}");
-				fhem.showToast("FHEM websocket error: " + error.message);
+				fhem.log.debug('socket.create.onerror', 'Websocket error: ', error.message);
+				fhem.showToast.error("FHEM websocket error: " + error.message);
 			};
 
 			fhem.params.sockets[page.name].socket = socket;
@@ -689,7 +735,6 @@ var fhem = {
 
 			          	var element = fhem.params.devicesOnPage[id];
 
-			          	//fhem.log('socket -> ' + id, "data received from server : " + value);
 			          	if(element && element.value !== value) {
 		    				element.value = value;
 		    				element.valid = true;
@@ -704,7 +749,7 @@ var fhem = {
 			    						app.emit('fhemupdate', element, e);
 			    					}
 			    					else {
-			    						fhem.log('socket -> ' + id, 'data update blocked');
+			    						fhem.log.info('socket.receiveData', 'Data update currently blocked', id);
 			    					}
 			    				}
 			    			}
@@ -731,11 +776,11 @@ var fhem = {
                 function(data, status, xhr) {
                     var csrf = xhr.getResponseHeader('X-FHEM-csrfToken');
                     Framework7.setFhemCsrf(csrf);
-                    console.log('FHEM -> got csrf token: ', csrf);
+                    fhem.log.info('xhr.getCsrf', 'Got csrf token from server: ', csrf);
                 },
                 function(xhr, status) {
-                    console.log(status);
-                    fhem.showToast("FHEM error on get csrf token: " + status);
+                    fhem.log.error('xhr.getCsrf', 'Error on csrf token request: ', status);
+                    fhem.showToast.error("Error on csrf token request: " + status);
                 }
             );
 
@@ -755,19 +800,25 @@ var fhem = {
 			            XHR: 1,
 			        } , 
 			        function(data, status, xhr) {
-			        	fhem.xhr.receiveData(data)
+			        	fhem.xhr.receiveData(data);
+			        	fhem.log.debug('xhr.dataRequest', 'Got data from server: ', data);
 			        },
 			        function(xhr, status) {
-			            console.log(status);
-			            fhem.showToast("FHEM xhr request error: " + status);
+			            fhem.log.error('xhr.dataRequest', 'Error on data request: ', status);
+			            fhem.showToast.error("FHEM xhr request error: " + status);
 			        }
 			    );
 			}
 			else {
-				console.log('ERROR CSRF !!!');
-				setTimeout(function () {
-		            fhem.xhr.dataRequest();
-		        }, 500);
+				if(!csrf || csrf === undefined) {
+					fhem.log.error('xhr.dataRequest', 'Csrf token invalid: ', csrf);
+				}
+				if(!cmdLine || cmdLine === undefined) {
+					fhem.log.error('xhr.dataRequest', 'Command line warinvalid: ', cmdLine);
+				}
+				// setTimeout(function () {
+		  		// 	fhem.xhr.dataRequest();
+		  		// }, 500);
 			}
 		},
 		dataRequestFilter: function() {
@@ -793,7 +844,6 @@ var fhem = {
 		},
 		receiveData: function(data) {
 		    if(data && data.Results) {
-		    	console.log('XHR data -> ', data);
 		    	for (var i = 0; i < data.Results.length; i++) {
 
 		    		var device = data.Results[i].Name;
@@ -874,15 +924,11 @@ var fhemtoogle = {
 
   install() {
     const Class = this;
-    console.log(Class);
-
   },
 
 	// Create callback, it will be executed in the very beginning of class initilization
    	create(instance) {
    		var app = this;
-
-    	console.log('create', instance);
 
     	app.fhem = Framework7.ConstructorMethods({
 	      defaultSelector: '.fhemtoogle',
@@ -898,13 +944,11 @@ var fhemtoogle = {
 	
 	init: function() {
 		var app = this;
-		console.log('init', app);
 	},
 
 	on: {
 	    init: function () {
 	      var self = this;
-	      console.log('app init: ' + self.name);
 	    },
     },
 };
@@ -918,14 +962,12 @@ var myPlugin = {
   */
   install() {
     const Class = this;
-    console.log(Class);
 
   },
   /* Create callback
   It will be executed in the very beginning of class initilization (when we create new instance of the class)
   */
   create(instance) {
-    console.log('init', instance);
   },
   /*
   Object with default class/plugin parameters
