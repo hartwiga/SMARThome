@@ -18,7 +18,7 @@ x Für Rolle "Bewohner" im Raum "Keller" Heizungsanlge nicht anzeigen [1.0.31]
 x Status Meldungen Waschmaschine, Trockner auf deutsch anzeigen [1.0.30]
 x Fensterstatus generell auf deutsch anzeigen [1.0.30]
 - Badge bei Alarmanlage anzeigen, wenn ein alarmrelevantes Fenster offen ist
-x Bei allen Geräten mit Batterie Bage bei Fehler "Batterie" anzeigen  [1.0.31]
+x Bei allen Geräten mit Batterie Bage bei Fehler "Batterie" anzeigen [1.0.31]
 - Bei Websockert Fehler es nach 10s nocheinmal probieren
 x Raum "Wohnzimmer" Textausrichtung "Terrassentür" korrigieren [1.0.30]
 x Bei Thermostaten und Reglern Einheit der Temperatur hinzufügen [1.0.31]
@@ -42,6 +42,7 @@ x Terrasse Markise Status "Stop" ist abgekürzt [1.0.31]
 - Hinweis auf neuen Snapshot durch Badge
 - Snapshot funktioniert nur bei CAM1
 - Problem Dimmern, Rollladen wird set cmd doppelt gesendet Button: "device set on",  Slider: "device set pct 100". Blocken funktioniert hier nicht.
+x Unterstützung data-unit für Stepper für Thermostate und Regler  [1.0.32]
 
 
 Range-Mapping (numerisch)
