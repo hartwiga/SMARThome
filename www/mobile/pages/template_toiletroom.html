@@ -55,7 +55,7 @@
                         <div class="item-inner">
                             <div class="item-title">
                                 <span>Thermostat</span>
-                                <div class="item-header" data-type="html" data-content="EG_WC_Thermostat_Weather:STATE"></div>
+                                <div class="item-header" data-type="html" data-content="EG_WC_Thermostat_Weather" data-unit="°C"></div>
                             </div>
                             <div class="item-after">
                                 <div class="stepper stepper-init stepper-fill stepper-small stepper-raised" data-type="f7" data-object="f7Stepper" data-device="EG_WC_Thermostat_Clima" data-get="desired-temp" data-set="desired-temp">
@@ -76,7 +76,10 @@
                 <ul>
                     <li>
                         <div class="item-content">
-                            <div class="item-media"><i class="icon oa-icons oa-fts_shutter color-blue smaller"></i></div>
+                            <div class="item-media">
+                                <div class="item-media">
+                                <i class="icon oa-icons oa-fts_shutter_10 color-blue" data-type="f7" data-class="EG_WC_Rolladen:pct" data-map-class='{"0":"oa-fts_shutter_90","1-25":"oa-fts_shutter_80","26-35":"oa-fts_shutter_70","36-45":"oa-fts_shutter_60","46-55":"oa-fts_shutter_50","56-65":"oa-fts_shutter_40","66-75":"oa-fts_shutter_30","76-99":"oa-fts_shutter_20","100":"oa-fts_shutter_10"}'></i>
+                            </div>
                             <div class="item-inner">
                                 <div class="item-title-row">
                                     <div class="item">Rollladen</div>
@@ -107,9 +110,9 @@
                     <li>
                         <div class="item-content">
                             <div class="item-media">
-                                <i class="icon oa-icons oa-fts_window_1w color-blue smaller">
+                                <i class="icon oa-icons oa-fts_window_1w color-blue" data-type="f7" data-class="EG_WC_Fenster" data-map-class='{"open":"oa-fts_window_1w_open", "closed":"oa-fts_window_1w"}'>
                                     <span class="badge color-red tooltip-init hide" data-tooltip="Batterie muss gewechselt werden" data-type="html" data-class="EG_WC_Fenster:battery" data-map-class='{"low":"", "ok":"hide"}'>
-                                                <i class="icon oa-icons oa-measure_battery_0 color-white"></i>
+                                        <i class="icon oa-icons oa-measure_battery_0 color-white"></i>
                                     </span>
                                 </i>
                             </div>
@@ -117,7 +120,7 @@
                                 <div class="item-title-row">
                                     <div class="item-title">Fenster</div>
                                 </div>
-                                <div class="item-subtitle" data-type="html" data-content="EG_WC_Fenster:STATE" data-map-checked='{"open":"offen", "closed":"geschlossen"}'></div>
+                                <div class="item-subtitle" data-type="html" data-content="EG_WC_Fenster" data-map-content='{"open":"offen", "closed":"geschlossen"}'></div>
                             </div>
                         </div>
                     </li>

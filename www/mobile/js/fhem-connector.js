@@ -17,11 +17,11 @@ var fhem = {
 	// Object with default class/plugin parameters
   	params: {
   		sockets: [],
-  		devicesOnPage: [],
+  		devicesOnPage: undefined,
   		currentPage: undefined,
   		enableDataChange: undefined,
   		disableSend: false,
-  		blockingtime: 1000,
+  		blockingtime: 1200,
   		toast: undefined,
   		log: undefined,
   	},
@@ -97,10 +97,10 @@ var fhem = {
 	    init: function (page) {
 	      	var self = this;
 
-	      	fhem.log.debug('init', 'Page: ', page);
-
 	      	fhem.params.toast = fhem.level.info;
 	      	fhem.params.log = fhem.level.info;
+
+	      	fhem.log.debug('init', 'Page: ', page);
 
 	     	$$(window).on('beforeunload', function (e) {
 	     		fhem.log.debug('window', 'before close browser tab', e);
@@ -130,27 +130,30 @@ var fhem = {
 
 	    	params.currentPage = page;
 
-	    	params.devicesOnPage = {};
+	    	params.devicesOnPage = [];
 
 	     	var $el = page.$el.find('[data-type]');
 	     	fhem.getDevicesOnPage($el);
 
-	     	if(app.online) {
+	     	if(app.online && params.devicesOnPage && Object.keys(params.devicesOnPage).length) {
+
 	     		fhem.socket.closeAll();
+
+	     		fhem.log.debug('pageBeforeIn', 'Initial XHR request: ');
 	     		fhem.xhr.dataRequest();
 
 		        setTimeout(function () {fhem.socket.create()}, 1500);
+	     	
+	 	     	app.on('fhemupdate', function(device, element) {
+		     		fhem.data.handleDataUpdate(device, element);
+	    		});
 	     	}
-
-	     	app.on('fhemupdate', function(device, element) {
-	     		fhem.data.handleDataUpdate(device, element);
-    		});
 	    },
 	    pageAfterIn: function (page) {
 	      fhem.log.debug('pageAfterIn', 'Page: ', page);
 
 	      setTimeout( function() {
-	      		fhem.log.info('Interface', 'enabled now');
+	      		fhem.log.info('Interface', 'enabled now on page: ', page.name);
                 fhem.params.enableDataChange = true; 
             }, 1000);
 	    },
@@ -512,6 +515,17 @@ var fhem = {
 						}
 					}
 				}
+				else if(dataMapNumClass) {
+					var dataMap = JSON.parse(dataMapNumClass);
+					value = fhem.data.mappingNum(dataMap, valueRaw, valueRaw);
+
+					for( var key in dataMap) {
+						var c = dataMap[key];
+						if(c && c !== "") {
+							e.removeClass(c);
+						}
+					}
+				}
 				if(value && value !== "") 
 					e.addClass(value);
 			}		
@@ -521,6 +535,18 @@ var fhem = {
 	          for (var k in o) {
 	            if (v === k || v.match(new RegExp('^' + k + '$'))) {
 	              return o[k];
+	            }
+	            else if(k.match(/-/)) {
+	            	var n = Number(v)
+      				var tmp = k.split('-');
+      				var v1 = Number(tmp[0]);
+      				var v2 = Number(tmp[1]);
+
+      				if(v1 !== Number.NaN && v1 !== Number.NaN && v2 !== Number.NaN && v1 < v2) {
+      					if(n >= v1 && n <= v2) {
+      						return o[k];
+      					}
+      				}	
 	            }
 	          }
 	        }
@@ -615,8 +641,12 @@ var fhem = {
 			}
 
 			if(cmd) {
+				fhem.log.info('data.change', 'Start element update blocking: ', dataBlockingtime, ' ms', e);
+
 				e.data('blocked', true);
+
 				setTimeout(function (e) {
+					fhem.log.debug('data.change', 'Stop element update blocking: ', e);
 					e.removeData('blocked');
 				}, dataBlockingtime, e);
 
@@ -740,16 +770,22 @@ var fhem = {
 		    				element.valid = true;
 		    				element.timestamp = new Date().getTime();
 
+		    				var blocked = false;
 		    				if(Array.isArray(element.elements) && element.elements.length > 0) { 
 			    				for(var key in element.elements) {
 			    					var e = element.elements[key];
-			    					var blocked = $$(e).data('blocked');
+			    					blocked = $$(e).data('blocked');
 
 			    					if(!blocked && element.valid) {
 			    						app.emit('fhemupdate', element, e);
 			    					}
-			    					else {
-			    						fhem.log.info('socket.receiveData', 'Data update currently blocked', id);
+		    						else {
+			    						if(blocked) {
+			    							fhem.log.info('socket.receiveData', 'Data update for element currently blocked', e);
+			    						}
+			    						else if(!element.valid) {
+			    							fhem.log.info('socket.receiveData', 'Data update not possible element invalid', e);
+			    						}
 			    					}
 			    				}
 			    			}
@@ -757,6 +793,14 @@ var fhem = {
 				    			if(element.valid) {
 				    				app.emit('fhemupdate', element, undefined);
 				   				}
+				   				else {
+		    						if(blocked) {
+		    							fhem.log.info('socket.receiveData', 'Data update for element currently blocked', element);
+		    						}
+		    						else if(!element.valid) {
+		    							fhem.log.info('socket.receiveData', 'Data update not possible element invalid', element);
+		    						}
+		    					}
 		    				}
 		    			}
 			        }
@@ -792,6 +836,7 @@ var fhem = {
 			var csrf = Framework7.getFhemCsrf();
 
 			if(csrf && csrf !== undefined && cmdLine && cmdLine !== undefined) {
+				fhem.log.debug('xhr.dataRequest', 'Start data request: ', cmdLine);
 			    app.request.json(url,
 			        {
 			        	cache: false,
@@ -800,8 +845,8 @@ var fhem = {
 			            XHR: 1,
 			        } , 
 			        function(data, status, xhr) {
-			        	fhem.xhr.receiveData(data);
 			        	fhem.log.debug('xhr.dataRequest', 'Got data from server: ', data);
+			        	fhem.xhr.receiveData(data);
 			        },
 			        function(xhr, status) {
 			            fhem.log.error('xhr.dataRequest', 'Error on data request: ', status);
@@ -812,13 +857,12 @@ var fhem = {
 			else {
 				if(!csrf || csrf === undefined) {
 					fhem.log.error('xhr.dataRequest', 'Csrf token invalid: ', csrf);
+					setTimeout(function () {fhem.xhr.dataRequest();}, 200);
 				}
 				if(!cmdLine || cmdLine === undefined) {
 					fhem.log.error('xhr.dataRequest', 'Command line warinvalid: ', cmdLine);
 				}
-				// setTimeout(function () {
-		  		// 	fhem.xhr.dataRequest();
-		  		// }, 500);
+				
 			}
 		},
 		dataRequestFilter: function() {
@@ -858,15 +902,25 @@ var fhem = {
 		    				element.valid = true;
 		    				element.timestamp = new Date().getTime();
 
+		    				var blocked = false;
 		    				if(Array.isArray(element.elements) && element.elements.length > 0) { 
 			    				for(var key in element.elements) {
 			    					if(element.valid) {
 			    						var e = element.elements[key];
-			    						var blocked = $$(e).data('blocked');
+			    						blocked = $$(e).data('blocked');
 
 				    					if(!blocked && element.valid) {
 				    						app.emit('fhemupdate', element, e);
 				    					}
+
+			    					}
+			    					else {
+				    					if(blocked) {
+			    							fhem.log.info('socket.receiveData', 'Data update for element currently blocked', e);
+			    						}
+			    						else if(!element.valid) {
+			    							fhem.log.info('socket.receiveData', 'Data update not possible element invalid', e);
+			    						}
 			    					}
 			    				}
 		    				}
@@ -874,6 +928,14 @@ var fhem = {
 				    			if(element.valid) {
 				    				app.emit('fhemupdate', element, undefined);
 				   				}
+				   				else {
+		    						if(blocked) {
+		    							fhem.log.info('socket.receiveData', 'Data update for element currently blocked', element);
+		    						}
+		    						else if(!element.valid) {
+		    							fhem.log.info('socket.receiveData', 'Data update not possible element invalid', element);
+		    						}
+		    					}
 		    				}
 			    		}
 		    		}
@@ -888,16 +950,24 @@ var fhem = {
 		    				element.valid = true;
 		    				element.timestamp = new Date().getTime();
 
+		    				var blocked = false;
 		    				if(Array.isArray(element.elements) && element.elements.length > 0) { 
 			    				for(var key in element.elements) {
 			    					if(element.valid) {
 			    						var e = element.elements[key];
-			    						var blocked = $$(e).data('blocked');
+			    						blocked = $$(e).data('blocked');
 
 				    					if(!blocked && element.valid) {
 				    						app.emit('fhemupdate', element, e);
 				    					}
-
+				    					else {
+				    						if(blocked) {
+				    							fhem.log.info('socket.receiveData', 'Data update for element currently blocked', e);
+				    						}
+				    						else if(!element.valid) {
+				    							fhem.log.info('socket.receiveData', 'Data update not possible element invalid', e);
+				    						}
+				    					}
 			    					}
 			    				}
 			    			}
@@ -905,6 +975,14 @@ var fhem = {
 				    			if(element.valid) {
 				    				app.emit('fhemupdate', element, undefined);
 				   				}
+				   				else {
+		    						if(blocked) {
+		    							fhem.log.info('socket.receiveData', 'Data update for element currently blocked', element);
+		    						}
+		    						else if(!element.valid) {
+		    							fhem.log.info('socket.receiveData', 'Data update not possible element invalid', element);
+		    						}
+		    					}
 		    				}
 			    		}
 		    		}

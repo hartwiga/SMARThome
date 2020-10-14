@@ -153,7 +153,10 @@
                         <div class="item-inner">
                             <div class="item-title">
                                 <span>Raumregler</span>
-                                <div class="item-header" data-type="html" data-content="EG_Wohnzimmer_Temperaturregler_Weather:STATE"></div>
+                                <div class="item-header">
+                                    <span data-type="f7" data-content="EG_Wohnzimmer_Temperaturregler_Weather:temperature" data-unit="°C"></span>
+                                    - <span data-type="f7" data-content="EG_Wohnzimmer_Temperaturregler_Weather:humidity" data-unit="hPa"></span>
+                                </div>
                             </div>
                             <div class="item-after">
                                 <div class="stepper stepper-init stepper-fill stepper-small stepper-raised" data-type="f7" data-object="f7Stepper" data-device="EG_Wohnzimmer_Temperaturregler_Climate" data-get="desired-temp">
@@ -174,7 +177,9 @@
                 <ul>
                     <li>
                         <div class="item-content">
-                            <div class="item-media"><i class="icon oa-icons oa-fts_shutter color-blue smaller"></i></div>
+                            <div class="item-media">
+                                <i class="icon oa-icons oa-fts_shutter_10 color-blue" data-type="f7" data-class="EG_Wohnenzimmer_Tuer_Rolladen:pct" data-map-class='{"0":"oa-fts_shutter_90","1-25":"oa-fts_shutter_80","26-35":"oa-fts_shutter_70","36-45":"oa-fts_shutter_60","46-55":"oa-fts_shutter_50","56-65":"oa-fts_shutter_40","66-75":"oa-fts_shutter_30","76-99":"oa-fts_shutter_20","100":"oa-fts_shutter_10"}'></i>
+                            </div>
                             <div class="item-inner">
                                 <div class="item-title-row">
                                     <div class="item">Terrassentür</div>
@@ -199,7 +204,9 @@
                     </li>
                     <li>
                         <div class="item-content">
-                            <div class="item-media"><i class="icon oa-icons oa-fts_shutter color-blue smaller"></i></div>
+                            <div class="item-media">
+                                <i class="icon oa-icons oa-fts_shutter_10 color-blue" data-type="f7" data-class="EG_Wohnenzimmer_Rolladen:pct" data-map-class='{"0":"oa-fts_shutter_90","1-25":"oa-fts_shutter_80","26-35":"oa-fts_shutter_70","36-45":"oa-fts_shutter_60","46-55":"oa-fts_shutter_50","56-65":"oa-fts_shutter_40","66-75":"oa-fts_shutter_30","76-99":"oa-fts_shutter_20","100":"oa-fts_shutter_10"}'></i>
+                            </div>
                             <div class="item-inner">
                                 <div class="item-title-row">
                                     <div class="item">Wohnzimmer</div>
@@ -223,7 +230,9 @@
                     </li>
                     <li>
                         <div class="item-content">
-                            <div class="item-media"><i class="icon oa-icons oa-fts_shutter color-blue smaller" ></i></div>
+                            <div class="item-media">
+                                <i class="icon oa-icons oa-fts_shutter_10 color-blue" data-type="f7" data-class="EG_Esszimmer_Rolladen:pct" data-map-class='{"0":"oa-fts_shutter_90","1-25":"oa-fts_shutter_80","26-35":"oa-fts_shutter_70","36-45":"oa-fts_shutter_60","46-55":"oa-fts_shutter_50","56-65":"oa-fts_shutter_40","66-75":"oa-fts_shutter_30","76-99":"oa-fts_shutter_20","100":"oa-fts_shutter_10"}'></i>
+                            </div>
                             <div class="item-inner">
                                 <div class="item-title-row">
                                     <div class="item">Esszimmer</div>
@@ -253,7 +262,7 @@
                 <ul>
                     <li class="item-content">       
                         <div class="item-media">
-                            <i class="icon oa-icons oa-it_television color-blue smaller"></i>
+                            <i class="icon oa-icons oa-it_television color-blue "></i>
                         </div>
                         <div class="item-inner">
                             <div class="item-title">
@@ -281,8 +290,8 @@
                     <li>
                         <div class="item-content">
                             <div class="item-media">
-                                <i class="icon oa-icons oa-fts_door color-blue">
-                                    <span class="badge color-red tooltip-init hide" data-tooltip="Batterie muss gewechselt werden" data-type="html" data-class="EG_Wohnzimmer_Tuer:battery" data-map-class='{"low":"", "ok":"hide"}'>
+                                <i class="icon oa-icons oa-fts_door color-blue" data-type="f7" data-class="EG_Wohnzimmer_Tuer_TS" data-map-class='{"open":"oa-fts_door_open", "closed":"oa-fts_door", "tilt":"oa-fts_door_open"}'>
+                                    <span class="badge color-red tooltip-init hide" data-tooltip="Batterie muss gewechselt werden" data-type="html" data-class="EG_Wohnzimmer_Tuer_TS:battery" data-map-class='{"low":"", "ok":"hide"}'>
                                         <i class="icon oa-icons oa-measure_battery_0 color-white"></i>
                                     </span>
                                 </i>
@@ -291,14 +300,14 @@
                                 <div class="item-title-row">
                                     <div class="item-title">Terrassentür</div>
                                 </div>
-                                <div class="item-subtitle" data-type="html" data-content="EG_Wohnzimmer_Tuer:STATE" data-map-checked='{"open":"offen", "closed":"geschlossen"}'></div>
+                                <div class="item-subtitle" data-type="html" data-content="EG_Wohnzimmer_Tuer_TS" data-map-content='{"open":"offen","tilt":"gekippt", "closed":"geschlossen"}'></div>
                             </div>
                         </div>
                     </li>
                     <li>
                         <div class="item-content">
                             <div class="item-media">
-                                <i class="icon oa-icons oa-fts_window_1w color-blue smaller">
+                                <i class="icon oa-icons oa-fts_window_1w color-blue" data-type="f7" data-class="EG_Wohnzimmer_Fenster" data-map-class='{"open":"oa-fts_window_1w_open", "closed":"oa-fts_window_1w"}'>
                                     <span class="badge color-red tooltip-init hide" data-tooltip="Batterie muss gewechselt werden" data-type="html" data-class="EG_Wohnzimmer_Fenster:battery" data-map-class='{"low":"", "ok":"hide"}'>
                                         <i class="icon oa-icons oa-measure_battery_0 color-white"></i>
                                     </span>
@@ -308,31 +317,14 @@
                                 <div class="item-title-row">
                                     <div class="item-title">Wohnzimmer</div>
                                 </div>
-                                <div class="item-subtitle" data-type="html" data-content="EG_Wohnzimmer_Fenster:STATE" data-map-checked='{"open":"offen", "closed":"geschlossen"}'></div>
+                                <div class="item-subtitle" data-type="html" data-content="EG_Wohnzimmer_Fenster" data-map-content='{"open":"offen", "closed":"geschlossen"}'></div>
                             </div>
                         </div>
                     </li>
                     <li>
                         <div class="item-content">
                             <div class="item-media">
-                                <i class="icon oa-icons oa-fts_window_2w color-blue smaller">
-                                    <span class="badge color-red tooltip-init hide" data-tooltip="Batterie muss gewechselt werden" data-type="html" data-class="EG_Esszimmer_Fenster1:battery" data-map-class='{"low":"", "ok":"hide"}'>
-                                        <i class="icon oa-icons oa-measure_battery_0 color-white"></i>
-                                    </span>
-                                </i>
-                            </div>
-                            <div class="item-inner">
-                                <div class="item-title-row">
-                                    <div class="item-title">Esszimmer links</div>
-                                </div>
-                                <div class="item-subtitle" data-type="html" data-content="EG_Esszimmer_Fenster1:STATE" data-map-checked='{"open":"offen", "closed":"geschlossen"}'></div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-media">
-                                <i class="icon oa-icons oa-fts_window_2w color-blue smaller">
+                                <i class="icon oa-icons oa-fts_window_2w color-blue" data-type="f7" data-class="EG_Esszimmer_Fenster2" data-map-class='{"open":"oa-oa-fts_window_2w_open", "closed":"oa-fts_window_2w"}'>
                                      <span class="badge color-red tooltip-init hide" data-tooltip="Batterie muss gewechselt werden" data-type="html" data-class="EG_Esszimmer_Fenster2:battery" data-map-class='{"low":"", "ok":"hide"}'>
                                         <i class="icon oa-icons oa-measure_battery_0 color-white"></i>
                                     </span>
@@ -342,7 +334,24 @@
                                 <div class="item-title-row">
                                     <div class="item-title">Esszimmer rechts</div>
                                 </div>
-                                <div class="item-subtitle" data-type="html" data-content="EG_Esszimmer_Fenster2:STATE" data-map-checked='{"open":"offen", "closed":"geschlossen"}'></div>
+                                <div class="item-subtitle" data-type="html" data-content="EG_Esszimmer_Fenster2" data-map-content='{"open":"offen", "closed":"geschlossen"}'></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media">
+                                <i class="icon oa-icons oa-fts_window_2w color-blue" data-type="f7" data-class="EG_Esszimmer_Fenster1" data-map-class='{"open":"oa-oa-fts_window_2w_open_l", "closed":"oa-fts_window_2w"}'>
+                                    <span class="badge color-red tooltip-init hide" data-tooltip="Batterie muss gewechselt werden" data-type="html" data-class="EG_Esszimmer_Fenster1:battery" data-map-class='{"low":"", "ok":"hide"}'>
+                                        <i class="icon oa-icons oa-measure_battery_0 color-white"></i>
+                                    </span>
+                                </i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item-title">Esszimmer links</div>
+                                </div>
+                                <div class="item-subtitle" data-type="html" data-content="EG_Esszimmer_Fenster1" data-map-content='{"open":"offen", "closed":"geschlossen"}'></div>
                             </div>
                         </div>
                     </li>

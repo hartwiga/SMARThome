@@ -5,39 +5,49 @@ x Beim Benutzerwechsel muss das Local Storage gelöscht werden [1.0.27]
 x Benutzer Kennwörter sind unverschlüssel in der Datei abgelegt [1.0.27]
 x About Text anpassen (FTUI) [1.0.26]
 X Abmelden als Menüpunkt hinzu [1.0.27]
-- Badge für Kommunikationsfehler hinzu
 x TV Plan Prime Time umschaltung hinzu [1.0.26]
-- Licht Keller trepp bei Raum Keller hinzu
-- Hausstatus für Rolle "Bewohner" in die zweite Zeile setzen. Erste Zeile "Anwesenheitsstatus"
-- Unterscheiden zwischen Debug und Information Toast
+x Licht Kellertreppe bei Raum Keller hinzu [1.0.28]
+x Hausstatus für Rolle "Bewohner" in die zweite Zeile setzen. Erste Zeile "Anwesenheitsstatus" [1.0.28]
+x FHEM Connector verbessertes Toast Handling (level) [1.0.29]
+x FHEM Connector verbessertes Logging (level) [1.0.29]
 - Scene Badezimmer hinzu
-- Scene Haus benutzerabhängig 
+x Scene Haus benutzerabhängig [1.0.28]
 - Scene Wohnzimmer automatisch auf Zustand "aus" setzen, wenn alle Lampen ausgeschaltet sind
-- Ausrichten Text bei "Fenster und Türen" korregieren
-- Für Rolle "Bewohner" im Raum "Keller" Heizungsanlegae nicht anzeigen
-- Status Meldungen Waschmaschine, Trockner auf deutsch anzeigen
-- Fensterstatus generell auf deutsch anzeigen
-- Badge bei Fensterstatus anzeigen, wenn ein alarmrelevantest Fenster offen ist, bei Batterie Warning oder Inaktivität
-- Bei allen Geräten mit Batterie Bage bei Fehler "Batterie" und Inaktivität anzeigen
+x Ausrichten Text bei "Fenster und Türen" korregieren [1.0.30]
+x Für Rolle "Bewohner" im Raum "Keller" Heizungsanlge nicht anzeigen [1.0.31]
+x Status Meldungen Waschmaschine, Trockner auf deutsch anzeigen [1.0.30]
+x Fensterstatus generell auf deutsch anzeigen [1.0.30]
+- Badge bei Alarmanlage anzeigen, wenn ein alarmrelevantes Fenster offen ist
+x Bei allen Geräten mit Batterie Bage bei Fehler "Batterie" anzeigen  [1.0.31]
 - Bei Websockert Fehler es nach 10s nocheinmal probieren
-- Raum "Wohnzimmer" Textausrichtung "Terrassentür" korrigieren
-- Bei Thermostaten und Reglern Einheit der Temperatur hinzufügen
-- Icons bei Rolladen, Lamben und Fenstern statusabhängig anzeigen
+x Raum "Wohnzimmer" Textausrichtung "Terrassentür" korrigieren [1.0.30]
+x Bei Thermostaten und Reglern Einheit der Temperatur hinzufügen [1.0.31]
+x Icons bei Rolladen, Lampen und Fenstern statusabhängig anzeigen [1.0.31]
 - TV Modus Rollladen als Toggle
 - Raum Treppenhaus Haustürklingel hinzu Beleuchtung und Ton an/aus, Lautstärke
 - Raum Badezimmer Scene "Bad" hinzu
 - Raum Wohnzimmer Scene "Wohnzimmer" hinzu
-- Kinderzimmer Fenster rechts/links vertauscht
+x Kinderzimmer Fenster rechts/links vertauscht [1.0.31]
 - Tooltip 3s anzeigen
 - Hauseingang Klingel erweitern Beleuchtung...
 - Hauseingang Toggle für Schalter Kamera hinzu "admin"
 - Garten Lichtautomatik an/aus hinzu "admin"
-- Terrasse Markise Ikon fehlt
-- Terrasse Markise Status "Stop" ist abgekürzt
+x Terrasse Markise Ikon fehlt [1.0.31]
+x Terrasse Markise Status "Stop" ist abgekürzt [1.0.31]
 - Anmeldedialog Icon Hintergrund nicht transparent
 - Kameras keine Erkennung Verbindugsabbruch... Eventuell onine/offline Status und Kamera Status
-- Zusärtlich Kamera Popup letzte Videoaufnahme hinzu
+- Zusätzlich Kamera Popup letzte Videoaufnahme hinzu
 - Auf Handy nach Standby werden keine Streams und auch kein Reload angezeigt
 - Snapshot wird nicht in Liste angezeigt
 - Hinweis auf neuen Snapshot durch Badge
 - Snapshot funktioniert nur bei CAM1
+- Problem Dimmern, Rollladen wird set cmd doppelt gesendet Button: "device set on",  Slider: "device set pct 100". Blocken funktioniert hier nicht.
+
+
+Range-Mapping (numerisch)
+
+0%		"0":"closed"
+25%		"1-49":"open_25"
+50%		"40-60":"open_50"
+75%		"61-99":"open_75"
+100%	"100":"open"

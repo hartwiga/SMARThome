@@ -93,7 +93,7 @@
 
 [class^="oa-"],
 [class*=" oa-"] {
-    font-size: 28px  !important;
+    font-size: 26px !important;
     /* Preferred icon size */
     display: inline-block !important;
     line-height: 1 !important;
@@ -109,10 +109,46 @@
     text-rendering: optimizeLegibility;
 
     /* Support for Firefox. */
-    -moz-osx-font-smoothing: grayscale  !important;
+    -moz-osx-font-smoothing: grayscale !important;
 
     /* Support for IE. */
-    font-feature-settings: 'liga'  !important;
+    font-feature-settings: 'liga' !important;
+}
+
+.oa-fts_window_2w:before {
+    font-size: 20px !important;
+}
+
+.oa-fts_window_2w_open:before,
+.oa-scene_robo_lawnmower:before {
+    font-size: 23px !important;
+}
+
+.oa-fts_window_2w_open_l {
+    transform: scale(0.9,0.8) !important;
+    -webkit-transform: scale(1.04,0.9) !important; /* Safari and Chrome */
+    -moz-transform: scale(0.9,0.8) !important; /* Firefox */
+    -ms-transform: scale(0.9,0.8) !important; /* IE 9+ */
+     -o-transform: scale(0.9,0.8) !important; /* Opera */
+}
+
+.oa-light_light:before,
+.oa-fts_shutter:before,
+.oa-fts_shutter_10:before,
+.oa-fts_shutter_20:before,
+.oa-fts_shutter_30:before,
+.oa-fts_shutter_40:before,
+.oa-fts_shutter_50:before,
+.oa-fts_shutter_60:before,
+.oa-fts_shutter_70:before,
+.oa-fts_shutter_80:before,
+.oa-fts_shutter_90:before  {
+    font-size: 20px !important;
+}
+
+.oa-it_television:before,
+.oa-fts_window_1w:before {
+    font-size: 23px !important;
 }
 
 .hide {
@@ -198,18 +234,6 @@ i.icon {
     color: red;
 }
 
-.icon.smaller {
-    font-size: 130% !important;
-}
-/*
-.item-input-wrap input {
-    color: var(--f7-list-item-footer-text-color) !important;
-    font-size: var(--f7-list-item-footer-font-size) !important;
-    font-weight: var(--f7-list-item-footer-font-weight) !important;
-    line-height: var(--f7-list-item-footer-line-height) !important;
-    height: auto !important;
-}
-*/
 .grid div[class*=col] {
 
     text-align: center;

@@ -59,6 +59,7 @@
                 </ul>
             </div>
             <!-- Heizung -->
+            {{#js_if "this.token.role === 'admin'"}}
             <div class="block-title">Heizungsanlage</div>
             <div class="list media-list">
                 <ul>
@@ -89,7 +90,7 @@
                                     <label class="toggle  toggle-init" data-type="f7" data-object="f7Toggle" data-device="d_WaterControl" data-map-checked='{"on":true,"auto":true, "off":false}' data-map-changed='{"true":"on", "false":"off"}'>
                                             <input type="checkbox">
                                             <span class="toggle-icon"></span>
-                                        </label>
+                                    </label>
                                 </div>
                                 <div class="item-title-row">
                                     <div class="item-footer">Wassertemperatur: <span data-type="html" data-content="d_Heizung_Status:water_temperatur"  data-unit="°C"></span></div>
@@ -99,33 +100,46 @@
                     </li>
                 </ul>
             </div>
-            <!-- Heizung -->
+            {{/js_if}}
+            <!-- Geräte -->
             <div class="block-title">Geräte</div>
-            <div class="list">
+            <div class="list media-list">
                 <ul>
                     <li>
                         <div class="item-content">
                             <div class="item-media">
-                                <i class="icon oa-icons oa-scene_washing_machine color-blue smaller"></i>
+                                <i class="icon oa-icons oa-scene_washing_machine color-blue "></i>
                             </div>
                             <div class="item-inner">
                                 <div class="item-title-row">
-                                    <div class="item-title">Waschmaschine</div>
+                                    <div class="item">Waschmaschine</div>
+                                    <label class="toggle  toggle-init" data-type="f7" data-object="f7Toggle" data-device="KG_Waschmaschine_Sw" data-map-checked='{"on":true, "off":false}' data-map-changed='{"true":"on", "false":"off"}'>
+                                            <input type="checkbox">
+                                            <span class="toggle-icon"></span>
+                                    </label>
                                 </div>
-                                <div class="item-subtitle" data-type="html" data-content="if_Waschmaschine:state" data-map-checked='{"on":"an", "off":"aus", "running":"in Betrieb", "standby":"standby"}'></div>
+                                <div class="item-title-row">
+                                    <div class="item-footer" data-type="html" data-content="if_Waschmaschine:state" data-map-content='{"on":"an", "off":"aus", "running":"in Betrieb", "standby":"fertig"}'></div>
+                                </div>
                             </div>
                         </div>
                     </li>
                     <li>
                         <div class="item-content">
                             <div class="item-media">
-                                <i class="icon oa-icons oa-scene_clothes_dryer color-blue smaller"></i>
+                                <i class="icon oa-icons oa-scene_clothes_dryer color-blue "></i>
                             </div>
                             <div class="item-inner">
                                 <div class="item-title-row">
-                                    <div class="item-title">Trockner</div>
+                                    <div class="item">Trockner</div>
+                                    <label class="toggle  toggle-init" data-type="f7" data-object="f7Toggle" data-device="KG_Trockner_Sw" data-map-checked='{"on":true, "off":false}' data-map-changed='{"true":"on", "false":"off"}'>
+                                            <input type="checkbox">
+                                            <span class="toggle-icon"></span>
+                                    </label>
                                 </div>
-                                <div class="item-subtitle" data-type="html" data-content="if_Trockner:state" data-map-checked='{"on":"an", "off":"aus", "running":"in Betrieb", "standby":"standby"}'></div>
+                                <div class="item-title-row">
+                                    <div class="item-footer" data-type="html" data-content="if_Trockner:state" data-map-content='{"on":"an", "off":"aus", "running":"in Betrieb", "standby":"fertig"}'></div>
+                                </div>
                             </div>
                         </div>
                     </li>
@@ -138,7 +152,7 @@
                     <li>
                         <div class="item-content">
                             <div class="item-media">
-                                <i class="icon oa-icons oa-fts_window_2w color-blue smaller">
+                                <i class="icon oa-icons oa-fts_window_2w color-blue" data-type="f7" data-class="KG_Fenster1" data-map-class='{"open":"oa-fts_window_1w_open", "closed":"oa-fts_window_1w"}'>
                                     <span class="badge color-red tooltip-init hide" data-tooltip="Batterie muss gewechselt werden" data-type="html" data-class="KG_Fenster1:battery" data-map-class='{"low":"", "ok":"hide"}'>
                                         <i class="icon oa-icons oa-measure_battery_0 color-white"></i>
                                     </span>
@@ -148,14 +162,14 @@
                                 <div class="item-title-row">
                                     <div class="item-title">Waschküche</div>
                                 </div>
-                                <div class="item-subtitle" data-type="html" data-content="KG_Fenster1:STATE" data-map-checked='{"open":"offen", "closed":"geschlossen"}'></div>
+                                <div class="item-subtitle" data-type="html" data-content="KG_Fenster1" data-map-content='{"open":"offen", "closed":"geschlossen"}'></div>
                             </div>
                         </div>
                     </li>
                     <li>
                         <div class="item-content">
                             <div class="item-media">
-                                <i class="icon oa-icons oa-fts_window_2w color-blue smaller">
+                                <i class="icon oa-icons oa-fts_window_2w color-blue" data-type="f7" data-class="KG_Fenster2" data-map-class='{"open":"oa-fts_window_1w_open", "closed":"oa-fts_window_1w"}'>
                                     <span class="badge color-red tooltip-init hide" data-tooltip="Batterie muss gewechselt werden" data-type="html" data-class="KG_Fenster2:battery" data-map-class='{"low":"", "ok":"hide"}'>
                                         <i class="icon oa-icons oa-measure_battery_0 color-white"></i>
                                     </span>
@@ -165,7 +179,7 @@
                                 <div class="item-title-row">
                                     <div class="item-title">Heizungsraum</div>
                                 </div>
-                                <div class="item-subtitle" data-type="html" data-content="KG_Fenster2:STATE" data-map-checked='{"open":"offen", "closed":"geschlossen"}'></div>
+                                <div class="item-subtitle" data-type="html" data-content="KG_Fenster2" data-map-content='{"open":"offen", "closed":"geschlossen"}'></div>
                             </div>
                         </div>
                     </li>

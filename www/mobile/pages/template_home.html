@@ -45,7 +45,6 @@
             -->
 
             <!-- <button href="#" class="button button-raised popup-open" data-popup=".popup-handler-home">Scenen</button> -->
-
             <div class="block-title">Wetter</div>
             <div class="list">
                 <ul>
@@ -129,7 +128,11 @@
                     <li>
                         <a href="/alarmsystem/" class="item-content item-link">
                             <div class="item-media">
-                                <i class="icon oa-icons oa-status_locked color-blue"></i>
+                                <i class="icon oa-icons oa-status_locked color-blue" data-type="f7" data-class="d_AlarmInfo:state" data-map-class='{"signals_off":"oa-status_open","armed_error":"oa-status_open","alarm_fire":"oa-secur_smoke_detector","alarm_full":"oa-secur_alarm","alarm_intrusion":"oa-secur_alarm","alarm_panik":"oa-secur_alarm","alarm_still":"oa-secur_alarm","alarm_sabotage":"oa-status_open","armed_pre":"oa-status_standby","armed_partial":"oa-status_locked", "armed_full":"oa-status_locked","disarmed":"oa-status_open"}'>
+                                    <span class="badge color-red tooltip-init hide" data-tooltip="Alarm wurde ausgelöst" data-type="html" data-class="d_AlarmInfo:state" data-map-class='{"signals_off":"hide","armed_error":"color-yellow","alarm_fire":"color-red","alarm_full":"color-red","alarm_intrusion":"color-red","alarm_panik":"color-red","alarm_still":"color-red","alarm_sabotage":"color-yellow","armed_pre":"hide","armed_partial":"hide", "armed_full":"hide","disarmed":"hide"}'>
+                                        !
+                                    </span>
+                                </i>
                             </div>
                             <div class="item-inner item-cell">
                                 <div class="item-row">
@@ -138,7 +141,7 @@
                                         <div class="item-footer" data-type="html" data-content="AAA:STATE"></div>
                                     </div>
                                     <div class="item-after">
-                                        <span data-type="html" data-content="d_AlarmInfo:state" data-map-content='{"signals_off":"deaktiviert","armed_error":"Fehler Aktivieren","alarm_fire":"Feueralarm","alarm_full":"Einbruchsalarm","alarm_intrusion":"Einbruchsalarm","alarm_panik":"Panikalarm","alarm_still":"Einbruchsalarm","alarm_sabotage":"Sabotagealarm","armed_pre":"wird Aktiviert","armed_partial":"teilweise Aktiviert", "":"vollständig aktiviert","disarmed":"deaktiviert"}'></span>
+                                        <span data-type="html" data-content="d_AlarmInfo:state" data-map-content='{"signals_off":"deaktiviert","armed_error":"Fehler Aktivieren","alarm_fire":"Feueralarm","alarm_full":"Einbruchsalarm","alarm_intrusion":"Einbruchsalarm","alarm_panik":"Panikalarm","alarm_still":"Einbruchsalarm","alarm_sabotage":"Sabotagealarm","armed_pre":"wird Aktiviert","armed_partial":"teilweise Aktiviert", "armed_full":"vollständig aktiviert","disarmed":"deaktiviert"}'></span>
                                     </div>
                                 </div>
                             </div>
@@ -148,7 +151,7 @@
                     <li>
                         <a href="/cams/" class="item-content item-link">
                             <div class="item-media">
-                                <i class="icon f7-icons color-blue">videocam</i>
+                                <i class="icon oa-icons oa-it_camera color-blue"></i>
                             </div>
                             <div class="item-inner item-cell">
                                 <div class="item-row">
@@ -172,7 +175,7 @@
                     <li>
                         <a href="/epg/" class="item-content item-link">
                             <div class="item-media">
-                                <i class="icon f7-icons color-blue">tv</i>
+                                <i class="icon oa-icons oa-it_television color-blue"></i>
                             </div>
                             <div class="item-inner">
                                 <div class="item-title">
@@ -267,7 +270,7 @@
                     <li>
                         <div class="item-content">
                             <div class="item-media">
-                                <i class="icon oa-icons oa-user_available color-blue"  data-type="f7" data-class="rr_{{token.name}}" data-map-class='{"home":"oa-user_available", "gotosleep":"oa-user_available", "awoken":"oa-user_available", "asleep":"oa-user_available","absent":"oa-user_away", "gone":"oa-user_ext_away"}' ></i>
+                                <i class="icon oa-icons oa-user_available color-blue" data-type="f7" data-class="rr_{{token.name}}" data-map-class='{"home":"oa-user_available", "gotosleep":"oa-user_available", "awoken":"oa-user_available", "asleep":"oa-user_available","absent":"oa-user_away", "gone":"oa-user_ext_away"}'></i>
                             </div>
                             <div class="item-inner">
                                 <div class="item-title">
@@ -336,14 +339,14 @@
                     <li>
                         <a href="/lights/" class="item-content item-link">
                             <div class="item-media">
-                                <i class="icon oa-icons oa-light_light color-blue"></i>
+                                <i class="icon oa-icons oa-light_light color-blue" data-type="f7" data-class="s_Haus_Beleuchtung" data-map-class='{"off":"oa-light_light","on":"oa-light_light_dim_100"}'></i>
                             </div>
                             <div class="item-inner">
                                 <div class="item-title-row">
                                     <div class="item">Beleuchtung</div>
                                 </div>
                                 <div class="item-after">
-                                    <div data-type="html" data-content="s_Haus_Beleuchtung:STATE" data-map-content='{"on":"eingeschaltet", "off":"ausgeschaltet"}'></div>
+                                    <div data-type="html" data-content="s_Haus_Beleuchtung" data-map-content='{"on":"eingeschaltet", "off":"ausgeschaltet"}'></div>
                                 </div>
                             </div>
                         </a>
@@ -351,14 +354,14 @@
                     <li>
                         <a href="/window/" class="item-content item-link">
                             <div class="item-media">
-                                <i class="icon oa-icons oa-fts_window_1w color-blue smaller"></i>
+                                <i class="icon oa-icons oa-fts_window_1w color-blue " data-type="f7" data-class="s_Haus_Fenster" data-map-class='{"open":"oa-fts_window_1w_open", "closed":"oa-fts_window_1w"}'></i>
                             </div>
                             <div class="item-inner">
                                 <div class="item-title">
                                     <div class="item">Fenster und Türen</div>
                                 </div>
                                 <div class="item-after">
-                                    <div data-type="html" data-content="s_Haus_Fenster:STATE" data-map-content='{"open":"offen", "closed":"geschlossen"}'></div>
+                                    <div data-type="html" data-content="s_Haus_Fenster" data-map-content='{"open":"offen", "closed":"geschlossen"}'></div>
                                 </div>
                             </div>
                         </a>
@@ -372,7 +375,7 @@
                     <li>
                         <a href="/mower/" class="item-content item-link">
                             <div class="item-media">
-                                <i class="icon oa-icons oa-scene_robo_lawnmower color-blue smaller">
+                                <i class="icon oa-icons oa-scene_robo_lawnmower color-blue ">
                                     <span class="badge color-red tooltip-init hide" data-tooltip="Achtung" data-type="html" data-class="SILENO_city:mower-error" data-map-class='{"error":"", "no_message":"hide"}'>
                                         !
                                     </span>
@@ -396,14 +399,14 @@
                     <li>
                         <a href="/shutters/" class="item-content item-link">
                             <div class="item-media">
-                                <i class="icon oa-icons oa-fts_shutter color-blue smaller"></i>
+                                <i class="icon oa-icons oa-fts_shutter color-blue "></i>
                             </div>
                             <div class="item-inner">
                                 <div class="item-title">
                                     Rollläden
                                 </div>
                                 <div class="item-after">
-                                    <span data-type="html" data-content="s_EG_Shutters:state" ></span>
+                                    <span data-type="html" data-content="s_EG_Shutters:state" data-map-content='{"open":"offen","halfopen":"offen","closed":"geschlossen"}'></span>
                                 </div>
                             </div>
                         </a>
