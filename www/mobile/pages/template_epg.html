@@ -262,7 +262,7 @@ return {
             var app = this.$app;
             var self = this;
 
-            fhem.log('epg -> ' + self.epgTypeStatus, "start epg type load");
+             fhem.log.info('epg -> ' + self.epgTypeStatus, "start epg type load");
 
             var urlEpgType = Framework7.getFhemUrl();
             if(epgType === 'now')
@@ -331,11 +331,14 @@ return {
 
             self.epgTypeStatus === undefined;
 
+            fhem.socket.closeAll();
+            fhem.xhr.dataRequest();
+            setTimeout(function () {fhem.socket.create()}, 1000);
             app.on('fhemupdate', function(device, element) {
                 
                 var id = [device.device, device.reading].join('-');
 
-                //fhem.log('epg -> ' + id, "received change event");
+                // fhem.log.info('epg -> ' + id, "received change event");
 
                 if(id === 'tvDE-state' || id === 'tvIT-state') {
                     if(id === 'tvDE-state') {
@@ -344,20 +347,20 @@ return {
                         if(state && state !== undefined && state.match(new RegExp('^loadEPG_.*started$'))) {
                            if(self.epgTypeStatus == 'typeStartLoading') {
                                 self.epgTypeStatus = 'typeFirstStarted'; 
-                                fhem.log('epg DE -> ' + self.epgTypeStatus, "epg type first started");    
+                                 fhem.log.info('epg DE -> ' + self.epgTypeStatus, "epg type first started");    
                            }
                            else if(self.epgTypeStatus == 'typeFirstStarted') {
                                 self.epgTypeStatus = 'typeSecondStarted'; 
-                                fhem.log('epg DE -> ' + self.epgTypeStatus, "epg type second started");  
+                                 fhem.log.info('epg DE -> ' + self.epgTypeStatus, "epg type second started");  
                            }
                         }
                         if(state && state !== undefined && state.match(new RegExp('.*information processed$'))) {
                            if(self.epgTypeStatus == 'typeSecondStarted') {
                                 self.epgTypeStatus = 'typeFirstLoaded'; 
-                                fhem.log('epg DE -> ' + self.epgTypeStatus, "epg type first loaded");
+                                 fhem.log.info('epg DE -> ' + self.epgTypeStatus, "epg type first loaded");
                            }
                            else if(self.epgTypeStatus == 'typeFirstLoaded') { 
-                                fhem.log('epg DE -> ' + self.epgTypeStatus, "epg type second loaded");
+                                 fhem.log.info('epg DE -> ' + self.epgTypeStatus, "epg type second loaded");
                                 //self.getEPG();
                                 //app.view.main.router.navigate({ name: 'epg' }, { history: false });
                                 setTimeout(function () { 
@@ -374,20 +377,20 @@ return {
                         if(state && state !== undefined && state.match(new RegExp('^loadEPG_.*started$'))) {
                              if(self.epgTypeStatus == 'typeStartLoading') {
                                 self.epgTypeStatus = 'typeFirstStarted'; 
-                                fhem.log('epg IT -> ' + self.epgTypeStatus, "epg type first started");    
+                                 fhem.log.info('epg IT -> ' + self.epgTypeStatus, "epg type first started");    
                            }
                            else if(self.epgTypeStatus == 'typeFirstStarted') {
                                 self.epgTypeStatus = 'typeSecondStarted'; 
-                                fhem.log('epg IT -> ' + self.epgTypeStatus, "epg type second started");  
+                                 fhem.log.info('epg IT -> ' + self.epgTypeStatus, "epg type second started");  
                            }
                         }
                         if(state && state !== undefined && state.match(new RegExp('.*information processed$'))) {
                            if(self.epgTypeStatus == 'typeSecondStarted') {
                                 self.epgTypeStatus = 'typeFirstLoaded'; 
-                                fhem.log('epg IT -> ' + self.epgTypeStatus, "epg type first loaded"); 
+                                 fhem.log.info('epg IT -> ' + self.epgTypeStatus, "epg type first loaded"); 
                            }
                            else if(self.epgTypeStatus == 'typeFirstLoaded') { 
-                                fhem.log('epg IT -> ' + self.epgTypeStatus, "epg type second loaded"); 
+                                 fhem.log.info('epg IT -> ' + self.epgTypeStatus, "epg type second loaded"); 
                                 //self.getEPG();
                                 //app.view.main.router.navigate({ name: 'epg' }, { history: false });
                                 setTimeout(function () { 
@@ -428,13 +431,13 @@ return {
                             $$('#now').removeClass('button-active');
                             $$('#prime').addClass('button-active');
                             self.epgType = 'prime';
-                            fhem.log('epg -> ', "request epg list load");
+                             fhem.log.info('epg -> ', "request epg list load");
                             self.getEPG();
                         }
                         else {
                             $$('#now').removeClass('button-active');
                             $$('#prime').removeClass('button-active');
-                            fhem.log('epg -> ', "request epg type load");
+                             fhem.log.info('epg -> ', "request epg type load");
                             setTimeout(function () { self.loadEpgType('now')}, 200);
                         }
                     }
