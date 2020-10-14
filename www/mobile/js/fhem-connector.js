@@ -275,6 +275,24 @@ var fhem = {
 		}
 	},
 	object: {
+		f7Stepper: function(element) {
+			var dataUnit = element.data('unit');
+			
+			var unit = '';
+			if(dataUnit && dataUnit !== undefined) {
+				unit = dataUnit;
+			}
+
+			var f7objname = element.data('object');
+        	var f7obj = eval("element[0]." + f7objname);
+
+      		if ((typeof f7obj === "object") && (f7obj !== null)) {
+      			f7obj.params.formatValue = function(v) {
+      				var fv = v.toFixed(1) + unit;
+      				return fv;
+      			};
+      		}
+		},
 		f7Button: function(element) {
 			element.on('touchstart mousedown', function(e) {
             	var element = $$(this);
@@ -406,6 +424,9 @@ var fhem = {
         	var f7obj = eval("e[0]." + f7objname);
 
       		if ((typeof f7obj === "object") && (f7obj !== null)) {
+      			if(f7objname === 'f7Stepper') {
+            		fhem.object.f7Stepper(e);
+            	}
                 e.on('change', function() {
                     var e = $$(this);
                     fhem.data.change(element);
