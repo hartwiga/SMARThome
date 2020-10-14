@@ -3,7 +3,7 @@
 var fhem = {
 	// Module Name
   	name: 'FHEM Connector',
-  	version: '0.0.1',
+  	version: '1.0.0',
 	
 	// Log level
 	level: {

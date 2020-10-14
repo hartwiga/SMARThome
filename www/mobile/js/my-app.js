@@ -23,7 +23,7 @@ var app = new Framework7({
     // App id
     id: 'de.hartwiga.smarthome',
     //App version
-    version: '1.0.31',
+    version: '2.0.00',
     // theme
     theme: 'auto',
     // Enable swipe panel
