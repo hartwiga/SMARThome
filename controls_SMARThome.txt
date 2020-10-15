@@ -26,7 +26,7 @@ UPD 2020-10-14_23:45:20 11284 www/mobile/lib/epg/ndr.de.png
 UPD 2020-10-14_23:45:20 8031 www/mobile/lib/epg/prosiebenmaxx.de.png
 UPD 2020-10-14_23:45:20 20733 www/mobile/lib/epg/la7d.it.png
 UPD 2020-10-14_23:45:20 9516 www/mobile/lib/epg/raiyoyo.it.png
-UPD 2020-10-14_23:45:20 29609 www/mobile/lib/epg/nickelodeon comedy central.png
+UPD 2020-10-14_23:45:20 29609 www/mobile/lib/epg/nickelodeon_comedy_central.png
 UPD 2020-10-14_23:45:20 12737 www/mobile/lib/epg/sixx.de.png
 UPD 2020-10-14_23:45:20 6411 www/mobile/lib/epg/canale5.it.png
 UPD 2020-10-14_23:45:20 32760 www/mobile/lib/epg/cine34.it.png
