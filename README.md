@@ -5,13 +5,19 @@ Die Entwicklung des Plugins basiert in Teilen auf die Entwicklungsarbeit von "kn
 
 **Entwickler:** Andreas Hartwig 2020 (MIT - Lizenz)
 
+Hinweis
+-------
+Diese Web Applikation ist zugeschnitten auf einen einzigen konkreten Anwendungsfall in Verbindung mit einer spezifischen FHEM Konfiguration. In einem anderen Kontext wird diese Applikation so nicht funktionieren. 
+
 Benötigt
 --------
+[Framwork7 in der Verion v5.x.x](https://github.com/framework7io/framework7/tree/master/packages/core)
 
 Installation
 ------------
 
- * Einfach den vollstänigen Quellpfad mit allen Dateien auf dem FHEM Server in das Verzeichnis /\<fhem-path\>/www/mobile kopieren
+ * Einfach den vollstänigen Quellpfad mit allen Dateien auf dem FHEM Server in das Verzeichnis /\<fhem-path\>/www/mobile kopieren und ggf. die Dateirechte anpassen.
+ * Dem Verzeichnis das Framework7 hinzufügen
  * Die Datei mobile/js/config.js anpassen
  * Starte http://\<fhem-url\>:8083/fhem/mobile/index.html
  
@@ -27,4 +33,4 @@ Links
 Lizenz
 ------
 
-This project is licensed under [MIT](http://www.opensource.org/licenses/mit-license.php).
+[MIT](http://www.opensource.org/licenses/mit-license.php).
