@@ -16,7 +16,7 @@ Benötigt
 Installation
 ------------
 
- * Einfach den vollstänigen Quellpfad mit allen Dateien auf dem FHEM Server in das Verzeichnis /\<fhem-path\>/www/mobile kopieren und ggf. die Dateirechte anpassen.
+ * Einfach den vollstänigen Quellpfad mit allen Dateien auf dem FHEM Server in das Verzeichnis **/\<fhem-path\>/www/mobile** kopieren und ggf. die Dateirechte anpassen.
  * Dem Verzeichnis das Framework7 hinzufügen
  * Die Datei mobile/js/config.js anpassen
  * Starte http://\<fhem-url\>:8083/fhem/mobile/index.html
@@ -33,4 +33,4 @@ Links
 Lizenz
 ------
 
-[MIT](http://www.opensource.org/licenses/mit-license.php).
+[MIT Lizent](http://www.opensource.org/licenses/mit-license.php).
