@@ -5,6 +5,8 @@ Die Entwicklung des Plugins basiert in Teilen auf die Entwicklungsarbeit von "kn
 
 **Entwickler:** Andreas Hartwig 2020 (MIT - Lizenz)
 
+![](https://hartwiga.github.io/SMARThome/SMARThome_home1.jpeg)
+
 Hinweis
 -------
 Diese Web Applikation ist zugeschnitten auf einen einzigen konkreten Anwendungsfall in Verbindung mit einer spezifischen FHEM Konfiguration. In einem anderen Kontext wird diese Applikation so nicht funktionieren. 
