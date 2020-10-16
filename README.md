@@ -1,4 +1,4 @@
-![](https://hartwiga.github.io/SMARThome/SMARThome_icon.png)
+![](https://hartwiga.github.io/SMARThome/favicon-96x96.png)
 
 # SMARThome
 
