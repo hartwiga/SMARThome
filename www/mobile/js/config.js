@@ -1,15 +1,18 @@
 var config = {
 	app: {
-		userlist: {
-            username: { pw: '336311a016184326ddbdd61edd4eeb52', role: 'admin', name: 'xxxxx' },
-        }
+          userlist: {
+            andreas: { pw: '5c3b7d8e8191c48e6cdd39495fcb5840', role: 'admin', name: 'Andreas' },
+            angela: { pw: '827ccb0eea8a706c4c34a16891f84e7b', role: 'user', name: 'Angela' },
+            luca: { pw: '827ccb0eea8a706c4c34a16891f84e7b', role: 'user', name: 'Luca' },
+            sara: { pw: '827ccb0eea8a706c4c34a16891f84e7b', role: 'guest', name: 'Sara' },
+          }
 	},
 	fhemconnector: {
-		url: 'http://10.120.x.xx:8083/fhem/',
+		url: 'http://192.168.1.97:8083/fhem/',
 	},
 	surveillancestation: {
-		url: 'http://10.120.x.xx:5000',
+		url: 'http://192.168.1.34:5000',
 		user: 'admin',
-		password: 'xxxxxxxxxxx',
+		password: 'M2)y8yNyK{8Tny',
 	},
 }

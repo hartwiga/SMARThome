@@ -10,6 +10,9 @@
                 </div>
                 <div class="title">Home</div>
                 <div class="right">
+                    <a href="/network/" class="link icon-only">
+                        <i class="icon f7-icons">wifi</i>
+                    </a>
                     <a href="/messages/" class="link icon-only">
                         <i id="messages" class="icon f7-icons">envelope</i>
                     </a>
@@ -258,10 +261,10 @@
                                     <div class="item-footer" data-type="html" data-content="rgr_Home:residentsTotalPresent" data-post-text=" Person(en)"></div>
                                 </div>
                                 <div class="item-after">
-                                    <div class="item-media img-resident absent" data-type="html" data-class="rr_Angela:STATE" data-map-class='{"home":"present", "gotosleep":"present", "awoken":"present", "asleep":"absent", "absent":"absent", "gone":"gegangen", "none":"absent"}'><img src="./images/angela.png"></div>
-                                    <div class="item-media img-resident absent" data-type="html" data-class="rr_Andreas:STATE" data-map-class='{"home":"present", "gotosleep":"present", "awoken":"present", "asleep":"absent", "absent":"absent", "gone":"gegangen", "none":"absent"}'><img src="./images/andreas.png"></div>
-                                    <div class="item-media img-resident absent" data-type="html" data-class="rr_Luca:STATE" data-map-class='{"home":"present", "gotosleep":"present", "awoken":"present", "asleep":"absent", "absent":"absent", "gone":"gegangen", "none":"absent"}'><img src="./images/luca.png"></div>
-                                    <div class="item-media img-resident absent" data-type="html" data-class="rg_Sara:STATE" data-map-class='{"home":"present", "gotosleep":"present", "awoken":"present", "asleep":"absent", "absent":"absent", "gone":"gegangen", "none":"absent"}'><img src="./images/sara.png"></div>
+                                    <div class="item-media img-resident absent" data-type="html" data-class="rr_Angela:STATE" data-map-class='{"home":"present", "gotosleep":"present", "awoken":"present", "asleep":"present", "absent":"absent", "gone":"gegangen", "none":"absent"}'><img src="./images/angela.png"></div>
+                                    <div class="item-media img-resident absent" data-type="html" data-class="rr_Andreas:STATE" data-map-class='{"home":"present", "gotosleep":"present", "awoken":"present", "asleep":"present", "absent":"absent", "gone":"gegangen", "none":"absent"}'><img src="./images/andreas.png"></div>
+                                    <div class="item-media img-resident absent" data-type="html" data-class="rr_Luca:STATE" data-map-class='{"home":"present", "gotosleep":"present", "awoken":"present", "asleep":"present", "absent":"absent", "gone":"gegangen", "none":"absent"}'><img src="./images/luca.png"></div>
+                                    <div class="item-media img-resident absent" data-type="html" data-class="rg_Sara:STATE" data-map-class='{"home":"present", "gotosleep":"present", "awoken":"present", "asleep":"present", "absent":"absent", "gone":"gegangen", "none":"absent"}'><img src="./images/sara.png"></div>
                                 </div>
                             </div>
                         </a>
@@ -276,7 +279,7 @@
                                 <div class="item-title">
                                     <div class="item">Anwesenheitsstatus</div>
                                     <div class="item-footer">
-                                        <span data-type="html" data-content="rr_{{token.name}}:STATE" data-map-content='{"home":"anwesend", "gotosleep":"anwesend", "awoken":"anwesend", "asleep":"anwesend", "absent":"abwesend", "gone":"gegangen", "none":"abwesend"}'></span>
+                                        <span data-type="html" data-content="rr_{{token.name}}:STATE" data-map-content='{"home":"anwesend", "gotosleep":"ins Bett", "awoken":"aufgewacht", "asleep":"eingeschlafen", "absent":"abwesend", "gone":"gegangen", "none":"abwesend"}'></span>
                                     </div>
                                 </div>
                                 <div class="item-after">
@@ -411,6 +414,7 @@
                             </div>
                         </a>
                     </li>
+                    <!--
                     <li>
                         <a href="/network/" class="item-content item-link">
                             <div class="item-media">
@@ -423,6 +427,7 @@
                             </div>
                         </a>
                     </li>
+                -->
                 </ul>
             </div>
             {{/js_if}}
