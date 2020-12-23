@@ -17,20 +17,20 @@
         </div>
         <div class="page-content hide-navbar-on-scroll">
             <div class="block" style="margin-bottom: 10px;">
-                    <button class="button button-large button-fill col" data-type="f7" data-object="f7Button" data-fhem-cmd="set d_AlarmStatus on" data-class="d_AlarmInfo:state" data-map-class='{"signals_off":"","disarmed":"","armed_error":"disabled","alarm_fire":"disabled","alarm_full":"disabled","alarm_intrusion":"disabled","alarm_panik":"disabled","alarm_still":"disabled","alarm_sabotage":"","armed_pre":"disabled","armed_partial":"disabled", "armed_full":"disabled"}'>Aktivieren</button>
+                    <button class="button button-large button-fill col" data-type="f7" data-object="f7Button" data-fhem-cmd="set d_AlarmStatus on" data-class="d_AlarmStatus:state" data-map-class='{"on":"disabled","off":""}'>Aktivieren</button>
             </div>
             <div class="block" style="margin-bottom: 20px; margin-top: 10px">
-                    <button class="button button-large button-fill col" data-type="f7" data-object="f7Button" data-fhem-cmd="set d_AlarmStatus off" data-class="d_AlarmInfo:state" data-map-class='{"signals_off":"disabled","disarmed":"disabled","armed_error":"disabled","alarm_fire":"disabled","alarm_full":"","alarm_intrusion":"","alarm_panik":"","alarm_still":"","alarm_sabotage":"disabled","armed_pre":"disabled","armed_partial":"", "armed_full":""}'>Deaktivieren</button>
+                    <button class="button button-large button-fill col" data-type="f7" data-object="f7Button" data-fhem-cmd="set d_AlarmStatus off" data-class="d_AlarmStatus:state" data-map-class='{"on":"","off":"disabled"}'>Deaktivieren</button>
             </div>
              <div class="block" style="margin-top: 10px;">
-                    <button class="button button-large button-fill col" data-type="f7" data-object="f7Button" data-fhem-cmd="set d_AlarmCancel on" data-class="d_AlarmInfo:state" data-map-class='{"signals_off":"disabled","disarmed":"disabled","armed_error":"","alarm_fire":"","alarm_full":"","alarm_intrusion":"","alarm_panik":"","alarm_still":"","alarm_sabotage":"","armed_pre":"disabled","armed_partial":"", "armed_full":""}'>Alarm abbrechen</button>
+                    <button class="button button-large button-fill col" data-type="f7" data-object="f7Button" data-fhem-cmd="set d_AlarmCancel on" data-class="if_AlarmInfo:state" data-map-class='{"off":"disabled","fire":"","full":"","intrusion":"","panik":"","still":"","sabotage":""}'>Alarm abbrechen</button>
             </div>
             <div class="block-title">Status</div>
             <div class="list simple-list inset">
                 <ul>
                     <li>
                         <div>Einbruchsalarm</div>
-                        <div data-type="html" data-content="d_AlarmInfo:state" data-map-content='{"signals_off":"deaktiviert","armed_error":"Fehler Aktivieren","alarm_fire":"Feueralarm","alarm_full":"Einbruchsalarm","alarm_intrusion":"Einbruchsalarm","alarm_panik":"Panikalarm","alarm_still":"Einbruchsalarm","alarm_sabotage":"Sabotagealarm","armed_pre":"wird Aktiviert","armed_partial":"teilweise aktiviert", "armed_full":"vollständig aktiviert", "disarmed":"deaktiviert"}'></div>
+                        <div data-type="html" data-content="is_AlarmInfo:state" data-map-content='{"off":"disabled","fire":"","full":"","intrusion":"","panik":"","still":"","sabotage":""}'></div>
                     </li>
                     <li>
                         <span>Übersicht Alarme</span>
